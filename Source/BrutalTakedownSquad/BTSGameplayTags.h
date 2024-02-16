@@ -1,15 +1,34 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 
-/**
- * 
- */
-class BRUTALTAKEDOWNSQUAD_API BTSGameplayTags
+/// <summary>
+/// AbilitySystemComponent를 상속받아서 기능을 추가한 컴포넌트
+/// </summary>
+/// <remarks>
+/// 
+/// </remarks>
+/// @author 유원석
+/// @date last change 2024/02/15
+struct FBTSGameplayTags
 {
 public:
-	BTSGameplayTags();
-	~BTSGameplayTags();
+	static const FBTSGameplayTags& Get() { return GameplayTags; }
+	static void InitializeNativeGameplayTags();
+
+	FGameplayTag Attributes_MaxHealth;
+	FGameplayTag Attributes_CurrentHealth;
+
+	// Input Tags
+	FGameplayTag InputTag_LMB;
+	FGameplayTag InputTag_RMB;
+	FGameplayTag InputTag_1;
+	FGameplayTag InputTag_2;
+	FGameplayTag InputTag_3;
+	FGameplayTag InputTag_4;
+
+private:
+	static FBTSGameplayTags GameplayTags;
 };
