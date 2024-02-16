@@ -1,13 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "Character/BTSCharacterBase.h"
+#include "AbilitySystem/BTSAbilitySystemComponent.h"
 
-// Sets default values
 ABTSCharacterBase::ABTSCharacterBase()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 }
 
@@ -18,17 +15,46 @@ void ABTSCharacterBase::BeginPlay()
 	
 }
 
-// Called every frame
-void ABTSCharacterBase::Tick(float DeltaTime)
+void ABTSCharacterBase::InitAbilityActorInfo()
 {
-	Super::Tick(DeltaTime);
-
 }
 
-// Called to bind functionality to input
-void ABTSCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ABTSCharacterBase::InitializeDefaultAttributes() const
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	ApplyEffectToSelf(DefaultAttribute);
+}
 
+void ABTSCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const
+{
+	UAbilitySystemComponent* ASC = GetAbilitySystemComponent();d
+
+	check(IsValid(ASC));
+	check(GameplayEffectClass);
+
+	FGameplayEffectContextHandle ContextHandle = ASC->MakeEffectContext();
+	ContextHandle.AddSourceObject(this);
+
+	const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass, 1, ContextHandle);
+	ASC->ApplyGameplayEffectSpecToTarget(*(SpecHandle.Data.Get()), ASC);
+}
+
+void ABTSCharacterBase::AddCharacterAbilities() const
+{
+	UBTSAbilitySystemComponent* AuraASC = CastChecked<UBTSAbilitySystemComponent>(AbilitySystemComponent);
+
+	if (!HasAuthority())
+		return;
+
+	AuraASC->AddCharacterAbilities(StartupAbilities);
+}
+
+UAbilitySystemComponent* ABTSCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+UAttributeSet* ABTSCharacterBase::GetAttributeSet() const
+{
+	return AttributeSet;
 }
 
