@@ -1,29 +1,67 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
+
 #include "BTSCharacterBase.generated.h"
 
+class UAbilitySystemComponent;
+class UAttributeSet;
+class UGameplayEffect;
+class UGameplayAbility;
+
+/// <summary>
+/// 베이스 캐릭터	 클래스
+/// </summary>
+/// <remarks>
+/// 
+/// </remarks>
+/// @author 유원석
+/// @date last change 2024/02/15
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API ABTSCharacterBase : public ACharacter
+class BRUTALTAKEDOWNSQUAD_API ABTSCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ABTSCharacterBase();
 
+	// IAbilitySystemInterface을(를) 통해 상속됨
+	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	UAttributeSet* GetAttributeSet() const;
+
 protected:
-	// Called when the game starts or when spawned
+	//UPROPERTY(EditAnywhere, Category = "Combat")
+	//TObjectPtr<USkeletalMeshComponent> Weapon1;
+
+	//UPROPERTY(EditAnywhere, Category = "Combat")
+	//TObjectPtr<USkeletalMeshComponent> Weapon2;
+
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY()
+	TObjectPtr<UAttributeSet> AttributeSet;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultAttribute;
+
+protected:
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void InitAbilityActorInfo();
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void InitializeDefaultAttributes() const;
+
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const;
+
+	void AddCharacterAbilities() const;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 
 };
