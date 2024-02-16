@@ -26,7 +26,7 @@ void ABTSCharacterBase::InitializeDefaultAttributes() const
 
 void ABTSCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const
 {
-	UAbilitySystemComponent* ASC = GetAbilitySystemComponent();d
+	UAbilitySystemComponent* ASC = GetAbilitySystemComponent();
 
 	check(IsValid(ASC));
 	check(GameplayEffectClass);
