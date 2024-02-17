@@ -5,7 +5,7 @@
 #include "Input/BTSInputComponent.h"
 #include "AbilitySystem/BTSAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "../BTSGameplayTags.h"
+#include "BTSGameplayTags.h"
 
 
 ABTSPlayerController::ABTSPlayerController()

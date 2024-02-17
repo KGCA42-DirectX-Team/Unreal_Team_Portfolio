@@ -47,7 +47,6 @@ void UBTSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
-		//UE_LOG(LogTemp, Warning, TEXT("Health : %f, Name : %s"), GetHealth(), *Props.TargetAvatarActor->GetName());
 	}
 
 }

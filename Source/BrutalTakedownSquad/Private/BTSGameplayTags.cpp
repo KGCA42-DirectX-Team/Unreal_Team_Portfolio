@@ -7,12 +7,12 @@ FBTSGameplayTags FBTSGameplayTags::GameplayTags;
 void FBTSGameplayTags::InitializeNativeGameplayTags()
 {
 	GameplayTags.Attributes_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Attributes.Secondary.MaxHealth"),
+		FName("Attributes.MaxHealth"),
 		FString("Maximum amount of Health obtainable")
 	);
 
 	GameplayTags.Attributes_CurrentHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Attributes.Secondary.CurrentHealth"),
+		FName("Attributes.CurrentHealth"),
 		FString("Current amount of Health")
 	);
 
