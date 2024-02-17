@@ -62,20 +62,34 @@ class BRUTALTAKEDOWNSQUAD_API UBTSAttributeSet : public UAttributeSet
 public:
 	UBTSAttributeSet();
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Default Attribures")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attribures")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UBTSAttributeSet, Health);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Stamina, Category = "Vital Attribures")
+	FGameplayAttributeData Stamina;
+	ATTRIBUTE_ACCESSORS(UBTSAttributeSet, Stamina);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Default Attribures")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UBTSAttributeSet, MaxHealth);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxStamina, Category = "Default Attribures")
+	FGameplayAttributeData MaxStamina;
+	ATTRIBUTE_ACCESSORS(UBTSAttributeSet, MaxStamina);
 
 public:
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
 
 	UFUNCTION()
+	void OnRep_Stamina(const FGameplayAttributeData& OldStamina) const;
+
+	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
+
+	UFUNCTION()
+	void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const;
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const override;
 
