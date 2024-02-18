@@ -11,7 +11,7 @@
 /// 
 /// </remarks>
 /// @author À¯¿ø¼®
-/// @date last change 2024/02/15
+/// @date last change 2024/02/18
 struct FBTSGameplayTags
 {
 public:
@@ -19,11 +19,17 @@ public:
 	static void InitializeNativeGameplayTags();
 
 	FGameplayTag Attributes_MaxHealth;
+	FGameplayTag Attributes_MaxStamina;
 	FGameplayTag Attributes_CurrentHealth;
+	FGameplayTag Attributes_CurrentStamina;
 
 	// Input Tags
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
+	FGameplayTag InputTag_Shift;
+	FGameplayTag InputTag_Space;
+	FGameplayTag InputTag_C;
+
 	FGameplayTag InputTag_1;
 	FGameplayTag InputTag_2;
 	FGameplayTag InputTag_3;
