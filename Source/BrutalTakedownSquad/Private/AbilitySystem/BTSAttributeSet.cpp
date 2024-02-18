@@ -14,9 +14,19 @@ void UBTSAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) con
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UBTSAttributeSet, Health, OldHealth);
 }
 
+void UBTSAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldStamina) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UBTSAttributeSet, Stamina, OldStamina);
+}
+
 void UBTSAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UBTSAttributeSet, MaxHealth, OldMaxHealth);
+}
+
+void UBTSAttributeSet::OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UBTSAttributeSet, MaxStamina, OldMaxStamina);
 }
 
 void UBTSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -24,7 +34,10 @@ void UBTSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME_CONDITION_NOTIFY(UBTSAttributeSet, Health, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UBTSAttributeSet, Stamina, COND_None, REPNOTIFY_Always);
+
 	DOREPLIFETIME_CONDITION_NOTIFY(UBTSAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UBTSAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
 }
 
 void UBTSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -34,6 +47,8 @@ void UBTSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 	// Modifier를 쿼리하여 반환된 값만 변경
 	if (Attribute == GetHealthAttribute())
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+	else if(Attribute == GetStaminaAttribute())
+		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxStamina());
 }
 
 void UBTSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -45,10 +60,9 @@ void UBTSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 
 	// effect가 적용된 최종값을 변경
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
-	{
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
-		//UE_LOG(LogTemp, Warning, TEXT("Health : %f, Name : %s"), GetHealth(), *Props.TargetAvatarActor->GetName());
-	}
+	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
+		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 
 }
 

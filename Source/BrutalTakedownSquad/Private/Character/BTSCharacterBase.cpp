@@ -22,6 +22,7 @@ void ABTSCharacterBase::InitAbilityActorInfo()
 void ABTSCharacterBase::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultAttribute);
+	ApplyEffectToSelf(VitalAttribute);
 }
 
 void ABTSCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const
