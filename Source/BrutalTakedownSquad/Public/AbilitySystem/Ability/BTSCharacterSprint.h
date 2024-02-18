@@ -6,6 +6,7 @@
 #include "BTSCharacterSprint.generated.h"
 
 class UCharacterMovementComponent;
+class ABTSCharacterBase;
 
 /// <summary>
 /// Character Sprint ability.
@@ -34,5 +35,6 @@ public:
 	virtual void CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility) override;
 
 private:
+	TObjectPtr<ABTSCharacterBase> Character;
 	TObjectPtr<UCharacterMovementComponent> CharacterMovement;
 };

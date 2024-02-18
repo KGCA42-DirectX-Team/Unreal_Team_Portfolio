@@ -33,6 +33,11 @@ public:
 
 	UAttributeSet* GetAttributeSet() const;
 
+	void SetIsSprint(bool bNewSprint) { bIsSprint = bNewSprint; }
+
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	bool GetIsSprint() const { return bIsSprint; }
+
 protected:
 	//UPROPERTY(EditAnywhere, Category = "Combat")
 	//TObjectPtr<USkeletalMeshComponent> Weapon1;
@@ -67,4 +72,5 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 
+	bool bIsSprint = false;
 };
