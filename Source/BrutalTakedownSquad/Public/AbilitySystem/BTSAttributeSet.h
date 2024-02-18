@@ -76,7 +76,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxStamina, Category = "Default Attribures")
 	FGameplayAttributeData MaxStamina;
-	ATTRIBUTE_ACCESSORS(UBTSAttributeSet, MaxStamina);
+	ATTRIBUTE_ACCESSORS(UBTSAttributeSet, MaxStamina); 
 
 public:
 	UFUNCTION()
