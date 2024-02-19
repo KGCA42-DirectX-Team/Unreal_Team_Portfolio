@@ -1,6 +1,6 @@
 
-#include "Character/Player/BTSPlayer.h"
 #include "AbilitySystem/Ability/BTSPlayerChangePerspective.h"
+#include "Character/Player/BTSPlayer.h"
 
 void UBTSPlayerChangePerspective::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* OwnerInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
@@ -27,5 +27,10 @@ void UBTSPlayerChangePerspective::ActivateAbility(const FGameplayAbilitySpecHand
 
 bool UBTSPlayerChangePerspective::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTagContainer* OptionalRelevantTags) const
 {
+	if (!Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags))
+	{
+		return false;
+	}
+
 	return true;
 }

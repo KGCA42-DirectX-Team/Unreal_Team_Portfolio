@@ -1,7 +1,7 @@
 
+#include "AbilitySystem/Ability/BTSCharacterSprint.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Character/BTSCharacterBase.h"
-#include "AbilitySystem/Ability/BTSCharacterSprint.h"
 
 void UBTSCharacterSprint::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
