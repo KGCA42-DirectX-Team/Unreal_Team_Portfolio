@@ -54,6 +54,11 @@ void FBTSGameplayTags::InitializeNativeGameplayTags()
 		FString("Input Tag for C Key")
 	);
 
+	GameplayTags.InputTag_B = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.B"),
+		FString("Input Tag for B Key")
+	);
+
 
 
 	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(

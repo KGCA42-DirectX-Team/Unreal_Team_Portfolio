@@ -40,8 +40,14 @@ bool UBTSCharacterJump::CanActivateAbility(const FGameplayAbilitySpecHandle Hand
 	{
 		return false;
 	}
+	bool CanJump = Character && Character->CanJump();
 
-	return (Character && Character->CanJump());
+	if (!CanJump && Character->bIsCrouched)
+	{
+		Character->UnCrouch();
+	}
+
+	return CanJump;
 }
 
 void UBTSCharacterJump::InputReleased(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)

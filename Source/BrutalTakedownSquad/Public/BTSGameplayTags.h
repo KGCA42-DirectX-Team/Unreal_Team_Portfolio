@@ -29,6 +29,7 @@ public:
 	FGameplayTag InputTag_Shift;
 	FGameplayTag InputTag_Space;
 	FGameplayTag InputTag_C;
+	FGameplayTag InputTag_B;
 
 	FGameplayTag InputTag_1;
 	FGameplayTag InputTag_2;
