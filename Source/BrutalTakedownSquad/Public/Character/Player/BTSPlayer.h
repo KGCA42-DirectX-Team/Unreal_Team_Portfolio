@@ -25,6 +25,9 @@ public:
 
 	virtual void OnRep_PlayerState() override;
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
+	void ChangePerspective();
+
 protected:
 	virtual void InitAbilityActorInfo() override;
 };
