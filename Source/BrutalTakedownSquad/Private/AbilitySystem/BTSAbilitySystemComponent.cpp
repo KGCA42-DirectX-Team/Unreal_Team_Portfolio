@@ -13,9 +13,9 @@ void UBTSAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<
 	{
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 
-		if (const UBTSGameplayAbility* AuraAbility = Cast<UBTSGameplayAbility>(AbilitySpec.Ability))
+		if (const UBTSGameplayAbility* BTSAbility = Cast<UBTSGameplayAbility>(AbilitySpec.Ability))
 		{
-			AbilitySpec.DynamicAbilityTags.AddTag(AuraAbility->StartupInputTag);
+			AbilitySpec.DynamicAbilityTags.AddTag(BTSAbility->StartupInputTag);
 
 			GiveAbility(AbilitySpec);
 		}
