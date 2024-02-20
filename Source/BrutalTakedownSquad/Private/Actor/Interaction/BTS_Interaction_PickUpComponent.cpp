@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Interaction/BTS_Interaction_PickUpComponent.h"
+#include "Actor/Interaction/BTS_Interaction_PickUpComponent.h"
 /*
 
 void UBTS_Interaction_PickUpComponent::BeginPlay()
