@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Ability/BTSGameplayAbility.h"
+#include "AbilitySystem/Ability/Character/BTSCharacterGameplayAbility.h"
 #include "BTSCharacterJump.generated.h"
 
 class ACharacter;
@@ -14,9 +14,9 @@ class ACharacter;
 /// 
 /// </remarks>
 /// @author À¯¿ø¼®
-/// @date last change 2024/02/18
+/// @date last change 2024/02/20
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API UBTSCharacterJump : public UBTSGameplayAbility
+class BRUTALTAKEDOWNSQUAD_API UBTSCharacterJump : public UBTSCharacterGameplayAbility
 {
 	GENERATED_BODY()
 

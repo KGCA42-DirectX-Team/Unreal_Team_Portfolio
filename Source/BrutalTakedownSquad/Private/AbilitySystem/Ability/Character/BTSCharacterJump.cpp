@@ -1,5 +1,5 @@
 
-#include "AbilitySystem/Ability/BTSCharacterJump.h"
+#include "AbilitySystem/Ability/Character/BTSCharacterJump.h"
 #include "GameFramework/Character.h"
 
 void UBTSCharacterJump::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
