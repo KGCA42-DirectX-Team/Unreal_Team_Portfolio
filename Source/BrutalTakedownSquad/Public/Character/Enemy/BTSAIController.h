@@ -17,7 +17,7 @@ class UBehaviorTreeComponent;
 /// 
 /// </remarks>
 /// @author Ã¤ÇØº´
-/// @date last change 2024/02/19
+/// @date last change 2024/02/20
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSAIController : public AAIController
 {
