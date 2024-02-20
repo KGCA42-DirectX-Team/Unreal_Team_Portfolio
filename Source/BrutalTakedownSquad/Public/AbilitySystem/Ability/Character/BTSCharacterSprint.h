@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Ability/BTSGameplayAbility.h"
+#include "AbilitySystem/Ability/Character/BTSCharacterGameplayAbility.h"
 #include "BTSCharacterSprint.generated.h"
 
 class UCharacterMovementComponent;
@@ -17,7 +17,7 @@ class ABTSCharacterBase;
 /// @author À¯¿ø¼®
 /// @date last change 2024/02/18
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API UBTSCharacterSprint : public UBTSGameplayAbility
+class BRUTALTAKEDOWNSQUAD_API UBTSCharacterSprint : public UBTSCharacterGameplayAbility
 {
 	GENERATED_BODY()
 

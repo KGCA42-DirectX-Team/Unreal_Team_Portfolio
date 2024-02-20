@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -10,9 +9,14 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 
-/**
- * 
- */
+/// <summary>
+/// Player State Class
+/// </summary>
+/// <remarks>
+/// 
+/// </remarks>
+/// @author À¯¿ø¼®
+/// @date last change 2024/02/15
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSPlayerState : public APlayerState, public IAbilitySystemInterface
 {

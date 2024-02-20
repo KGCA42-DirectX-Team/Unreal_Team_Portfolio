@@ -1,5 +1,5 @@
 
-#include "AbilitySystem/Ability/BTSCharacterCrouch.h"
+#include "AbilitySystem/Ability/Character/BTSCharacterCrouch.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
