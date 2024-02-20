@@ -1,5 +1,5 @@
 
-#include "AbilitySystem/Ability/BTSCharacterSprint.h"
+#include "AbilitySystem/Ability/Character/BTSCharacterSprint.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Character/BTSCharacterBase.h"
 
