@@ -33,6 +33,7 @@ public:
 
 	UAttributeSet* GetAttributeSet() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
 	void SetIsSprint(bool bNewSprint) { bIsSprint = bNewSprint; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
