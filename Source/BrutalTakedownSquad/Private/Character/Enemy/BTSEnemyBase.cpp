@@ -12,7 +12,7 @@ ABTSEnemyBase::ABTSEnemyBase()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UBTSAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
-
+	PrimaryActorTick.bCanEverTick = false;
 	AttributeSet = CreateDefaultSubobject<UBTSAttributeSet>("AttributeSet");
 
 
@@ -32,16 +32,33 @@ void ABTSEnemyBase::PossessedBy(AController* NewController)
 
 }
 
+void ABTSEnemyBase::Tick(float Deltatime)
+{
+	Super::Tick(Deltatime);
+	if (const UBTSAttributeSet* BTSAS = Cast<UBTSAttributeSet>(AttributeSet))
+	{
+		//Todo
+		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Cyan, FString::Printf(TEXT("EnemyHealth : %f"), BTSAS->GetHealth()));
+		
+		float CurrentHealthPercent =  BTSAS->GetHealth()/ BTSAS->GetMaxHealth();
+		if (CurrentHealthPercent < 0.5f && !DoOnce)
+		{
+			DoOnce = true;
+			Runaway = true;
+		}
+		
+	}
+
+}
+
 void ABTSEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 	InitAbilityActorInfo();
 
-	if (const UBTSAttributeSet* BTSAS = Cast<UBTSAttributeSet>(AttributeSet))
-	{
-		//Todo
+	
+	
 
-	}
 
 }
 
