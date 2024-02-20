@@ -1,5 +1,5 @@
 
-#include "AbilitySystem/Ability/BTSPlayerChangePerspective.h"
+#include "AbilitySystem/Ability/Character/BTSPlayerChangePerspective.h"
 #include "Character/Player/BTSPlayer.h"
 
 void UBTSPlayerChangePerspective::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* OwnerInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
