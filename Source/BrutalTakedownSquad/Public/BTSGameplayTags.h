@@ -4,14 +4,6 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 
-/// <summary>
-/// AbilitySystemComponent를 상속받아서 기능을 추가한 컴포넌트
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/18
 struct FBTSGameplayTags
 {
 public:
