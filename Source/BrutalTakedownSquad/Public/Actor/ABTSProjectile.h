@@ -11,6 +11,11 @@ class UNiagaraSystem;
 class USphereComponent;
 class UProjectileMovementComponent;
 
+/// <summary>
+/// Weapon Game Play Ability Class.
+/// </summary>
+/// @author ±è¼±¿ì
+/// @date last change 2024/02/20
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSProjectile : public AActor
 {
