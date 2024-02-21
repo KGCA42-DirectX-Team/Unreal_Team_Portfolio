@@ -6,9 +6,8 @@
 #include "Actor/Item/Weapon/BTS_Item_Weapon.h"
 #include "BTS_Item_Weapon_AR15.generated.h"
 
-/**
- * 
- */
+// AR-15 rifle
+// Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_Item_Weapon_AR15 : public ABTS_Item_Weapon
 {

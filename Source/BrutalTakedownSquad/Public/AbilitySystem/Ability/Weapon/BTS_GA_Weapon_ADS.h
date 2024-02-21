@@ -6,11 +6,8 @@
 #include "AbilitySystem/Ability/Weapon/BTS_GA_Weapon.h"
 #include "BTS_GA_Weapon_ADS.generated.h"
 
-/// <summary>
-/// Weapon Game Play Ability Class.
-/// </summary>
-/// @author ±è¼±¿ì
-/// @date last change 2024/02/20
+// Aim down sight GamePlay Ability
+// Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_GA_Weapon_ADS : public UBTS_GA_Weapon
 {

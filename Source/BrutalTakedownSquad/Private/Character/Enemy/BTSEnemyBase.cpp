@@ -12,7 +12,7 @@ ABTSEnemyBase::ABTSEnemyBase()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UBTSAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	AttributeSet = CreateDefaultSubobject<UBTSAttributeSet>("AttributeSet");
 
 
@@ -41,12 +41,11 @@ void ABTSEnemyBase::Tick(float Deltatime)
 		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Cyan, FString::Printf(TEXT("EnemyHealth : %f"), BTSAS->GetHealth()));
 		
 		float CurrentHealthPercent =  BTSAS->GetHealth()/ BTSAS->GetMaxHealth();
-		if (CurrentHealthPercent < 0.5f && !DoOnce)
+		if (CurrentHealthPercent <= 0.5f)
 		{
-			DoOnce = true;
 			Runaway = true;
 		}
-		
+
 	}
 
 }

@@ -5,14 +5,9 @@
 #include "AbilitySystem/Ability/Character/BTSCharacterGameplayAbility.h"
 #include "BTSCharacterCrouch.generated.h"
 
-/// <summary>
-/// Character Crouch ability.
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author À¯¿ø¼®
-/// @date last change 2024/02/20
+
+// Character Crouch ability
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSCharacterCrouch : public UBTSCharacterGameplayAbility
 {

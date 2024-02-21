@@ -46,14 +46,8 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
-/// <summary>
-/// AttributeSet이 상속받아서 사용할 클래스
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/16
+// Player AttributeSet
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSAttributeSet : public UAttributeSet
 {

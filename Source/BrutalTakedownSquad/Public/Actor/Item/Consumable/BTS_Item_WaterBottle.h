@@ -6,9 +6,8 @@
 #include "Actor/Item/BTS_Item.h"
 #include "BTS_Item_WaterBottle.generated.h"
 
-/**
- * 
- */
+// Drinkable Water Bottle
+// Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_Item_WaterBottle : public ABTS_Item
 {
