@@ -10,14 +10,8 @@ class UBlackboardComponent;
 class UBehaviorTreeComponent;
 
 
-/// <summary>
-/// AI Controller 클래스
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 채해병
-/// @date last change 2024/02/20
+// AI Controller for the AI Characters
+// Admin: CHB
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSAIController : public AAIController
 {

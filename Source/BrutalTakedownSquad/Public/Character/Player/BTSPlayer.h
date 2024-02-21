@@ -5,14 +5,8 @@
 #include "Character/BTSCharacterBase.h"
 #include "BTSPlayer.generated.h"
 
-/// <summary>
-/// BTS 플레이어 클래스
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/15
+// Player Base Class
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSPlayer : public ABTSCharacterBase
 {

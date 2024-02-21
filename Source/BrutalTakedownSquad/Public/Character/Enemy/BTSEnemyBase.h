@@ -10,14 +10,8 @@
 class UBehaviorTree;
 class ABTSAIController;
 
-/// <summary>
-/// AI Enemy 클래스
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 채해병
-/// @date last change 2024/02/21
+// AI Enemy Base Class
+// Admin: CHB
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSEnemyBase : public ABTSCharacterBase
 {
@@ -28,7 +22,6 @@ public:
 
 	virtual void PossessedBy(AController* NewController)override;
 
-	virtual void Tick(float Deltatime)override;
 protected:
 
 	virtual void BeginPlay() override;
@@ -42,8 +35,4 @@ protected:
 	UPROPERTY()
 	TObjectPtr<ABTSAIController> BTSAIController;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "AI")
-	bool Runaway;
-
-	bool DoOnce = false;
 };
