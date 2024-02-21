@@ -6,14 +6,8 @@
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer&);
 
-/// <summary>
-/// AbilitySystemComponent를 상속받아서 기능을 추가한 컴포넌트
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/15
+// Featured expaneded AbilitySystemComponent
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSAbilitySystemComponent : public UAbilitySystemComponent
 {

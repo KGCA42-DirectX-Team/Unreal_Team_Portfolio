@@ -4,6 +4,8 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 
+// GameplayTags for the game
+// Admim: KSW
 struct FBTSGameplayTags
 {
 public:

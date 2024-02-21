@@ -6,21 +6,17 @@
 #include "GameFramework/Actor.h"
 #include "BTS_Item.generated.h"
 
+// item Base Class
+// Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_Item : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	ABTS_Item();
 
-protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

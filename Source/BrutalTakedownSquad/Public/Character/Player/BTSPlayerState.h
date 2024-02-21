@@ -9,14 +9,8 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 
-/// <summary>
-/// Player State Class
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author À¯¿ø¼®
-/// @date last change 2024/02/15
+// Player State
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSPlayerState : public APlayerState, public IAbilitySystemInterface
 {

@@ -8,14 +8,8 @@
 class UCharacterMovementComponent;
 class ABTSCharacterBase;
 
-/// <summary>
-/// Character Sprint ability.
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author À¯¿ø¼®
-/// @date last change 2024/02/18
+// Character Sprint ability.
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSCharacterSprint : public UBTSCharacterGameplayAbility
 {

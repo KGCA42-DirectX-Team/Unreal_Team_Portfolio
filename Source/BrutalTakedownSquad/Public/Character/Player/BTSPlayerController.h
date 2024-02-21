@@ -13,14 +13,8 @@ class UBTSAbilitySystemComponent;
 
 struct FInputActionValue;
 
-/// <summary>
-/// 플레이어 컨트롤러 클래스
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/15
+// Player Controller
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSPlayerController : public APlayerController
 {

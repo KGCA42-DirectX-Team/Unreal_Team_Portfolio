@@ -45,7 +45,7 @@ void ABTSEnemyBase::Tick(float Deltatime)
 		{
 			Runaway = true;
 		}
-		
+
 	}
 
 }

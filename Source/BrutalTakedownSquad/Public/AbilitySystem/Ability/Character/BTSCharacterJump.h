@@ -7,14 +7,8 @@
 
 class ACharacter;
 
-/// <summary>
-/// Character jump ability.
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author À¯¿ø¼®
-/// @date last change 2024/02/20
+// Character jump ability.
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSCharacterJump : public UBTSCharacterGameplayAbility
 {

@@ -5,14 +5,8 @@
 #include "AbilitySystem/Ability/Character/BTSCharacterGameplayAbility.h"
 #include "BTSPlayerChangePerspective.generated.h"
 
-/// <summary>
-/// Player Change Perspective ability.
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author À¯¿ø¼®
-/// @date last change 2024/02/19
+// Player Change Perspective ability.
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSPlayerChangePerspective : public UBTSCharacterGameplayAbility
 {

@@ -8,14 +8,8 @@
 
 #include "BTSInputComponent.generated.h"
 
-/// <summary>
-/// Ability 바인딩을 위한 확장된 InputComponent
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/15
+// InputComponent for ability bindings
+// Admim: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSInputComponent : public UEnhancedInputComponent
 {

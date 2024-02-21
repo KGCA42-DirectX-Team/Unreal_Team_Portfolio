@@ -21,14 +21,8 @@ struct FBTSInputAction
 	FGameplayTag InputTag = FGameplayTag();
 };
 
-/// <summary>
-/// AbilitySystemComponent를 상속받아서 기능을 추가한 컴포넌트
-/// </summary>
-/// <remarks>
-/// 
-/// </remarks>
-/// @author 유원석
-/// @date last change 2024/02/15
+// Ability input bindings with tags
+// Admim: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTSInputConfig : public UDataAsset
 {
