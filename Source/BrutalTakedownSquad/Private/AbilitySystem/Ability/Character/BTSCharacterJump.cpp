@@ -6,10 +6,7 @@ void UBTSCharacterJump::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo
 {
 	Super::OnGiveAbility(ActorInfo, Spec);
 
-	Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get());
-
-	if (Character)
-		int a = 0;
+	Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
 }
 
 void UBTSCharacterJump::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -30,7 +27,8 @@ void UBTSCharacterJump::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 			return;
 		}
 
-		Character->Jump();
+		if(Character)
+			Character->Jump();
 	}
 }
 
@@ -68,5 +66,6 @@ void UBTSCharacterJump::CancelAbility(const FGameplayAbilitySpecHandle Handle, c
 
 	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
 
-	Character->StopJumping();
+	if (Character)
+		Character->StopJumping();
 }

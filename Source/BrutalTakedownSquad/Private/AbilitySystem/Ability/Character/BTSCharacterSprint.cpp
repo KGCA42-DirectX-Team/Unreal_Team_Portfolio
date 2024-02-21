@@ -8,7 +8,8 @@ void UBTSCharacterSprint::OnGiveAbility(const FGameplayAbilityActorInfo* ActorIn
 	Super::OnGiveAbility(ActorInfo, Spec);
 
 	Character = Cast<ABTSCharacterBase>(ActorInfo->AvatarActor.Get());
-	CharacterMovement = Character->GetCharacterMovement();
+	if(Character)
+		CharacterMovement = Character->GetCharacterMovement();
 }
 
 void UBTSCharacterSprint::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -31,8 +32,11 @@ void UBTSCharacterSprint::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 		}
 
 		// Sprint
-		Character->SetIsSprint(true);
-		CharacterMovement->MaxWalkSpeed *= 2.0f;
+		if (Character && CharacterMovement)
+		{
+			Character->SetIsSprint(true);
+			CharacterMovement->MaxWalkSpeed *= 2.0f;
+		}
 	}
 }
 
@@ -65,8 +69,11 @@ void UBTSCharacterSprint::CancelAbility(const FGameplayAbilitySpecHandle Handle,
 	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
 
 	// Reset sprint
-	Character->SetIsSprint(false);
-	CharacterMovement->MaxWalkSpeed /= 2.0f;
+	if (Character && CharacterMovement)
+	{
+		Character->SetIsSprint(false);
+		CharacterMovement->MaxWalkSpeed /= 2.0f;
+	}
 }
 
 
