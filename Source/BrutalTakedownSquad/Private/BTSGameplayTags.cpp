@@ -80,4 +80,10 @@ void FBTSGameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.4"),
 		FString("Input Tag for Key4")
 	);
+
+
+	GameplayTags.InputTag_G = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.G"),
+		FString("default drop/throw key")
+	);
 }

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Actor/ABTSProjectile.h"
+#include "Actor/BTS_Projectile.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
@@ -11,7 +11,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
-ABTSProjectile::ABTSProjectile()
+ABTS_Projectile::ABTS_Projectile()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	bReplicates = true;
@@ -31,14 +31,14 @@ ABTSProjectile::ABTSProjectile()
 	//ProjectileMovement->ProjectileGravityScale = 1.f;
 }
 
-void ABTSProjectile::BeginPlay()
+void ABTS_Projectile::BeginPlay()
 {
 	Super::BeginPlay();
 	SetLifeSpan(LifeSpan);
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ABTSProjectile::OnSphereOverlap);
+	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ABTS_Projectile::OnSphereOverlap);
 }
 
-void ABTSProjectile::Destroyed()
+void ABTS_Projectile::Destroyed()
 {
 	if (!bHit && !HasAuthority())
 	{
@@ -47,6 +47,6 @@ void ABTSProjectile::Destroyed()
 	Super::Destroyed();
 }
 
-void ABTSProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ABTS_Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 }
