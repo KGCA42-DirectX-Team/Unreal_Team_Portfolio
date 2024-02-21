@@ -15,12 +15,13 @@ void UBTSCharacterCrouch::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 		}
 
 		// Sprint
-		ACharacter* Character = Cast<ACharacter>(OwnerInfo->AvatarActor.Get());
-
-		if (Character->bIsCrouched)
-			Character->UnCrouch();
-		else
-			Character->Crouch();
+		if (ACharacter* Character = Cast<ACharacter>(OwnerInfo->AvatarActor.Get()))
+		{
+			if (Character->bIsCrouched)
+				Character->UnCrouch();
+			else
+				Character->Crouch();
+		}
 
 		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 	}
@@ -33,7 +34,8 @@ bool UBTSCharacterCrouch::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 		return false;
 	}
 
-	const ACharacter* Character = CastChecked<ACharacter>(ActorInfo->AvatarActor.Get(), ECastCheckedType::NullAllowed);
-	return !Character->bWasJumping;
+	if(const ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get()))
+		return !Character->bWasJumping;
 
+	return false;
 }
