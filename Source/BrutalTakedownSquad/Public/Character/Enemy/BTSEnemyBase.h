@@ -23,11 +23,11 @@ public:
 	virtual void PossessedBy(AController* NewController)override;
 
 protected:
+	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
 
 	virtual void InitAbilityActorInfo() override;
-
 
 	UPROPERTY(EditAnywhere, Category = "AI")
 	TObjectPtr<UBehaviorTree> BehaviorTree;
@@ -35,4 +35,8 @@ protected:
 	UPROPERTY()
 	TObjectPtr<ABTSAIController> BTSAIController;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	bool Runaway;
+
+	bool DoOnce = false;
 };
