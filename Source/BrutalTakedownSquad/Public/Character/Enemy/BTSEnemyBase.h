@@ -17,7 +17,7 @@ class ABTSAIController;
 /// 
 /// </remarks>
 /// @author Ã¤ÇØº´
-/// @date last change 2024/02/19
+/// @date last change 2024/02/21
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTSEnemyBase : public ABTSCharacterBase
 {
@@ -28,6 +28,7 @@ public:
 
 	virtual void PossessedBy(AController* NewController)override;
 
+	virtual void Tick(float Deltatime)override;
 protected:
 
 	virtual void BeginPlay() override;
@@ -41,4 +42,8 @@ protected:
 	UPROPERTY()
 	TObjectPtr<ABTSAIController> BTSAIController;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "AI")
+	bool Runaway;
+
+	bool DoOnce = false;
 };
