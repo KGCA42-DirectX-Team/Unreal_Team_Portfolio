@@ -12,9 +12,8 @@ class UAttributeSet;
 class UGameplayEffect;
 class UGameplayAbility;
 
-/// 베이스 캐릭터	 클래스
-/// 
-/// YWS
+// Character base class that uses the AbilitySystemComponent for abilities and attributes
+// Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAbilitySystemInterface
 {
@@ -23,7 +22,6 @@ class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAb
 public:
 	ABTS_CharacterBase();
 
-	// IAbilitySystemInterface을(를) 통해 상속됨
 	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetAttributeSet() const;
@@ -35,11 +33,18 @@ public:
 	bool GetIsSprint() const { return bIsSprint; }
 
 protected:
-	//UPROPERTY(EditAnywhere, Category = "Combat")
-	//TObjectPtr<USkeletalMeshComponent> Weapon1;
 
-	//UPROPERTY(EditAnywhere, Category = "Combat")
-	//TObjectPtr<USkeletalMeshComponent> Weapon2;
+	// =========================================================================
+	UPROPERTY(EditAnywhere, Category = "Equiped Item")
+	TObjectPtr<AActor> ItemInHands;
+
+	UPROPERTY(EditAnywhere, Category = "Equiped Item")
+	TObjectPtr<AActor> Helmet;
+
+	UPROPERTY(EditAnywhere, Category = "Equiped Item")
+	TObjectPtr<AActor> BodyArmor;
+
+	//===========================================================================
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
