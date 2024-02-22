@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Actor/Item/BTS_Item.h"
-#include "BTS_Item_Weapon.generated.h"
+#include "BTS_Weapon.generated.h"
+
 
 // Weapon Base Class
 // Admin: KSW

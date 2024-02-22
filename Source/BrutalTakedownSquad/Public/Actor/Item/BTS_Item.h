@@ -38,8 +38,5 @@ public:
 	TSubclassOf<UBTS_GameplayAbility> CommonAbilityClass; // drop, throw ability
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	TObjectPtr<USkeletalMeshComponent> Mesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	TObjectPtr<ABTS_CharacterBase> ItemOwner;
 };

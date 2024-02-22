@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Actor/Item/BTS_Item_Weapon.h"
+#include "Actor/Item/BTS_Weapon.h"
+
 
 ABTS_Item_Weapon::ABTS_Item_Weapon()
 {

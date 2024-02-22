@@ -14,9 +14,6 @@ ABTS_Item::ABTS_Item()
 	CollisionVolume->SetSphereRadius(50.f);
 	CollisionVolume->SetGenerateOverlapEvents(true);
 	CollisionVolume->OnComponentBeginOverlap.AddDynamic(this, &ABTS_Item::OnPickUpOverlap);
-
-	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
-	
 }
 
 void ABTS_Item::Tick(float DeltaTime)
