@@ -86,4 +86,9 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.G"),
 		FString("default drop/throw key")
 	);
+
+	GameplayTags.InputTag_E = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.E"),
+		FString("default pick up key")
+	);
 }
