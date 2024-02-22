@@ -20,8 +20,6 @@ void UBTS_PlayerChangePerspective::ActivateAbility(const FGameplayAbilitySpecHan
 		{
 			Character->ChangePerspective();
 		}
-
-		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 	}
 }
 
