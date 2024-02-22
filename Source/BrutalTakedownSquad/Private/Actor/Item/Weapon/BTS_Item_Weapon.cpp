@@ -3,7 +3,7 @@
 
 #include "Actor/Item/Weapon/BTS_Item_Weapon.h"
 #include "Components/SphereComponent.h"
-#include "Character/BTSCharacterBase.h"
+#include "Character/BTS_CharacterBase.h"
 #include "AbilitySystemComponent.h"
 
 ABTS_Item_Weapon::ABTS_Item_Weapon()
@@ -35,7 +35,7 @@ void ABTS_Item_Weapon::OnPickUpOverlap(UPrimitiveComponent* OverlappedComponent,
 	bool bFromSweep,
 	const FHitResult& SweepResult)
 {
-	ABTSCharacterBase* Player = Cast<ABTSCharacterBase>(OtherActor);
+	ABTS_CharacterBase* Player = Cast<ABTS_CharacterBase>(OtherActor);
 	if (!Player) return;
 
 	if(!Player->HasAuthority()) return;

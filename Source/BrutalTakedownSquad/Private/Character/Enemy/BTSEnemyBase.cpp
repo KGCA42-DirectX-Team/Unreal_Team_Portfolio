@@ -3,17 +3,17 @@
 
 #include "Character/Enemy/BTSEnemyBase.h"
 #include"AbilitySystemComponent.h"
-#include"AbilitySystem/BTSAbilitySystemComponent.h"
-#include"AbilitySystem/BTSAttributeSet.h"
+#include"AbilitySystem/BTS_AbilitySystemComponent.h"
+#include"AbilitySystem/BTS_AttributeSet.h"
 #include"Character/Enemy/BTSAIController.h"
 #include"BehaviorTree/BlackboardComponent.h"
 #include"BehaviorTree/BehaviorTree.h"
 ABTSEnemyBase::ABTSEnemyBase()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UBTSAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UBTS_AbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	PrimaryActorTick.bCanEverTick = true;
-	AttributeSet = CreateDefaultSubobject<UBTSAttributeSet>("AttributeSet");
+	AttributeSet = CreateDefaultSubobject<UBTS_AttributeSet>("AttributeSet");
 
 
 }
@@ -35,7 +35,7 @@ void ABTSEnemyBase::PossessedBy(AController* NewController)
 void ABTSEnemyBase::Tick(float Deltatime)
 {
 	Super::Tick(Deltatime);
-	if (const UBTSAttributeSet* BTSAS = Cast<UBTSAttributeSet>(AttributeSet))
+	if (const UBTS_AttributeSet* BTSAS = Cast<UBTS_AttributeSet>(AttributeSet))
 	{
 		//Todo
 		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Cyan, FString::Printf(TEXT("EnemyHealth : %f"), BTSAS->GetHealth()));
@@ -64,7 +64,7 @@ void ABTSEnemyBase::BeginPlay()
 void ABTSEnemyBase::InitAbilityActorInfo()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
-	Cast<UBTSAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+	Cast<UBTS_AbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	InitializeDefaultAttributes();
 
 }

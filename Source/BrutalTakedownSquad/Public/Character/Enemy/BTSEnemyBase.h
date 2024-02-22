@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Character/BTSCharacterBase.h"
+#include "Character/BTS_CharacterBase.h"
 #include "BTSEnemyBase.generated.h"
 
 
@@ -13,7 +13,7 @@ class ABTSAIController;
 // AI Enemy Base Class
 // Admin: CHB
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API ABTSEnemyBase : public ABTSCharacterBase
+class BRUTALTAKEDOWNSQUAD_API ABTSEnemyBase : public ABTS_CharacterBase
 {
 	GENERATED_BODY()
 	
