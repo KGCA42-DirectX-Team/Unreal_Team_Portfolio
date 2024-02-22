@@ -3,15 +3,16 @@
 
 ABTS_Item::ABTS_Item()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	bReplicates = true;
 
 	CollisionVolume = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionVolume"));
+	CollisionVolume->SetSphereRadius(50.f);
 	CollisionVolume->SetupAttachment(RootComponent);
+
 	CollisionVolume->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	CollisionVolume->SetCollisionResponseToAllChannels(ECR_Ignore);
 	CollisionVolume->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	CollisionVolume->SetSphereRadius(50.f);
 	CollisionVolume->SetGenerateOverlapEvents(true);
 	CollisionVolume->OnComponentBeginOverlap.AddDynamic(this, &ABTS_Item::OnPickUpOverlap);
 }
