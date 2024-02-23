@@ -19,17 +19,36 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void OnPickUpOverlap(UPrimitiveComponent* OverlappedComponent,
+	virtual void OnPickUp(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	TSubclassOf<UBTS_GameplayAbility> PrimaryAbilityClass; // 플레이어에게 전달되는 무기의 기본 공격
+	virtual void OnDrop() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	TSubclassOf<UBTS_GameplayAbility> SecondaryAbilityClass; //  플레이어에게 전달되는 ADS 능력
+	//virtual UMeshComponent* GetMesh() override;
 
+	virtual FName GetItemName() override;
+
+	//virtual FName GetWeaponHandgripSocket() override;
+
+	//virtual FName GetWeaponMuzzleSocket() override;
+
+	//virtual FName GetWeaponMagazineSocket() override;
+
+	//=================================================================================================
+	// 플레이어에게 전달되는 무기의 기본 공격
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+	TSubclassOf<UBTS_GameplayAbility> PrimaryAbilityClass;
+
+	// 플레이어에게 전달되는 무기의 보조 능력 (ADS)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+	TSubclassOf<UBTS_GameplayAbility> SecondaryAbilityClass;
+	//=================================================================================================
+
+private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USkeletalMeshComponent> SkeletalMesh;
 };

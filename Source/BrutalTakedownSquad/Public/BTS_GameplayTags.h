@@ -34,6 +34,10 @@ public:
 	FGameplayTag InputTag_G;
 	FGameplayTag InputTag_E;
 
+	// weapon tags
+	FGameplayTag Weapon_Primary;
+	FGameplayTag Weapon_Secondary;
+
 private:
 	static FBTS_GameplayTags GameplayTags;
 };

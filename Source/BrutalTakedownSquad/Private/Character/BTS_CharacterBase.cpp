@@ -8,7 +8,6 @@ ABTS_CharacterBase::ABTS_CharacterBase()
 
 }
 
-// Called when the game starts or when spawned
 void ABTS_CharacterBase::BeginPlay()
 {
 	Super::BeginPlay();

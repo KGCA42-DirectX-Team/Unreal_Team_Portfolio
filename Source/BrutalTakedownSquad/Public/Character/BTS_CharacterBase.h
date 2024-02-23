@@ -4,13 +4,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-
 #include "BTS_CharacterBase.generated.h"
 
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
 class UGameplayAbility;
+class ABTS_Item;
 
 // Character base class that uses the AbilitySystemComponent for abilities and attributes
 // Admin: YWS
@@ -35,14 +35,20 @@ public:
 protected:
 
 	// =========================================================================
-	UPROPERTY(EditAnywhere, Category = "Equiped Item")
-	TObjectPtr<AActor> ItemInHands;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Equiped Item")
+	TObjectPtr<ABTS_Item> ItemInHands;
 
-	UPROPERTY(EditAnywhere, Category = "Equiped Item")
-	TObjectPtr<AActor> Helmet;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Equiped Weapon")
+	TObjectPtr<ABTS_Item> PrimaryWeapon;
 
-	UPROPERTY(EditAnywhere, Category = "Equiped Item")
-	TObjectPtr<AActor> BodyArmor;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Equiped Weapon")
+	TObjectPtr<ABTS_Item> SecondaryWeapon;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Equiped Armor")
+	TObjectPtr<ABTS_Item> Helmet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Equiped Armor")
+	TObjectPtr<ABTS_Item> BodyArmor;
 
 	//===========================================================================
 

@@ -13,4 +13,6 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_GA_Weapon_ADS : public UBTS_GA_Weapon
 {
 	GENERATED_BODY()
 	
+public:
+
 };

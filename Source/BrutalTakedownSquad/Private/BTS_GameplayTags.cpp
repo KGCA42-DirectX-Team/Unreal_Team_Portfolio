@@ -91,4 +91,14 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.E"),
 		FString("default pick up key")
 	);
+
+	GameplayTags.Weapon_Primary = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Weapon.Primary"),
+		FString("Primary Weapon")
+	);
+
+	GameplayTags.Weapon_Secondary = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Weapon.Secondary"),
+		FString("Secondary Weapon")
+	);
 }

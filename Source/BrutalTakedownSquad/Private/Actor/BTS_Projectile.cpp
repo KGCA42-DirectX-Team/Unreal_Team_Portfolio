@@ -13,7 +13,10 @@
 
 ABTS_Projectile::ABTS_Projectile()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
+
+	LifeSpan = 10.f;
 
 	Collider = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	Collider->SetSphereRadius(1.f);
@@ -32,7 +35,6 @@ ABTS_Projectile::ABTS_Projectile()
 	ProjectileMovement->MaxSpeed = 3000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
-
 }
 
 void ABTS_Projectile::BeginPlay()

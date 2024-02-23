@@ -23,11 +23,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void Destroyed() override;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	float LifeSpan = 10.0f;
+	float LifeSpan;
 
 	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true), Category = Projectile)
 	FGameplayEffectSpecHandle DamageEffectSpecHandle;
