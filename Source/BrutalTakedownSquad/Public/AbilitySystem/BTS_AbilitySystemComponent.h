@@ -6,7 +6,7 @@
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer&);
 
-// Featured expaneded AbilitySystemComponent
+// Feature expaneded AbilitySystemComponent
 // Admin: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_AbilitySystemComponent : public UAbilitySystemComponent

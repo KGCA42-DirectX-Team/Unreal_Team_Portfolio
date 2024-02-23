@@ -13,40 +13,56 @@
 
 ABTS_Projectile::ABTS_Projectile()
 {
-	PrimaryActorTick.bCanEverTick = false;
 	bReplicates = true;
 
-	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-	SetRootComponent(Sphere);
-	Sphere->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);
-	Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	Sphere->SetCollisionResponseToAllChannels(ECR_Ignore);
-	Sphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
-	Sphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
-	Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	Collider = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
+	Collider->SetSphereRadius(1.f);
+	Collider->BodyInstance.SetCollisionProfileName("Projectile");
+	Collider->OnComponentHit.AddDynamic(this, &ABTS_Projectile::OnHit);
+
+	// Players can't walk on it
+	Collider->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
+	Collider->CanCharacterStepUpOn = ECB_No;
+
+	SetRootComponent(Collider);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
-	ProjectileMovement->InitialSpeed = 550.f;
-	ProjectileMovement->MaxSpeed = 550.f;
-	//ProjectileMovement->ProjectileGravityScale = 1.f;
+	ProjectileMovement->UpdatedComponent = Collider;
+	ProjectileMovement->InitialSpeed = 3000.f;
+	ProjectileMovement->MaxSpeed = 3000.f;
+	ProjectileMovement->bRotationFollowsVelocity = true;
+	ProjectileMovement->bShouldBounce = true;
+
 }
 
 void ABTS_Projectile::BeginPlay()
 {
 	Super::BeginPlay();
+
 	SetLifeSpan(LifeSpan);
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &ABTS_Projectile::OnSphereOverlap);
+}
+
+void ABTS_Projectile::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 }
 
 void ABTS_Projectile::Destroyed()
 {
-	if (!bHit && !HasAuthority())
+	if (!HasAuthority())
 	{
 		//   
 	}
 	Super::Destroyed();
 }
 
-void ABTS_Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ABTS_Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	// Only add impulse and destroy projectile if we hit a physics
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	{
+		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+
+		Destroy();
+	}
 }
