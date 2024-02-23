@@ -10,12 +10,12 @@
 // Weapon Base Class
 // Admin: KSW
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API ABTS_Item_Weapon : public ABTS_Item
+class BRUTALTAKEDOWNSQUAD_API ABTS_Weapon : public ABTS_Item
 {
 	GENERATED_BODY()
 
 public:
-	ABTS_Item_Weapon();
+	ABTS_Weapon();
 
 	virtual void Tick(float DeltaTime) override;
 

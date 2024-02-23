@@ -4,16 +4,16 @@
 #include "Actor/Item/BTS_Weapon.h"
 
 
-ABTS_Item_Weapon::ABTS_Item_Weapon()
+ABTS_Weapon::ABTS_Weapon()
 {
 }
 
-void ABTS_Item_Weapon::Tick(float DeltaTime)
+void ABTS_Weapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void ABTS_Item_Weapon::OnPickUpOverlap(UPrimitiveComponent* OverlappedComponent,
+void ABTS_Weapon::OnPickUpOverlap(UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor,
 	UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex,
