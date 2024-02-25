@@ -15,6 +15,14 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_BTTask_GetRandomLocation : public UBTTask_Blu
 	GENERATED_BODY()
 	
 public:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	FBlackboardKeySelector TargetLocation;
+
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+private:
+
+
+
 };
