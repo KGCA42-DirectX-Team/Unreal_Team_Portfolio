@@ -32,6 +32,7 @@ public:
 	FGameplayTag InputTag_4;
 
 	FGameplayTag InputTag_G;
+	FGameplayTag InputTag_E;
 
 private:
 	static FBTS_GameplayTags GameplayTags;
