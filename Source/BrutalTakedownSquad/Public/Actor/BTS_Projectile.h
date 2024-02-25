@@ -7,7 +7,6 @@
 #include "GameplayEffectTypes.h"
 #include "BTS_Projectile.generated.h"
 
-class UNiagaraSystem;
 class USphereComponent;
 class UProjectileMovementComponent;
 

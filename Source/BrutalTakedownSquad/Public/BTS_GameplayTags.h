@@ -4,8 +4,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 
-// GameplayTags for the game
-// 
+// Registered GameplayTags
 // Admim: KSW
 struct FBTS_GameplayTags
 {
@@ -34,9 +33,11 @@ public:
 	FGameplayTag InputTag_G;
 	FGameplayTag InputTag_E;
 
-	// weapon tags
-	FGameplayTag Weapon_Primary;
-	FGameplayTag Weapon_Secondary;
+	// item tags
+	FGameplayTag Item_Weapon_Primary;
+	FGameplayTag Item_Weapon_Secondary;
+	FGameplayTag Item_Armor_Helmet;
+	FGameplayTag Item_Armor_BodyArmor;
 
 private:
 	static FBTS_GameplayTags GameplayTags;

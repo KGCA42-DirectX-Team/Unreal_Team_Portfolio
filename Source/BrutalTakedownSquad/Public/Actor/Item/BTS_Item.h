@@ -4,16 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-
 #include "BTS_ItemInterface.h"
-#include "Components/SphereComponent.h"
-#include "AbilitySystem/Ability/BTS_GameplayAbility.h"
-#include "Character/BTS_CharacterBase.h"
-#include "AbilitySystemComponent.h"
-
+#include "GameplayTagContainer.h"
 #include "BTS_Item.generated.h"
 
-// item Base Class
+class USphereComponent;
+class UBTS_GameplayAbility;
+
+// item Base Class for all items including weapons and armors. NO MESH
 // Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_Item : public AActor, public IBTS_ItemInterface
@@ -25,34 +23,43 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void OnPickUp(UPrimitiveComponent* OverlappedComponent,
+	virtual void OnInsidePickUpDistance(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult) override;
 
-	virtual void OnDrop() override;
+	virtual void OnOutsidePickUpDistance(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex) override;
 
-	//virtual UMeshComponent* GetMesh() override;
+	virtual void OnPickUp(UAbilitySystemComponent* ASC) override;
+	
+	virtual void OnDrop(UAbilitySystemComponent* ASC) override;
 
-	virtual FName GetItemName() override;
+	virtual bool IsPickable() const override { return bIsPickableToPlayer; }
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-	FName ItemName;
+	UFUNCTION(BlueprintCallable)
+	void SetItemTypeTag(FGameplayTag NewTag);
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
-	TObjectPtr<USphereComponent> SphereCollider;
+	UFUNCTION(BlueprintCallable)
+	FGameplayTag GetItemTypeTag() const { return ItemTypeTag; }
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
-	TObjectPtr<ABTS_CharacterBase> ItemOwnerCharacterBase;
+protected:
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USceneComponent> RootSceneComp;
 
-	//=================================================================================================
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-	TSubclassOf<UBTS_GameplayAbility> SharedItemAbilityClass;
-	//=================================================================================================
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<USphereComponent> InteractiveRegion;
 
-private:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UStaticMeshComponent> StaticMesh;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GameplayAbilitySystem")
+	TSubclassOf<UBTS_GameplayAbility> SharedAbilityClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbilitySystem")
+	FGameplayTag ItemTypeTag;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bIsPickableToPlayer = false;
 };

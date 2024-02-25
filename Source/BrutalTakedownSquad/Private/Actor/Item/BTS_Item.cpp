@@ -1,30 +1,26 @@
 
 #include "Actor/Item/BTS_Item.h"
+#include "AbilitySystem/BTS_AbilitySystemComponent.h"
+#include "Components/SphereComponent.h"
 
 ABTS_Item::ABTS_Item()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
 
-	ItemName = FName("Default Item Name");
+	RootSceneComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootSceneComp"));
+	SetRootComponent(RootSceneComp);
 
-	SphereCollider = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollider"));
-	SphereCollider->SetSphereRadius(100.f);
-	SphereCollider->SetupAttachment(RootComponent);
-	
-	// 충돌처리
-	SphereCollider->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	SphereCollider->SetCollisionResponseToAllChannels(ECR_Ignore);
-	SphereCollider->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	SphereCollider->SetGenerateOverlapEvents(true);
-	SphereCollider->OnComponentBeginOverlap.AddDynamic(this, &ABTS_Item::OnPickUp);
+	InteractiveRegion = CreateDefaultSubobject<USphereComponent>(TEXT("InteractiveRegion"));
+	InteractiveRegion->SetSphereRadius(140.f);
+	InteractiveRegion->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	InteractiveRegion->SetCollisionResponseToAllChannels(ECR_Ignore);
+	InteractiveRegion->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	InteractiveRegion->SetGenerateOverlapEvents(true);
+	InteractiveRegion->OnComponentBeginOverlap.AddDynamic(this, &ABTS_Item::OnInsidePickUpDistance);
+	InteractiveRegion->OnComponentEndOverlap.AddDynamic(this, &ABTS_Item::OnOutsidePickUpDistance);
 
-	StaticMesh->SetupAttachment(SphereCollider);
-	
-	// 충돌처리
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	StaticMesh->SetGenerateOverlapEvents(false);
+	InteractiveRegion->SetupAttachment(RootComponent);
 }
 
 void ABTS_Item::Tick(float DeltaTime)
@@ -32,28 +28,30 @@ void ABTS_Item::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABTS_Item::OnPickUp(UPrimitiveComponent* OverlappedComponent,
-	AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ABTS_Item::OnInsidePickUpDistance(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ItemOwnerCharacterBase = CastChecked<ABTS_CharacterBase>(OtherActor);
-	if(!ItemOwnerCharacterBase || !ItemOwnerCharacterBase->HasAuthority()) return;
-
-	ItemOwnerCharacterBase->GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(SharedItemAbilityClass));
+	bIsPickableToPlayer = true;
 }
 
-void ABTS_Item::OnDrop()
+void ABTS_Item::OnOutsidePickUpDistance(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	// TODO: 아이템을 버릴 때 어빌리티 제거
-	ItemOwnerCharacterBase = nullptr;
+	bIsPickableToPlayer = false;
 }
 
-//UMeshComponent* ABTS_Item::GetMesh()
-//{
-//	return StaticMesh;
-//}
-
-FName ABTS_Item::GetItemName()
+void ABTS_Item::OnPickUp(UAbilitySystemComponent* ASC)
 {
-	return ItemName;
+	UBTS_AbilitySystemComponent* BTS_ASC = CastChecked<UBTS_AbilitySystemComponent>(ASC);
+
+	BTS_ASC->AddCharacterAbility(SharedAbilityClass);     
+
 }
 
+void ABTS_Item::OnDrop(UAbilitySystemComponent* ASC)
+{
+
+}
+
+void ABTS_Item::SetItemTypeTag(FGameplayTag NewTag)
+{
+	ItemTypeTag = NewTag;
+}

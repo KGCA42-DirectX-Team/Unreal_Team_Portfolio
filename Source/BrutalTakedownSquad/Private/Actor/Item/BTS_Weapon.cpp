@@ -3,14 +3,16 @@
 
 #include "Actor/Item/BTS_Weapon.h"
 
-
 ABTS_Weapon::ABTS_Weapon()
 {
-	ItemName = FName("Defualt weapon name");
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
+	Mesh->SetCollisionProfileName(TEXT("PhysicsActor"));
+	Mesh->SetGenerateOverlapEvents(false);
+	Mesh->SetSimulatePhysics(true);
+	SetRootComponent(Mesh);
 
-	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
-	SkeletalMesh->SetCollisionProfileName(TEXT("NoCollision"));
-	SkeletalMesh->SetupAttachment(SphereCollider);
+	RootSceneComp->SetupAttachment(Mesh);
+	InteractiveRegion->SetupAttachment(RootSceneComp);
 }
 
 void ABTS_Weapon::Tick(float DeltaTime)
@@ -18,45 +20,20 @@ void ABTS_Weapon::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABTS_Weapon::OnPickUp(UPrimitiveComponent* OverlappedComponent,
-	AActor* OtherActor,
-	UPrimitiveComponent* OtherComp,
-	int32 OtherBodyIndex,
-	bool bFromSweep,
-	const FHitResult& SweepResult)
+void ABTS_Weapon::OnPickUp(UAbilitySystemComponent* ASC)
 {
-	Super::OnPickUp(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
+	Super::OnPickUp(ASC);
 
-	ItemOwnerCharacterBase->GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(PrimaryAbilityClass));
-	ItemOwnerCharacterBase->GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(SecondaryAbilityClass));
+	ASC->
 }
 
-void ABTS_Weapon::OnDrop()
+
+void ABTS_Weapon::OnDrop(UAbilitySystemComponent* ASC)
 {
-	Super::OnDrop();
+	Super::OnDrop(ASC);
 }
 
-//UMeshComponent* ABTS_Weapon::GetMesh()
-//{
-//	return SkeletalMesh;
-//}
-
-FName ABTS_Weapon::GetItemName()
+UMeshComponent* ABTS_Weapon::GetMesh()
 {
-	return ItemName;
+	return Mesh;
 }
-
-//FName ABTS_Weapon::GetWeaponHandgripSocket()
-//{
-//	return FName();
-//}
-//
-//FName ABTS_Weapon::GetWeaponMuzzleSocket()
-//{
-//	return FName();
-//}
-//
-//FName ABTS_Weapon::GetWeaponMagazineSocket()
-//{
-//	return FName();
-//}
