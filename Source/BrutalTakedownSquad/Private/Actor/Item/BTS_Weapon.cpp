@@ -20,17 +20,22 @@ void ABTS_Weapon::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABTS_Weapon::OnPickUp(UAbilitySystemComponent* ASC)
+void ABTS_Weapon::WhenPickUpThisItem(UAbilitySystemComponent* RawASC)
 {
-	Super::OnPickUp(ASC);
+	Super::WhenPickUpThisItem(RawASC);
+ 	UBTS_AbilitySystemComponent* ASC = CastChecked<UBTS_AbilitySystemComponent>(RawASC);
 
-	//ASC->
+	TArray<TSubclassOf<UGameplayAbility>> AbilityClasses;
+	AbilityClasses.Add(PrimaryAbilityClass);
+	AbilityClasses.Add(SecondaryAbilityClass);
+
+	ASC->AddCharacterAbilities(AbilityClasses);
 }
 
 
-void ABTS_Weapon::OnDrop(UAbilitySystemComponent* ASC)
+void ABTS_Weapon::WhenDropThisItem(UAbilitySystemComponent* RawASC)
 {
-	Super::OnDrop(ASC);
+	Super::WhenDropThisItem(RawASC);
 }
 
 UMeshComponent* ABTS_Weapon::GetMesh()

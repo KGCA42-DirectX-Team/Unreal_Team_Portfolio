@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BTS_ItemInterface.h"
-#include "GameplayTagContainer.h"
 #include "BTS_Item.generated.h"
 
 class USphereComponent;
-class UBTS_GameplayAbility;
+class UGameplayAbility;
+struct FGameplayTag;
 
-// item Base Class for all items including weapons and armors. NO MESH
+// item Base Class for all items including weapons and armors
+// DOES NOT HAVE MESH
 // Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_Item : public AActor, public IBTS_ItemInterface
@@ -35,9 +36,9 @@ public:
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex) override;
 
-	virtual void OnPickUp(UAbilitySystemComponent* ASC) override;
+	virtual void WhenPickUpThisItem(UAbilitySystemComponent* RawASC) override;
 	
-	virtual void OnDrop(UAbilitySystemComponent* ASC) override;
+	virtual void WhenDropThisItem(UAbilitySystemComponent* RawASC) override;
 
 	virtual bool IsPickable() const override { return bIsPickableToPlayer; }
 
@@ -55,7 +56,7 @@ protected:
 	TObjectPtr<USphereComponent> InteractiveRegion;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GameplayAbilitySystem")
-	TSubclassOf<UBTS_GameplayAbility> SharedAbilityClass;
+	TSubclassOf<UGameplayAbility> SharedAbilityClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "GameplayAbilitySystem")
 	FGameplayTag ItemTypeTag;

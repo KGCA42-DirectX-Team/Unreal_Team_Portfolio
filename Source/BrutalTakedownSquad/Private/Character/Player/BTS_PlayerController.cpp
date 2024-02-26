@@ -79,34 +79,32 @@ void ABTS_PlayerController::Look(const FInputActionValue& InputActionValue)
 
 void ABTS_PlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	UBTS_AbilitySystemComponent* BTSASC = GetASC();
+	UBTS_AbilitySystemComponent* ASC = GetBTS_AbilitySystemComponent();
 
-	if (BTSASC)
-		BTSASC->AbilityInputTagPressed(InputTag);
+	if (ASC) ASC->AbilityInputTagPressed(InputTag);
 }
 
 void ABTS_PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	UBTS_AbilitySystemComponent* BTSASC = GetASC();
+	UBTS_AbilitySystemComponent* ASC = GetBTS_AbilitySystemComponent();
 
-	if (BTSASC)
-		BTSASC->AbilityInputTagReleased(InputTag);
+	if (ASC) ASC->AbilityInputTagReleased(InputTag);
 }
 
 void ABTS_PlayerController::AbilityInputTagHold(FGameplayTag InputTag)
 {
-	UBTS_AbilitySystemComponent* BTSASC = GetASC();
+	UBTS_AbilitySystemComponent* ASC = GetBTS_AbilitySystemComponent();
 
-	if (BTSASC)
-		BTSASC->AbilityInputTagHold(InputTag);
+	if (ASC) ASC->AbilityInputTagHold(InputTag);
 }
 
-UBTS_AbilitySystemComponent* ABTS_PlayerController::GetASC()
+UBTS_AbilitySystemComponent* ABTS_PlayerController::GetBTS_AbilitySystemComponent()
 {
-	if (BTSAbilitySystemComponent == nullptr)
+	if (AbilitySystemComponent == nullptr)
 	{
-		BTSAbilitySystemComponent = Cast<UBTS_AbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+		UAbilitySystemComponent* RawASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>());
+		AbilitySystemComponent = CastChecked<UBTS_AbilitySystemComponent>(RawASC);
 	}
 
-	return BTSAbilitySystemComponent;
+	return AbilitySystemComponent;
 }

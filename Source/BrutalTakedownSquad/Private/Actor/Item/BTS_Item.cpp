@@ -2,6 +2,7 @@
 #include "Actor/Item/BTS_Item.h"
 #include "AbilitySystem/BTS_AbilitySystemComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameplayTagContainer.h"
 
 ABTS_Item::ABTS_Item()
 {
@@ -38,15 +39,13 @@ void ABTS_Item::OnOutsidePickUpDistance(UPrimitiveComponent* OverlappedComponent
 	bIsPickableToPlayer = false;
 }
 
-void ABTS_Item::OnPickUp(UAbilitySystemComponent* ASC)
+void ABTS_Item::WhenPickUpThisItem(UAbilitySystemComponent* RawASC)
 {
-	UBTS_AbilitySystemComponent* BTS_ASC = CastChecked<UBTS_AbilitySystemComponent>(ASC);
-
-	BTS_ASC->AddCharacterAbility(SharedAbilityClass);     
-
+	UBTS_AbilitySystemComponent* ASC = CastChecked<UBTS_AbilitySystemComponent>(RawASC);
+	ASC->AddCharacterAbility(SharedAbilityClass);
 }
 
-void ABTS_Item::OnDrop(UAbilitySystemComponent* ASC)
+void ABTS_Item::WhenDropThisItem(UAbilitySystemComponent* RawASC)
 {
 
 }
