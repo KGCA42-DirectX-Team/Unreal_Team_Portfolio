@@ -28,6 +28,18 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 		FString("Current amount of Stamina")
 	);
 
+	// effects tags
+	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Effects.HitReact"),
+		FString("Tag granted when hit reacting")
+	);
+
+	// meta tags
+	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Damage"),
+		FString("Damage")
+	);
+
 	// input tags
 	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("InputTag.LMB"),
