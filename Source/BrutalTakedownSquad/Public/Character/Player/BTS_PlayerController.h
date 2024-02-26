@@ -43,7 +43,7 @@ private:
 	TObjectPtr<UBTS_InputConfig> InputConfig;
 
 	UPROPERTY()
-	TObjectPtr<UBTS_AbilitySystemComponent> BTSAbilitySystemComponent;
+	TObjectPtr<UBTS_AbilitySystemComponent> AbilitySystemComponent;
 
 private:
 	void Move(const FInputActionValue& InputActionValue);
@@ -56,5 +56,5 @@ private:
 
 	void AbilityInputTagHold(FGameplayTag InputTag);
 
-	UBTS_AbilitySystemComponent* GetASC();
+	UBTS_AbilitySystemComponent* GetBTS_AbilitySystemComponent();
 };

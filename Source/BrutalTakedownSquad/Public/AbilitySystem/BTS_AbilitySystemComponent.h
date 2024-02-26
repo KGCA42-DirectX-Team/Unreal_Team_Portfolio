@@ -18,7 +18,7 @@ public:
 
 public:
 	void AbilityActorInfoSet();
-	// Always use this to add a ability to the character
+	// Rule: Always use this method to give ability to a character
 	void AddCharacterAbility(TSubclassOf<UGameplayAbility> Ability);
 
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities);

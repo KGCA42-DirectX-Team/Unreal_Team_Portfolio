@@ -39,10 +39,11 @@ void ABTS_Player::InitAbilityActorInfo()
 	ABTS_PlayerState* BTSPlayerState = GetPlayerState<ABTS_PlayerState>();
 	check(BTSPlayerState);
 
-	BTSPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(BTSPlayerState, this);
-	Cast<UBTS_AbilitySystemComponent>(BTSPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
+	UBTS_AbilitySystemComponent* ASC = CastChecked<UBTS_AbilitySystemComponent>(BTSPlayerState->GetAbilitySystemComponent());
 
-	AbilitySystemComponent = BTSPlayerState->GetAbilitySystemComponent();
+	ASC->InitAbilityActorInfo(BTSPlayerState, this);
+
+	AbilitySystemComponent = ASC;
 	AttributeSet = BTSPlayerState->GetAttributeSet();
 
 	//// Init HUD

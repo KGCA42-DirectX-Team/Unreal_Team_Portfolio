@@ -10,6 +10,7 @@ class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
 class UGameplayAbility;
+class UBTS_AbilitySystemComponent;
 
 // Character base class that uses the AbilitySystemComponent for abilities and attributes
 // Admin: YWS
@@ -21,6 +22,7 @@ class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAb
 public:
 	ABTS_CharacterBase();
 
+	// Rule: Always cast to BTS_UAbilitySystemComponent after calling this function
 	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetAttributeSet() const;
@@ -82,7 +84,7 @@ protected:
 
 
 	UPROPERTY()
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UBTS_AbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;

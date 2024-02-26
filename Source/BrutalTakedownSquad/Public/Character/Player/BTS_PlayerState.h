@@ -8,6 +8,7 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UBTS_AbilitySystemComponent;
 
 // Player State
 // Admin: YWS
@@ -19,7 +20,7 @@ class BRUTALTAKEDOWNSQUAD_API ABTS_PlayerState : public APlayerState, public IAb
 public:
 	ABTS_PlayerState();
 
-	// IAbilitySystemInterface을(를) 통해 상속됨
+	// Rule: Always cast to BTS_UAbilitySystemComponent after calling this function
 	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetAttributeSet() const;
@@ -29,7 +30,7 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UBTS_AbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;

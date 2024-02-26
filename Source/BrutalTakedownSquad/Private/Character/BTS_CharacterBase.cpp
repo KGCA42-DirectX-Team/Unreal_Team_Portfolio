@@ -26,9 +26,8 @@ void ABTS_CharacterBase::InitializeDefaultAttributes() const
 
 void ABTS_CharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const
 {
-	UAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+	UBTS_AbilitySystemComponent* ASC = CastChecked<UBTS_AbilitySystemComponent>(GetAbilitySystemComponent());
 
-	check(IsValid(ASC));
 	check(GameplayEffectClass);
 
 	FGameplayEffectContextHandle ContextHandle = ASC->MakeEffectContext();
@@ -40,12 +39,11 @@ void ABTS_CharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> Gameplay
 
 void ABTS_CharacterBase::AddCharacterAbilities() const
 {
-	UBTS_AbilitySystemComponent* BTSASC = CastChecked<UBTS_AbilitySystemComponent>(AbilitySystemComponent);
-
+	check(AbilitySystemComponent);
 	if (!HasAuthority())
 		return;
 
-	BTSASC->AddCharacterAbilities(StartupAbilities);
+	AbilitySystemComponent->AddCharacterAbilities(StartupAbilities);
 }
 
 UAbilitySystemComponent* ABTS_CharacterBase::GetAbilitySystemComponent() const

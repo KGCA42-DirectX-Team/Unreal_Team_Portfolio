@@ -6,6 +6,7 @@
 #include "Actor/Item/BTS_Item.h"
 #include "BTS_Weapon.generated.h"
 
+class UGameplayAbility;
 
 // Weapon Base Class
 // Admin: KSW
@@ -19,18 +20,18 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void OnPickUp(UAbilitySystemComponent* ASC) override;
+	virtual void WhenPickUpThisItem(UAbilitySystemComponent* RawASC) override;
 
-	virtual void OnDrop(UAbilitySystemComponent* ASC) override;
+	virtual void WhenDropThisItem(UAbilitySystemComponent* RawASC) override;
 
 	virtual UMeshComponent* GetMesh() override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GameplayAbilitySystem")
-	TSubclassOf<UBTS_GameplayAbility> PrimaryAbilityClass;
+	TSubclassOf<UGameplayAbility> PrimaryAbilityClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GameplayAbilitySystem")
-	TSubclassOf<UBTS_GameplayAbility> SecondaryAbilityClass;
+	TSubclassOf<UGameplayAbility> SecondaryAbilityClass;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USkeletalMeshComponent> Mesh;

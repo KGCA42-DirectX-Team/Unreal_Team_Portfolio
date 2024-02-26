@@ -29,7 +29,7 @@ void UBTS_CharacterPickUp::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 			return;
 		}
 
-		OnPickUp(CharacterBase->GetAbilitySystemComponent());
+		//WhenPickUpThisItem(CharacterBase->GetAbilitySystemComponent());
 	}
 }
 
@@ -37,5 +37,6 @@ bool UBTS_CharacterPickUp::CanActivateAbility(const FGameplayAbilitySpecHandle H
 {
 	Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags);
 
-	return IsPickable();
+	//return IsPickable();
+	return false;
 }

@@ -4,13 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystem/Ability/Character/BTS_CharacterGameplayAbility.h"
-#include "Actor/Item/BTS_ItemInterface.h"
 #include "BTS_CharacterPickUp.generated.h"
 
 class ABTS_CharacterBase;
 
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API UBTS_CharacterPickUp : public UBTS_CharacterGameplayAbility, public IBTS_ItemInterface
+class BRUTALTAKEDOWNSQUAD_API UBTS_CharacterPickUp : public UBTS_CharacterGameplayAbility
 {
 	GENERATED_BODY()
 	
