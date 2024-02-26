@@ -28,22 +28,22 @@ public:
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,
 		bool bFromSweep,
-		const FHitResult& SweepResult) = 0;
+		const FHitResult& SweepResult) {}
 
 	UFUNCTION(BlueprintCallable)
 	virtual void OnOutsidePickUpDistance(UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex) = 0;
+		int32 OtherBodyIndex) {}
 
 	UFUNCTION(BlueprintCallable)
-	virtual void OnPickUp(UAbilitySystemComponent* ASC) = 0;
+	virtual void OnPickUp(UAbilitySystemComponent* ASC) {}
 
 	UFUNCTION(BlueprintCallable)
-	virtual void OnDrop(UAbilitySystemComponent* ASC) = 0;
+	virtual void OnDrop(UAbilitySystemComponent* ASC) {}
 
 	UFUNCTION(BlueprintCallable)
-	virtual bool IsPickable() const = 0;
+	virtual bool IsPickable() const { return false; }
 
 	UFUNCTION(BlueprintCallable)
 	virtual UMeshComponent* GetMesh() { return nullptr; }

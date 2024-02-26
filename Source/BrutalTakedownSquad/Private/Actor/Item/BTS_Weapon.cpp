@@ -12,7 +12,7 @@ ABTS_Weapon::ABTS_Weapon()
 	SetRootComponent(Mesh);
 
 	RootSceneComp->SetupAttachment(Mesh);
-	InteractiveRegion->SetupAttachment(RootSceneComp);
+	//InteractiveRegion->SetupAttachment(RootSceneComp);
 }
 
 void ABTS_Weapon::Tick(float DeltaTime)
@@ -24,7 +24,7 @@ void ABTS_Weapon::OnPickUp(UAbilitySystemComponent* ASC)
 {
 	Super::OnPickUp(ASC);
 
-	ASC->
+	//ASC->
 }
 
 
