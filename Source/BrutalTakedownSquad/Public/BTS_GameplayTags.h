@@ -12,10 +12,19 @@ public:
 	static const FBTS_GameplayTags& Get() { return GameplayTags; }
 	static void InitializeNativeGameplayTags();
 
+	// primary
 	FGameplayTag Attributes_MaxHealth;
 	FGameplayTag Attributes_MaxStamina;
+	
+	// vital
 	FGameplayTag Attributes_CurrentHealth;
 	FGameplayTag Attributes_CurrentStamina;
+
+	// meta tags
+	FGameplayTag Damage;
+
+	// effects tags
+	FGameplayTag Effects_HitReact;
 
 	// Input Tags
 	FGameplayTag InputTag_LMB;

@@ -4,6 +4,7 @@
 #include "GameplayEffectExtension.h"
 #include "Gameframework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "BTS_GameplayTags.h"
 
 UBTS_AttributeSet::UBTS_AttributeSet()
 {
@@ -55,15 +56,41 @@ void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 {
 	Super::PostGameplayEffectExecute(Data);
 
-	//FEffectProperties Props;
-	//SetEffectProperties(Props, Data);
+	FEffectProperties Props;
+	SetEffectProperties(Props, Data);
 
 	// effect가 적용된 최종값을 변경
-	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.0f);
+
+		if (LocalIncomingDamage > 0.0f)	// 아직은 치료 효과를 고려하지 않음
+		{
+			const float NewHealth = GetHealth() - LocalIncomingDamage;
+			SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
+
+			const bool bFatal = NewHealth <= 0.0f;
+			if (!bFatal)
+			{
+				FGameplayTagContainer TagContainer;
+				TagContainer.AddTag(FBTS_GameplayTags::Get().Effects_HitReact);
+				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+			}
+			else	// 사망 처리
+			{
+				/*ICombatInterface* CombatInterface = Cast<ICombatInterface>(Props.TargetAvatarActor);
+
+				if (CombatInterface)
+					CombatInterface->Die();*/
+			}
+		}
+	}
+	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
 	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
-
+	
 }
 
 void UBTS_AttributeSet::SetEffectProperties(FEffectProperties& Props, const FGameplayEffectModCallbackData& Data) const
