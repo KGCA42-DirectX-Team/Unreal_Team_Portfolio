@@ -6,11 +6,13 @@
 #include "AbilitySystem/Ability/BTS_GameplayAbility.h"
 #include "BTS_GA_Weapon.generated.h"
 
+
+class ABTS_CharacterBase;
+
 // GamePlay Ability Base Class for Weapons
 // Admin: KSW
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_GA_Weapon : public UBTS_GameplayAbility
 {
 	GENERATED_BODY()
-	
 };

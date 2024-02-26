@@ -4,7 +4,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
-
 #include "BTS_CharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -32,19 +31,55 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool GetIsSprint() const { return bIsSprint; }
 
+
+	// Getters and Setters for EquipedItemMesh
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	void SetInHandItemMesh(UMeshComponent* NewMesh) { InHandItemMesh = NewMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	UMeshComponent* GetInHandItemMesh() const { return InHandItemMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	void SetPrimaryWeaponMesh(UMeshComponent* NewMesh) { PrimaryWeaponMesh = NewMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	UMeshComponent* GetPrimaryWeaponMesh() const { return PrimaryWeaponMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	void SetSecondaryWeaponMesh(UMeshComponent* NewMesh) { SecondaryWeaponMesh = NewMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	UMeshComponent* GetSecondaryWeaponMesh() const { return SecondaryWeaponMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	void SetHelmetMesh(UMeshComponent* NewMesh) { HelmetMesh = NewMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	UMeshComponent* GetHelmetMesh() const { return HelmetMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	void SetBodyArmorMesh(UMeshComponent* NewMesh) { BodyArmorMesh = NewMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
+	UMeshComponent* GetBodyArmorMesh() const { return BodyArmorMesh; }
+
 protected:
 
-	// =========================================================================
-	UPROPERTY(EditAnywhere, Category = "Equiped Item")
-	TObjectPtr<AActor> ItemInHands;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
+	TObjectPtr<UMeshComponent> InHandItemMesh;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
+	TObjectPtr<UMeshComponent> PrimaryWeaponMesh;
 
-	UPROPERTY(EditAnywhere, Category = "Equiped Item")
-	TObjectPtr<AActor> Helmet;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
+	TObjectPtr<UMeshComponent> SecondaryWeaponMesh;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
+	TObjectPtr<UMeshComponent> HelmetMesh;
 
-	UPROPERTY(EditAnywhere, Category = "Equiped Item")
-	TObjectPtr<AActor> BodyArmor;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
+	TObjectPtr<UMeshComponent> BodyArmorMesh;
 
-	//===========================================================================
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;

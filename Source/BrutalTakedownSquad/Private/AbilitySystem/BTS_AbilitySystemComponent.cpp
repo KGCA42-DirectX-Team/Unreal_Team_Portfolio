@@ -7,6 +7,18 @@ void UBTS_AbilitySystemComponent::AbilityActorInfoSet()
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UBTS_AbilitySystemComponent::ClientEffectApplied_Implementation);
 }
 
+void UBTS_AbilitySystemComponent::AddCharacterAbility(TSubclassOf<UGameplayAbility> Ability)
+{
+	FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Ability, 1);
+
+	if (const UBTS_GameplayAbility* BTSAbility = CastChecked<UBTS_GameplayAbility>(AbilitySpec.Ability))
+	{
+		AbilitySpec.DynamicAbilityTags.AddTag(BTSAbility->StartupInputTag);
+
+		GiveAbility(AbilitySpec);
+	}
+}
+
 void UBTS_AbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& Abilities)
 {
 	for (const TSubclassOf<UGameplayAbility>& AbilityClass : Abilities)

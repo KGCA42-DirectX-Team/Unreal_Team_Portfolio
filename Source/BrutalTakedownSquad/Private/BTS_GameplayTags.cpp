@@ -91,4 +91,26 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.E"),
 		FString("default pick up key")
 	);
+
+
+	// item tags
+	GameplayTags.Item_Weapon_Primary = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Item.Weapon.Primary"),
+		FString("Primary Weapon")
+	);
+
+	GameplayTags.Item_Weapon_Secondary = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Item.Weapon.Secondary"),
+		FString("Secondary Weapon")
+	);
+
+	GameplayTags.Item_Armor_Helmet = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Item.Armor.Helmet"),
+		FString("Helmet")
+	);
+
+	GameplayTags.Item_Armor_BodyArmor = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Item.Armor.BodyArmor"),
+		FString("Body Armor")
+	);
 }
