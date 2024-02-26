@@ -9,7 +9,7 @@
 class UBlackboardComponent;
 class UBehaviorTreeComponent;
 
-
+struct FAIStimulus;
 // AI Controller for the AI Characters
 // Admin: CHB
 UCLASS()
@@ -21,13 +21,26 @@ public:
 
 	ABTSAIController();
 	
+	UFUNCTION(BlueprintCallable)
+	void PerceptionUpdate(AActor* Actor , FAIStimulus stimulus);
+
+	UPROPERTY(BlueprintReadWrite)
+	FTimerHandle EnemyTimer;
+
+	UPROPERTY(EditAnywhere)
+	float SightTime = 1.0f;
 
 protected:
 	UPROPERTY()
 	TObjectPtr<UBehaviorTreeComponent> BehaviorTreeComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AI")
+	TObjectPtr<UAIPerceptionComponent> AIPerceptionComponent;
 
 
 private:
+	
 
+	void StartEnemyTimer();
+	
 };
