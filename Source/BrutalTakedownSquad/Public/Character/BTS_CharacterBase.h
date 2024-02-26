@@ -4,6 +4,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interface/CombatInterface.h"
+
 #include "BTS_CharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -15,7 +17,7 @@ class UBTS_AbilitySystemComponent;
 // Character base class that uses the AbilitySystemComponent for abilities and attributes
 // Admin: YWS
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAbilitySystemInterface
+class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -27,12 +29,18 @@ public:
 
 	UAttributeSet* GetAttributeSet() const;
 
+	// ICombatInterface을(를) 통해 상속됨
+	void Die() override;
+
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
+
+	// For ABP
+
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	void SetIsSprint(bool bNewSprint) { bIsSprint = bNewSprint; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool GetIsSprint() const { return bIsSprint; }
-
 
 	// Getters and Setters for EquipedItemMesh
 	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
@@ -67,6 +75,8 @@ public:
 
 protected:
 
+	// EquipedItemMesh
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
 	TObjectPtr<UMeshComponent> InHandItemMesh;
 	
@@ -82,6 +92,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "EquipedItem")
 	TObjectPtr<UMeshComponent> BodyArmorMesh;
 
+
+	// AbilitySystemComponent and AttributeSet
 
 	UPROPERTY()
 	TObjectPtr<UBTS_AbilitySystemComponent> AbilitySystemComponent;
@@ -109,6 +121,9 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TObjectPtr<UAnimMontage> HitReactMontage;
 
 	bool bIsSprint = false;
 };

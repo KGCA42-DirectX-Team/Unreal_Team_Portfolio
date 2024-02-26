@@ -28,10 +28,11 @@ void ABTS_Player::PossessedBy(AController* NewController)
 
 void ABTS_Player::OnRep_PlayerState()
 {
-	Super::OnRep_PlayerState();
-
-	// init ability actor info for client
-	InitAbilityActorInfo();
+	// this is required when replicating the player state
+	//Super::OnRep_PlayerState();
+	//
+	//// init ability actor info for client
+	//InitAbilityActorInfo();
 }
 
 void ABTS_Player::InitAbilityActorInfo()
