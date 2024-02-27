@@ -5,6 +5,7 @@
 #include "Gameframework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "BTS_GameplayTags.h"
+#include "Interface/CombatInterface.h"
 
 UBTS_AttributeSet::UBTS_AttributeSet()
 {
@@ -77,12 +78,12 @@ void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				TagContainer.AddTag(FBTS_GameplayTags::Get().Effects_HitReact);
 				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
 			}
-			else	// »ç¸Á Ã³¸®
+			else
 			{
-				/*ICombatInterface* CombatInterface = Cast<ICombatInterface>(Props.TargetAvatarActor);
+				ICombatInterface* CombatInterface = Cast<ICombatInterface>(Props.TargetAvatarActor);
 
 				if (CombatInterface)
-					CombatInterface->Die();*/
+					CombatInterface->Die();
 			}
 		}
 	}
