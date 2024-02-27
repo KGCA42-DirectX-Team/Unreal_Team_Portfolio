@@ -37,6 +37,5 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	bool Runaway;
-
 	bool DoOnce = false;
 };
