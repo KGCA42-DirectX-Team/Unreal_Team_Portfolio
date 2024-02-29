@@ -4,19 +4,21 @@
 #include "UI/ItemUI/BTS_ItemObject.h"
 #include "Materials/MaterialInterface.h"
 
-FIntPoint UBTS_ItemObject::GetDimensions()
+FIntPoint UBTS_ItemObject::GetDimensions() const
 {
+	FIntPoint Ret;
 	if (Rotated)
 	{
 		int32 temp = Dimensions.X;
-		Dimensions.X = Dimensions.Y;
-		Dimensions.Y = temp;
+		Ret.X = Dimensions.Y;
+		Ret.Y = temp;
+		return Ret;
 	}
 
 	return Dimensions;
 }
 
-UMaterialInterface* UBTS_ItemObject::GetIcon()
+UMaterialInterface* UBTS_ItemObject::GetIcon() const
 {
 	if (Rotated)
 	{

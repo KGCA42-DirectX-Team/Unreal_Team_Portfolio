@@ -13,7 +13,8 @@
 				"EnhancedInput",
 				"GameplayAbilities",
 				"AIModule",
-				"CoreUObject"
+				"CoreUObject",
+				"UMG"
 			]
 		}
 	],

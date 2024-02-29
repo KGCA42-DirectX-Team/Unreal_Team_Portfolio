@@ -10,6 +10,8 @@ class UStaticMeshComponent;
 class USphereComponent;
 class UBTS_ItemObject;
 
+// ItemUI Base Class.
+// Admin: PSC
 UCLASS(Blueprintable)
 class BRUTALTAKEDOWNSQUAD_API ABTS_ItemUI : public AActor
 {
