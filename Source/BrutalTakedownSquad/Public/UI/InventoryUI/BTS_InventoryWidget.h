@@ -6,9 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "BTS_InventoryWidget.generated.h"
 
-/**
- * 
- */
+// InventoryWidget Base Class.
+// Admin: PSC
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_InventoryWidget : public UUserWidget
 {

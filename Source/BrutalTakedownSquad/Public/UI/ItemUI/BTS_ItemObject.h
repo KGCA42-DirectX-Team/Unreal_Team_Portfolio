@@ -9,9 +9,8 @@
 class UMaterialInterface;
 class ABTS_ItemUI;
 
-/**
- * 
- */
+// ItemObject Base Class.
+// Admin: PSC
 UCLASS(Blueprintable)
 class BRUTALTAKEDOWNSQUAD_API UBTS_ItemObject : public UObject
 {

@@ -6,9 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "BTS_ItemWidget.generated.h"
 
-/**
- * 
- */
+// ItemWidget Base Class.
+// Admin: PSC
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_ItemWidget : public UUserWidget
 {

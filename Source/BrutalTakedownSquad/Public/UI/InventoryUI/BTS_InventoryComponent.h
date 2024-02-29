@@ -9,6 +9,9 @@
 class UBTS_ItemObject;
 struct FTile;
 
+// InventoryComponent Base Class.
+// Admin: PSC
+
 USTRUCT(BlueprintType)
 struct FItemIndex
 {
