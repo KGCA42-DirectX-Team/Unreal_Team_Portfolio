@@ -33,6 +33,7 @@ public:
 	FGameplayTag InputTag_Space;
 	FGameplayTag InputTag_C;
 	FGameplayTag InputTag_B;
+	FGameplayTag InputTag_R;
 
 	FGameplayTag InputTag_1;
 	FGameplayTag InputTag_2;
