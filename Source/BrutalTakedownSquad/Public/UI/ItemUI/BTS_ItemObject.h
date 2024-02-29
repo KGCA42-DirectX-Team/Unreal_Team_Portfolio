@@ -19,10 +19,10 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_ItemObject : public UObject
 	
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FIntPoint GetDimensions();
+	FIntPoint GetDimensions() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	UMaterialInterface* GetIcon();
+	UMaterialInterface* GetIcon() const;
 
 	UFUNCTION(BlueprintCallable)
 	void Rotate();
@@ -35,7 +35,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool Rotated;
+	bool Rotated = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true, Instanced))
 	FIntPoint Dimensions;

@@ -9,7 +9,7 @@
 class UBTS_ItemObject;
 struct FTile;
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FItemIndex
 {
 	GENERATED_BODY()
@@ -33,10 +33,10 @@ public:
 	TMap<UBTS_ItemObject*, FTile> GetAllItems();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FTile IndexToTile(int32 Index);
+	FTile IndexToTile(int32 Index) const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	int32 TileToIndex(FTile Tile);
+	int32 TileToIndex(FTile Tile) const;
 
 	UFUNCTION(BlueprintCallable)
 	void RemoveItem(UBTS_ItemObject* ItemObject);
@@ -47,10 +47,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLeftIndex);
 
+	UFUNCTION(BlueprintCallable)
+	bool TryAddItem(UBTS_ItemObject* ItemObject);
 
 protected:
-
-	FItemIndex GetItmeIndex(int32 index);
+	UFUNCTION(BlueprintCallable)
+	FItemIndex GetItemIndex(int32 index);
 
 
 
@@ -75,5 +77,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true))
 	int32 Riflebullets;
+
+	UPROPERTY()
+	bool IsOnce = true;
 
 };
