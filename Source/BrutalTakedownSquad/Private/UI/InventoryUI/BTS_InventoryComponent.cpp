@@ -33,7 +33,7 @@ TMap<UBTS_ItemObject*, FTile> UBTS_InventoryComponent::GetAllItems()
 	return AllItems;
 }
 
-FTile UBTS_InventoryComponent::IndexToTile(int32 Index)
+FTile UBTS_InventoryComponent::IndexToTile(int32 Index) const
 {
 	FTile Tile;
 
@@ -43,7 +43,7 @@ FTile UBTS_InventoryComponent::IndexToTile(int32 Index)
 	return Tile;
 }
 
-int32 UBTS_InventoryComponent::TileToIndex(FTile Tile)
+int32 UBTS_InventoryComponent::TileToIndex(FTile Tile) const
 {
 	int32 Index = Tile.Y * Colums + Tile.X;
 	return Index;
@@ -90,7 +90,7 @@ bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* ItemObject, int32
 				FTile TileIndex;
 				TileIndex.X = i;
 				TileIndex.Y = j;
-				FItemIndex Data = GetItmeIndex(TileToIndex(TileIndex));
+				FItemIndex Data = GetItemIndex(TileToIndex(TileIndex));
 				if (Data.Vaild)
 				{
 					if (IsValid(Data.ItemObject))
@@ -131,17 +131,57 @@ void UBTS_InventoryComponent::AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLe
 			TileIndex.X = i;
 			TileIndex.Y = j;
 			//Todo 추후에 에러날 때 확인
-			if (TileToIndex(TileIndex) >= Items.Num())
+			if (TileToIndex(Tile) >= Items.Num())
 			{
-				Items.SetNum(TileToIndex(TileIndex) + 1);
+				Items.SetNum(TileToIndex(Tile) + 1);
 			}
 			Items[TileToIndex(TileIndex)] = ItemObject;
-			IsDirty = true;
+			
 		}
 	}
+	IsDirty = true;
 }
 
-FItemIndex UBTS_InventoryComponent::GetItmeIndex(int32 TopLeftIndex)
+bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
+{
+	if (IsValid(ItemObject))
+	{
+		int32 index1 = 0;
+
+		for (auto& item : Items)
+		{
+			if (IsRoomAvailable(ItemObject, index1))
+			{
+				AddItemAt(ItemObject, index1);
+				return true;
+			}
+			index1++;
+		}
+
+		if (IsOnce == true)
+		{
+			IsOnce = false;
+			ItemObject->Rotate();
+
+			int32 index2 = 0;
+
+			for (auto& item : Items)
+			{
+				if (IsRoomAvailable(ItemObject, index2))
+				{
+					AddItemAt(ItemObject, index2);
+					return true;
+				}
+				index2++;
+			}
+		}
+	}
+
+	ItemObject->Rotate();
+	return false;
+}
+
+FItemIndex UBTS_InventoryComponent::GetItemIndex(int32 TopLeftIndex)
 {
 	FItemIndex ret;
 	if (Items.IsValidIndex(TopLeftIndex))
