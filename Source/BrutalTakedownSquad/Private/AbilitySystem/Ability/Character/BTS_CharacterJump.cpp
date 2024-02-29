@@ -27,6 +27,9 @@ void UBTS_CharacterJump::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 			return;
 		}
 
+		if (Character && Character->bIsCrouched)
+			Character->UnCrouch();
+
 		if(Character)
 			Character->Jump();
 	}
@@ -39,11 +42,6 @@ bool UBTS_CharacterJump::CanActivateAbility(const FGameplayAbilitySpecHandle Han
 		return false;
 	}
 	bool CanJump = Character && Character->CanJump();
-
-	if (!CanJump && Character->bIsCrouched)
-	{
-		Character->UnCrouch();
-	}
 
 	return CanJump;
 }
