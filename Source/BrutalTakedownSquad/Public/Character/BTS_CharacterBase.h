@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool GetIsSprint() const { return bIsSprint; }
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	virtual float GetTurnRate();
+
 	// Getters and Setters for EquipedItemMesh
 	UFUNCTION(BlueprintCallable, Category = "EquipedItem")
 	void SetInHandItemMesh(UMeshComponent* NewMesh) { InHandItemMesh = NewMesh; }

@@ -25,6 +25,8 @@ public:
 	ABTS_PlayerController();
 	virtual void PlayerTick(float DeltaTime) override;
 
+	float GetTurnRate() const { return bTurnRate; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -44,6 +46,8 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UBTS_AbilitySystemComponent> AbilitySystemComponent;
+
+	float bTurnRate = 0.0f;
 
 private:
 	void Move(const FInputActionValue& InputActionValue);

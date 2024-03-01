@@ -20,6 +20,8 @@ public:
 
 	virtual void OnRep_PlayerState() override;
 
+	virtual float GetTurnRate() override;
+
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
 	void ChangePerspective();
 
