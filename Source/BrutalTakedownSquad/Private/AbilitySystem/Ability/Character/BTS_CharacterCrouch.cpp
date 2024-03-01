@@ -34,10 +34,8 @@ bool UBTS_CharacterCrouch::CanActivateAbility(const FGameplayAbilitySpecHandle H
 		return false;
 	}
 
-	if (const ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get()))
-	{
-		return !Character->GetMovementComponent()->IsFalling();
-	}
+	if(const ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get()))
+		return !Character->bWasJumping;
 
 	return false;
 }

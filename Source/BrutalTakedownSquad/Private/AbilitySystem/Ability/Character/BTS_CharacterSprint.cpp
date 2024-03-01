@@ -34,9 +34,6 @@ void UBTS_CharacterSprint::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 		// Sprint
 		if (Character && CharacterMovement)
 		{
-			if (Character->bIsCrouched)
-				Character->UnCrouch();
-
 			Character->SetIsSprint(true);
 			CharacterMovement->MaxWalkSpeed *= 2.0f;
 		}
