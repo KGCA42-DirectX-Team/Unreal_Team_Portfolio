@@ -3,6 +3,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Character/Player/BTS_PlayerState.h"
 #include "AbilitySystem/BTS_AbilitySystemComponent.h"
+#include "Character/Player/BTS_PlayerController.h"
 
 ABTS_Player::ABTS_Player()
 {
@@ -33,6 +34,18 @@ void ABTS_Player::OnRep_PlayerState()
 	//
 	//// init ability actor info for client
 	//InitAbilityActorInfo();
+}
+
+float ABTS_Player::GetTurnRate()
+{
+	ABTS_PlayerController* PlayerController = Cast<ABTS_PlayerController>(GetController());
+
+	if (PlayerController)
+	{
+		return PlayerController->GetTurnRate();
+	}
+
+	return 0.0f;
 }
 
 void ABTS_Player::InitAbilityActorInfo()
