@@ -19,6 +19,20 @@ void ABTS_CharacterBase::InitAbilityActorInfo()
 {
 }
 
+void ABTS_CharacterBase::ActivateAbilityByTag(FGameplayTag AbilityTag) const
+{
+	// to do : Activate Ability by Tag
+	//AbilitySystemComponent->TryActivateAbilitiesByTag(AbilityTag, true);
+
+	for (FGameplayAbilitySpec& AbilitySpec : AbilitySystemComponent->GetActivatableAbilities())
+	{
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(AbilityTag))
+		{
+			AbilitySystemComponent->TryActivateAbility(AbilitySpec.Handle);
+		}
+	}
+}
+
 void ABTS_CharacterBase::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultAttribute);
@@ -71,11 +85,6 @@ void ABTS_CharacterBase::Die()
 UAnimMontage* ABTS_CharacterBase::GetHitReactMontage_Implementation()
 {
 	return HitReactMontage;
-}
-
-float ABTS_CharacterBase::GetTurnRate()
-{
-	return 0;
 }
 
 UAbilitySystemComponent* ABTS_CharacterBase::GetAbilitySystemComponent() const

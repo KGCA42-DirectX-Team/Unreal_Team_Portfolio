@@ -6,6 +6,9 @@
 #include "Character/Player/BTS_PlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
 
+// temp
+#include "BTS_GameplayTags.h"
+
 ABTS_Player::ABTS_Player()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -28,11 +31,6 @@ void ABTS_Player::PossessedBy(AController* NewController)
 	InitAbilityActorInfo();
 
 	AddCharacterAbilities();
-
-	// test
-	AbilitySpec = FGameplayAbilitySpec(Test, 1);
-
-	AbilitySystemComponent->GiveAbility(AbilitySpec);
 }
 
 void ABTS_Player::OnRep_PlayerState()
@@ -44,7 +42,7 @@ void ABTS_Player::OnRep_PlayerState()
 	//InitAbilityActorInfo();
 }
 
-float ABTS_Player::GetTurnRate()
+float ABTS_Player::GetTurnRate_Implementation()
 {
 	ABTS_PlayerController* PlayerController = Cast<ABTS_PlayerController>(GetController());
 
@@ -104,7 +102,7 @@ void ABTS_Player::CheckHitSurfaceWhileSlide()
 	{
 		if(FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(HitResult.ImpactPoint , FVector::ZAxisVector))) > 80) // angle : 80
 		{
-			AbilitySystemComponent->TryActivateAbility(AbilitySpec.Handle);
+			ActivateAbilityByTag(FBTS_GameplayTags::Get().InputTag_G);
 		}
 	} 
 }

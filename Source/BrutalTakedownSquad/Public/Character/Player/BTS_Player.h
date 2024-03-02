@@ -14,25 +14,32 @@ class BRUTALTAKEDOWNSQUAD_API ABTS_Player : public ABTS_CharacterBase
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Player")
+	EAnimationState AnimationState;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Player")
+	EOnLandState OnLandState;
+
+public:
 	ABTS_Player();
 
 	virtual void PossessedBy(AController* NewController) override;
 
 	virtual void OnRep_PlayerState() override;
 
-	virtual float GetTurnRate() override;
+	// IAnimationEnumInterface
+	virtual EAnimationState GetAnimationState_Implementation() override { return AnimationState; }
 
+	virtual EOnLandState GetOnLandState_Implementation() override { return OnLandState; }
+
+	virtual float GetTurnRate_Implementation() override;
+
+	// 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
 	void ChangePerspective();
 
+	// engine override
 	virtual void Tick(float DeltaSeconds) override;
-
-
-
-	UPROPERTY(EditAnywhere, Category = "Abilities")
-	TSubclassOf<UGameplayAbility> Test;
-
-	FGameplayAbilitySpec AbilitySpec;
 
 protected:
 	virtual void InitAbilityActorInfo() override;

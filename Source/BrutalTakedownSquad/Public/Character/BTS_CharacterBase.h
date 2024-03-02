@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interface/CombatInterface.h"
+#include "Interface/AnimationEnumInterface.h"
 
 #include "BTS_CharacterBase.generated.h"
 
@@ -13,11 +14,12 @@ class UAttributeSet;
 class UGameplayEffect;
 class UGameplayAbility;
 class UBTS_AbilitySystemComponent;
+struct FGameplayTag;
 
 // Character base class that uses the AbilitySystemComponent for abilities and attributes
 // Admin: YWS
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
+class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface, public IAnimationEnumInterface
 {
 	GENERATED_BODY()
 
@@ -29,11 +31,6 @@ public:
 
 	UAttributeSet* GetAttributeSet() const;
 
-	// ICombatInterface을(를) 통해 상속됨
-	void Die() override;
-
-	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
-
 	// For ABP
 
 	UFUNCTION(BlueprintCallable, Category = "Character")
@@ -42,8 +39,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool GetIsSprint() const { return bIsSprint; }
 
-	UFUNCTION(BlueprintCallable, Category = "Character")
-	virtual float GetTurnRate();
+	// ICombatInterface을(를) 통해 상속됨
+	virtual void Die() override;
+
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
+
+	// IAnimationEnumInterface을(를) 통해 상속됨
+	virtual EAnimationState GetAnimationState_Implementation() override { return EAnimationState::None; }
+
+	virtual EOnLandState GetOnLandState_Implementation() override { return EOnLandState::None; }
+
+	virtual float GetTurnRate_Implementation() override { return 0; };
 
 protected:
 
@@ -66,6 +72,8 @@ protected:
 
 	virtual void InitAbilityActorInfo();
 
+	virtual void ActivateAbilityByTag(FGameplayTag AbilityTag) const;
+
 	void InitializeDefaultAttributes() const;
 
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const;
@@ -73,8 +81,8 @@ protected:
 	void AddCharacterAbilities() const;
 
 private:
-	UPROPERTY(EditAnywhere, Category = "Abilities")
-	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+	UPROPERTY(EditAnywhere, Category = "Abilities")	
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;	// change to Basic Ability
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
