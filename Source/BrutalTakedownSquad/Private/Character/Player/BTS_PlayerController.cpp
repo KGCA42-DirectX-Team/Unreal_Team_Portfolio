@@ -73,6 +73,8 @@ void ABTS_PlayerController::Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D Axis = InputActionValue.Get<FVector2D>();
 
+	bTurnRate = FMath::Clamp(Axis.X, -1.0f, 1.0f);
+
 	AddYawInput(Axis.X);
 	AddPitchInput(Axis.Y);
 }

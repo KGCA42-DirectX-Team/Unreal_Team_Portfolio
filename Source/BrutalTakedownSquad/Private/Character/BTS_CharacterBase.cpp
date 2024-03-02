@@ -73,6 +73,11 @@ UAnimMontage* ABTS_CharacterBase::GetHitReactMontage_Implementation()
 	return HitReactMontage;
 }
 
+float ABTS_CharacterBase::GetTurnRate()
+{
+	return 0;
+}
+
 UAbilitySystemComponent* ABTS_CharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
