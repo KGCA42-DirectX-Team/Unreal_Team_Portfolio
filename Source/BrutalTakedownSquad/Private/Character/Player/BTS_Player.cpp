@@ -4,9 +4,12 @@
 #include "Character/Player/BTS_PlayerState.h"
 #include "AbilitySystem/BTS_AbilitySystemComponent.h"
 #include "Character/Player/BTS_PlayerController.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 ABTS_Player::ABTS_Player()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
 	GetCharacterMovement()->bConstrainToPlane = true;
@@ -25,6 +28,11 @@ void ABTS_Player::PossessedBy(AController* NewController)
 	InitAbilityActorInfo();
 
 	AddCharacterAbilities();
+
+	// test
+	AbilitySpec = FGameplayAbilitySpec(Test, 1);
+
+	AbilitySystemComponent->GiveAbility(AbilitySpec);
 }
 
 void ABTS_Player::OnRep_PlayerState()
@@ -46,6 +54,13 @@ float ABTS_Player::GetTurnRate()
 	}
 
 	return 0.0f;
+}
+
+void ABTS_Player::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	CheckHitSurfaceWhileSlide();
 }
 
 void ABTS_Player::InitAbilityActorInfo()
@@ -70,4 +85,26 @@ void ABTS_Player::InitAbilityActorInfo()
 	//}
 
 	InitializeDefaultAttributes();
+}
+
+void ABTS_Player::CheckHitSurfaceWhileSlide()
+{
+	// socket, radius, angle is constant
+
+	FVector FootPosition = GetMesh()->GetSocketLocation("foot_l"); // socket : foot_l
+	
+	TArray<AActor*> IgnoredActors; 
+	IgnoredActors.Add(this);
+	IgnoredActors.Add(GetCharacterMovement()->CurrentFloor.HitResult.GetActor());
+
+	FHitResult HitResult;
+	if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), FootPosition, FootPosition, 25 // radius : 25
+		, UEngineTypes::ConvertToTraceType(ECC_Visibility), false
+		, IgnoredActors, EDrawDebugTrace::ForOneFrame, HitResult, true)) 
+	{
+		if(FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(HitResult.ImpactPoint , FVector::ZAxisVector))) > 80) // angle : 80
+		{
+			AbilitySystemComponent->TryActivateAbility(AbilitySpec.Handle);
+		}
+	} 
 }

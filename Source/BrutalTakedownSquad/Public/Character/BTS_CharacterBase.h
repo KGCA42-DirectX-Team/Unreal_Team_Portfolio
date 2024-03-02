@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	bool GetIsSprint() const { return bIsSprint; }
 
+	UFUNCTION(BlueprintCallable, Category = "Character")
+	virtual float GetTurnRate();
+
 protected:
 
 	// AbilitySystemComponent and AttributeSet

@@ -25,6 +25,19 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
 	void ChangePerspective();
 
+	virtual void Tick(float DeltaSeconds) override;
+
+
+
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TSubclassOf<UGameplayAbility> Test;
+
+	FGameplayAbilitySpec AbilitySpec;
+
 protected:
 	virtual void InitAbilityActorInfo() override;
+
+private:
+	void CheckHitSurfaceWhileSlide();
+
 };

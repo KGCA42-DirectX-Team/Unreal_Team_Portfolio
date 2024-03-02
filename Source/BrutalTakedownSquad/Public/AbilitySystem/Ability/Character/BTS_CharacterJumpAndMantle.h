@@ -3,14 +3,14 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystem/Ability/Character/BTS_CharacterGameplayAbility.h"
-#include "BTS_CharacterJump.generated.h"
+#include "BTS_CharacterJumpAndMantle.generated.h"
 
 class ACharacter;
 
-// Character jump ability.
+// Character jump, Mantle ability.
 // Admin: YWS
 UCLASS()
-class BRUTALTAKEDOWNSQUAD_API UBTS_CharacterJump : public UBTS_CharacterGameplayAbility
+class BRUTALTAKEDOWNSQUAD_API UBTS_CharacterJumpAndMantle : public UBTS_CharacterGameplayAbility
 {
 	GENERATED_BODY()
 
