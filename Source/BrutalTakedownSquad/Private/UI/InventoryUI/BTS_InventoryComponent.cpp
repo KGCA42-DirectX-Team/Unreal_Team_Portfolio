@@ -146,16 +146,16 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 {
 	if (IsValid(ItemObject))
 	{
-		int32 index1 = 0;
+		int32 TopLeftIndex = 0;
 
 		for (auto& item : Items)
 		{
-			if (IsRoomAvailable(ItemObject, index1))
+			if (IsRoomAvailable(ItemObject, TopLeftIndex))
 			{
-				AddItemAt(ItemObject, index1);
+				AddItemAt(ItemObject, TopLeftIndex);
 				return true;
 			}
-			index1++;
+			TopLeftIndex++;
 		}
 
 		if (IsOnce == true)
