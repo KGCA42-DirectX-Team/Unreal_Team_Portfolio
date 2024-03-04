@@ -19,6 +19,7 @@ struct FItemIndex
 
 	UPROPERTY()
 	bool Vaild;
+
 	UPROPERTY()
 	TObjectPtr<UBTS_ItemObject> ItemObject;
 
