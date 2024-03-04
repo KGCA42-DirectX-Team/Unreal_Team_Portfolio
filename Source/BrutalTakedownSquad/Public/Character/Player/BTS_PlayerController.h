@@ -32,8 +32,8 @@ protected:
 	virtual void SetupInputComponent() override;
 
 private:
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputMappingContext> BTSContext;
+	//UPROPERTY(EditAnywhere, Category = "Input")
+	//TObjectPtr<UInputMappingContext> BTSContext;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;

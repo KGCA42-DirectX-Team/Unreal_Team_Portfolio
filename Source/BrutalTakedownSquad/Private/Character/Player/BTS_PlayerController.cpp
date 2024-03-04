@@ -22,14 +22,14 @@ void ABTS_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(BTSContext);
-
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-
-	if (Subsystem)
-	{
-		Subsystem->AddMappingContext(BTSContext, 0);
-	}
+	//check(BTSContext);
+	//
+	//UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	//
+	//if (Subsystem)
+	//{
+	//	Subsystem->AddMappingContext(BTSContext, 0);
+	//}
 
 	// ??
 	//bShowMouseCursor = false;
