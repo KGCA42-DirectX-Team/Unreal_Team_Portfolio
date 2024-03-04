@@ -6,9 +6,8 @@
 #include "BehaviorTree/Tasks/BTTask_BlueprintBase.h"
 #include "BTS_BTTask_Base.generated.h"
 
-/**
- * 
- */
+// Task base
+// Admin: CHB
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_BTTask_Base : public UBTTask_BlueprintBase
 {

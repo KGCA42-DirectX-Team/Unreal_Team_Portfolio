@@ -6,9 +6,8 @@
 #include "BehaviorTree/Services/BTService_BlueprintBase.h"
 #include "BTS_BTService_SetSprint.generated.h"
 
-/**
- * 
- */
+// Sprint Service
+// Admin: CHB
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_BTService_SetSprint : public UBTService_BlueprintBase
 {
