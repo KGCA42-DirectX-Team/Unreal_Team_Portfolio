@@ -6,9 +6,8 @@
 #include "BehaviorTree/Services/BTService_BlueprintBase.h"
 #include "BTS_BTService_FindNearestPlayer.generated.h"
 
-/**
- * 
- */
+// Find Neareast Player
+// Admin: CHB
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_BTService_FindNearestPlayer : public UBTService_BlueprintBase
 {

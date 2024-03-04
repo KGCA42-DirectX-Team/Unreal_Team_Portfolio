@@ -6,9 +6,8 @@
 #include "BTS_BTTask_Base.h"
 #include "BTS_BTTask_GetRandomLocation.generated.h"
 
-/**
- * 
- */
+// Task RandomLocation
+// Admin: CHB
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API UBTS_BTTask_GetRandomLocation : public UBTS_BTTask_Base
 {
