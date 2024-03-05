@@ -31,25 +31,26 @@ public:
 
 	UAttributeSet* GetAttributeSet() const;
 
-	// For ABP
-
-	UFUNCTION(BlueprintCallable, Category = "Character")
-	void SetIsSprint(bool bNewSprint) { bIsSprint = bNewSprint; }
-
-	UFUNCTION(BlueprintCallable, Category = "Character")
-	bool GetIsSprint() const { return bIsSprint; }
-
 	// ICombatInterface을(를) 통해 상속됨
 	virtual void Die() override;
 
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 
 	// IAnimationEnumInterface을(를) 통해 상속됨
+
+	virtual void SetIsSprint_Implementation(bool bNewSprint) override { bIsSprint = bNewSprint; }
+
+	virtual void SetIsAimable_Implementation(bool bNewAimable) override { bIsAimable = bNewAimable; }
+
+	virtual bool GetIsSprint_Implementation() const override { return bIsSprint; }
+
+	virtual bool GetIsAimable_Implementation() const override { return bIsAimable; }
+
+	virtual float GetTurnRate_Implementation() override { return 0; };
+
 	virtual EAnimationState GetAnimationState_Implementation() override { return EAnimationState::None; }
 
 	virtual EOnLandState GetOnLandState_Implementation() override { return EOnLandState::None; }
-
-	virtual float GetTurnRate_Implementation() override { return 0; };
 
 protected:
 
@@ -88,4 +89,6 @@ private:
 	TObjectPtr<UAnimMontage> HitReactMontage;
 
 	bool bIsSprint = false;
+
+	bool bIsAimable = false;
 };

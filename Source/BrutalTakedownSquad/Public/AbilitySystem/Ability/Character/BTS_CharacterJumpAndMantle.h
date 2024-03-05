@@ -5,7 +5,7 @@
 #include "AbilitySystem/Ability/Character/BTS_CharacterGameplayAbility.h"
 #include "BTS_CharacterJumpAndMantle.generated.h"
 
-class ACharacter;
+class ABTS_CharacterBase;
 
 // Character jump, Mantle ability.
 // Admin: YWS
@@ -28,5 +28,5 @@ public:
 	virtual void CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility) override;
 
 private:
-	TObjectPtr<ACharacter> Character;
+	TObjectPtr<ABTS_CharacterBase> Character;
 };
