@@ -5,6 +5,7 @@
 #include "AbilitySystem/BTS_AbilitySystemComponent.h"
 #include "Character/Player/BTS_PlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "UI/HUD/BTS_PlayerHUD.h"
 
 // temp
 #include "BTS_GameplayTags.h"
@@ -73,14 +74,14 @@ void ABTS_Player::InitAbilityActorInfo()
 	AbilitySystemComponent = ASC;
 	AttributeSet = BTSPlayerState->GetAttributeSet();
 
-	//// Init HUD
-	//if (ABTS_PlayerController* BTSPlayerController = Cast<ABTS_PlayerController>(GetController()))
-	//{
-	//	if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(AuraPlayerController->GetHUD()))
-	//	{
-	//		AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
-	//	}
-	//}
+	// Init HUD
+	if (ABTS_PlayerController* BTSPlayerController = Cast<ABTS_PlayerController>(GetController()))
+	{
+		if (ABTS_PlayerHUD* PlayerHUD = Cast<ABTS_PlayerHUD>(BTSPlayerController->GetHUD()))
+		{
+			PlayerHUD->InitOverlay(BTSPlayerController, BTSPlayerState, AttributeSet, AbilitySystemComponent);
+		}
+	}
 
 	InitializeDefaultAttributes();
 }
