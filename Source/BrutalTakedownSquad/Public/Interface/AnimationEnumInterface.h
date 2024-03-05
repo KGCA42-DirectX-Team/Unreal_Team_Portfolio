@@ -43,5 +43,17 @@ public:
 	EOnLandState GetOnLandState();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	float GetTurnRate();
+	float GetTurnRate() ;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetIsSprint() const;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetIsAimable() const;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetIsSprint(bool bNewSprint);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetIsAimable(bool bNewSprint);
 };

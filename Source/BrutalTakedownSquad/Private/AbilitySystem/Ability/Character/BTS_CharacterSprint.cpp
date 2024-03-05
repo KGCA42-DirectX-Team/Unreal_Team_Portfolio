@@ -34,7 +34,9 @@ void UBTS_CharacterSprint::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 		// Sprint
 		if (Character && CharacterMovement)
 		{
-			Character->SetIsSprint(true);
+			Character->Execute_SetIsSprint(Character, true);
+			Character->Execute_SetIsAimable(Character, false);
+
 			CharacterMovement->MaxWalkSpeed *= 2.0f;
 		}
 	}
@@ -47,7 +49,7 @@ bool UBTS_CharacterSprint::CanActivateAbility(const FGameplayAbilitySpecHandle H
 		return false;
 	}
 
-	return (CharacterMovement && CharacterMovement->IsMovingOnGround());
+	return (CharacterMovement && CharacterMovement->IsMovingOnGround() && !Character->bIsCrouched);
 }
 
 void UBTS_CharacterSprint::InputReleased(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
@@ -71,7 +73,9 @@ void UBTS_CharacterSprint::CancelAbility(const FGameplayAbilitySpecHandle Handle
 	// Reset sprint
 	if (Character && CharacterMovement)
 	{
-		Character->SetIsSprint(false);
+		Character->Execute_SetIsSprint(Character, false);
+		Character->Execute_SetIsAimable(Character, true);
+
 		CharacterMovement->MaxWalkSpeed /= 2.0f;
 	}
 }
