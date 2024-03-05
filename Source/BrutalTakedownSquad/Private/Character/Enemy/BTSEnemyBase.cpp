@@ -47,11 +47,6 @@ void ABTSEnemyBase::Tick(float Deltatime)
 			DoOnce = true;
 			Runaway = true;
 		}
-		if (CurrentHealthPercent <= 0.0f)
-		{
-			Destroy();
-
-		}
 
 	}
 
