@@ -6,6 +6,7 @@
 #include "BTS_CharacterCrouchAndSlide.generated.h"
 
 class UAnimMontage;
+class ABTS_CharacterBase;
 
 // Character Crouch, Slide ability
 // Admin: YWS
@@ -32,7 +33,7 @@ private:
 	void EndSlide();
 
 private:
-	TObjectPtr<ACharacter> Character;
+	TObjectPtr<ABTS_CharacterBase> Character;
 
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
 	UAnimMontage* SlideMontage;

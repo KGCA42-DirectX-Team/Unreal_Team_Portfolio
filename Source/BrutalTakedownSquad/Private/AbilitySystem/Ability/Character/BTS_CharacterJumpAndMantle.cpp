@@ -1,12 +1,12 @@
 
 #include "AbilitySystem/Ability/Character/BTS_CharacterJumpAndMantle.h"
-#include "GameFramework/Character.h"
+#include "Character/BTS_CharacterBase.h"
 
 void UBTS_CharacterJumpAndMantle::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnGiveAbility(ActorInfo, Spec);
 
-	Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
+	Character = Cast<ABTS_CharacterBase>(ActorInfo->AvatarActor.Get());
 }
 
 void UBTS_CharacterJumpAndMantle::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -27,8 +27,11 @@ void UBTS_CharacterJumpAndMantle::ActivateAbility(const FGameplayAbilitySpecHand
 			return;
 		}
 
-		if(Character)
+		if (Character)
+		{
 			Character->Jump();
+			Character->Execute_SetIsAimable(Character, false);
+		}
 	}
 }
 
@@ -67,5 +70,7 @@ void UBTS_CharacterJumpAndMantle::CancelAbility(const FGameplayAbilitySpecHandle
 	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
 
 	if (Character)
+	{
 		Character->StopJumping();
+	}
 }
