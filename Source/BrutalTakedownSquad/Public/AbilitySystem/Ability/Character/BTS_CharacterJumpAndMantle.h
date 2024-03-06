@@ -5,7 +5,8 @@
 #include "AbilitySystem/Ability/Character/BTS_CharacterGameplayAbility.h"
 #include "BTS_CharacterJumpAndMantle.generated.h"
 
-class ABTS_CharacterBase;
+class ABTS_Player;
+class UAnimMontage;
 
 // Character jump, Mantle ability.
 // Admin: YWS
@@ -23,10 +24,24 @@ public:
 	
 	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags = nullptr, const FGameplayTagContainer* TargetTags = nullptr, OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
 
-	virtual void InputReleased(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) override;
-
 	virtual void CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility) override;
 
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+
 private:
-	TObjectPtr<ABTS_CharacterBase> Character;
+	TObjectPtr<ABTS_Player> Character;
+	FVector MantlePos1;
+	FVector MantlePos2;
+	bool CanMantle;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	UAnimMontage* SlideMontage;
+
+private:
+	void MantleTrace(float InitialTraceLength, float SecondaryTraceZOffset, float FallingHeightMultiplier);
+	
+	void Mantle(float ZOffsetHand, float ZOffsetLanding, float ZOffsetLenght);
+
+	UFUNCTION()
+	void EndJumpAndMantle();
 };

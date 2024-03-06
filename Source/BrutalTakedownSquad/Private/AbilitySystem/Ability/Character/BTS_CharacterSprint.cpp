@@ -37,7 +37,7 @@ void UBTS_CharacterSprint::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 			Character->Execute_SetIsSprint(Character, true);
 			Character->Execute_SetIsAimable(Character, false);
 
-			CharacterMovement->MaxWalkSpeed *= 2.0f;
+			CharacterMovement->MaxWalkSpeed = 600.0f;
 		}
 	}
 }
@@ -76,7 +76,7 @@ void UBTS_CharacterSprint::CancelAbility(const FGameplayAbilitySpecHandle Handle
 		Character->Execute_SetIsSprint(Character, false);
 		Character->Execute_SetIsAimable(Character, true);
 
-		CharacterMovement->MaxWalkSpeed /= 2.0f;
+		CharacterMovement->MaxWalkSpeed = 300.0f;
 	}
 }
 

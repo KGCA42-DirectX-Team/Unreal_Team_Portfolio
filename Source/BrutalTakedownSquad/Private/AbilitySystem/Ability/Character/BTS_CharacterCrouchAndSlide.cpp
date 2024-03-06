@@ -10,8 +10,6 @@ void UBTS_CharacterCrouchAndSlide::OnGiveAbility(const FGameplayAbilityActorInfo
 	Super::OnGiveAbility(ActorInfo, Spec);
 
 	Character = Cast<ABTS_CharacterBase>(ActorInfo->AvatarActor.Get());
-
-	UE_LOG(LogTemp, Warning, TEXT("UBTS_CharacterCrouchAndSlide::OnGiveAbility"));
 }
 
 void UBTS_CharacterCrouchAndSlide::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -82,8 +80,6 @@ bool UBTS_CharacterCrouchAndSlide::CanActivateAbility(const FGameplayAbilitySpec
 
 void UBTS_CharacterCrouchAndSlide::CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility)
 {
-	UE_LOG(LogTemp, Warning, TEXT("UBTS_CharacterCrouchAndSlide::CancelAbility"));
-
 	if (ScopeLockCount > 0)
 	{
 		WaitingToExecute.Add(FPostLockDelegate::CreateUObject(this, &UBTS_CharacterCrouchAndSlide::CancelAbility, Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility));
@@ -96,8 +92,6 @@ void UBTS_CharacterCrouchAndSlide::CancelAbility(const FGameplayAbilitySpecHandl
 
 void UBTS_CharacterCrouchAndSlide::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
 {
-	UE_LOG(LogTemp, Warning, TEXT("UBTS_CharacterCrouchAndSlide::EndAbility"));
-
 	Character->GetCharacterMovement()->MaxWalkSpeedCrouched = 200.f;
 	Character->Execute_SetIsAimable(Character,true);
 

@@ -35,6 +35,6 @@ private:
 private:
 	TObjectPtr<ABTS_CharacterBase> Character;
 
-	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
 	UAnimMontage* SlideMontage;
 };
