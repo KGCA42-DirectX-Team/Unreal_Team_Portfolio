@@ -22,6 +22,6 @@ public:
 	TObjectPtr<UObject> WidgetController;
 
 protected:
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
 	void WidgetControllerSet();
 };

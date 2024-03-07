@@ -40,8 +40,11 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_PlayerWidgetController : public UObject
 	GENERATED_BODY()
 
 public:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+
+	virtual void BroadcastInitialValues();
+	virtual void BindCallbacksToDependenceies();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")

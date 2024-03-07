@@ -10,3 +10,12 @@ void UBTS_PlayerWidgetController::SetWidgetControllerParams(const FWidgetControl
 	AttributeSet = WCParams.AttributeSet;
 	AbilitySystemComponent = WCParams.AbilitySystemComponent;
 }
+
+void UBTS_PlayerWidgetController::BroadcastInitialValues()
+{
+
+}
+
+void UBTS_PlayerWidgetController::BindCallbacksToDependenceies()
+{
+}
