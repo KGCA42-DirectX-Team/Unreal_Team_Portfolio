@@ -74,6 +74,8 @@ void ABTS_Player::InitAbilityActorInfo()
 	AbilitySystemComponent = ASC;
 	AttributeSet = BTSPlayerState->GetAttributeSet();
 
+	InitializeDefaultAttributes();
+
 	// Init HUD
 	if (ABTS_PlayerController* BTSPlayerController = Cast<ABTS_PlayerController>(GetController()))
 	{
@@ -82,8 +84,6 @@ void ABTS_Player::InitAbilityActorInfo()
 			PlayerHUD->InitOverlay(BTSPlayerController, BTSPlayerState, AttributeSet, AbilitySystemComponent);
 		}
 	}
-
-	InitializeDefaultAttributes();
 }
 
 void ABTS_Player::CheckHitSurfaceWhileSlide()

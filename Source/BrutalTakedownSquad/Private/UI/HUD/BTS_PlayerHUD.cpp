@@ -11,6 +11,7 @@ UBTS_OverlayWidgetController* ABTS_PlayerHUD::GetOverlayWidgetController(const F
 	{
 		OverlayWidgetController = NewObject<UBTS_OverlayWidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		OverlayWidgetController->BindCallbacksToDependenceies();
 
 		return OverlayWidgetController;
 	}
@@ -30,6 +31,7 @@ void ABTS_PlayerHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAttri
 	UBTS_OverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
 	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
 
 	Widget->AddToViewport();
 }
