@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BTS_ItemUI.generated.h"
 
-class UStaticMeshComponent;
+class USkeletalMeshComponent;
 class USphereComponent;
 class UBTS_ItemObject;
 
@@ -23,19 +23,16 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-// 컴포넌트
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DEV MADE")
 	USceneComponent* Root;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UStaticMeshComponent* StaticMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DEV MADE")
+	USkeletalMeshComponent* ItemMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DEV MADE")
 	USphereComponent* Sphere;
 
-//변수
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UBTS_ItemObject> ItemObject;
 };

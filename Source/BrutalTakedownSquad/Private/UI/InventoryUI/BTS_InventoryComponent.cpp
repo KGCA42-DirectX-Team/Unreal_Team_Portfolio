@@ -25,7 +25,7 @@ TMap<UBTS_ItemObject*, FTile> UBTS_InventoryComponent::GetAllItems()
 	{
 		if (LocalItem)
 		{
-			if(!AllItems.Contains(LocalItem))
+			if (!AllItems.Contains(LocalItem))
 				AllItems.Add(LocalItem, IndexToTile(index));
 		}
 		++index;
@@ -80,7 +80,7 @@ bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* ItemObject, int32
 	int32 LastIndexX = Demensions.X - 1 + Tile.X;
 	int32 LastIndexY = Demensions.Y - 1 + Tile.Y;
 
-	for (int32 i = Tile.X ; i<= LastIndexX; ++i)
+	for (int32 i = Tile.X; i <= LastIndexX; ++i)
 	{
 		for (int32 j = Tile.Y; j <= LastIndexY; ++j)
 		{
@@ -136,39 +136,40 @@ void UBTS_InventoryComponent::AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLe
 				Items.SetNum(TileToIndex(Tile) + 1);
 			}
 			Items[TileToIndex(TileIndex)] = ItemObject;
-			
+
 		}
 	}
 	IsDirty = true;
 }
 
+	static bool IsOnce = true;
 bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 {
 	if (IsValid(ItemObject))
 	{
-		int32 TopLeftIndex = 0;
+	int32 TopLeftIndex = 0;
 
-		for (auto& item : Items)
+	for (auto& item : Items)
+	{
+		if (IsRoomAvailable(ItemObject, TopLeftIndex))
 		{
-			if (IsRoomAvailable(ItemObject, TopLeftIndex))
-			{
-				AddItemAt(ItemObject, TopLeftIndex);
+			AddItemAt(ItemObject, TopLeftIndex);
 				return true;
-			}
-			TopLeftIndex++;
 		}
+		TopLeftIndex++;
+	}
 
-		if (IsOnce == true)
-		{
-			IsOnce = false;
-			ItemObject->Rotate();
+	if (IsOnce)
+	{
+		IsOnce = false;
+		ItemObject->Rotate();
 
 			int32 index2 = 0;
 
-			for (auto& item : Items)
-			{
+		for (auto& item : Items)
+		{
 				if (IsRoomAvailable(ItemObject, index2))
-				{
+			{
 					AddItemAt(ItemObject, index2);
 					return true;
 				}
@@ -203,7 +204,7 @@ void UBTS_InventoryComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+
 }
 
 

@@ -33,18 +33,18 @@ public:
 	TSubclassOf<ABTS_ItemUI> GetItemClass();
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "DEV MADE")
 	bool Rotated = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
 	FIntPoint Dimensions;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UMaterialInterface> Icon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UMaterialInterface> IconRotated;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
 	TSubclassOf<ABTS_ItemUI> ItemClass;
 };
