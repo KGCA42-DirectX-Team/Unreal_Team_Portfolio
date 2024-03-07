@@ -142,11 +142,14 @@ void UBTS_InventoryComponent::AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLe
 	IsDirty = true;
 }
 
-	static bool IsOnce = true;
 bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 {
-	if (IsValid(ItemObject))
+	if (!IsValid(ItemObject))
 	{
+		ItemObject->Rotate();
+		return false;
+	}
+
 	int32 TopLeftIndex = 0;
 
 	for (auto& item : Items)
@@ -154,7 +157,7 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 		if (IsRoomAvailable(ItemObject, TopLeftIndex))
 		{
 			AddItemAt(ItemObject, TopLeftIndex);
-				return true;
+			break;
 		}
 		TopLeftIndex++;
 	}
@@ -162,24 +165,22 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 	if (IsOnce)
 	{
 		IsOnce = false;
-		ItemObject->Rotate();
+		TopLeftIndex = 0;
 
-			int32 index2 = 0;
+		ItemObject->Rotate();
 
 		for (auto& item : Items)
 		{
-				if (IsRoomAvailable(ItemObject, index2))
+			if (IsRoomAvailable(ItemObject, TopLeftIndex))
 			{
-					AddItemAt(ItemObject, index2);
-					return true;
-				}
-				index2++;
+				AddItemAt(ItemObject, TopLeftIndex);
+				break;
 			}
+			TopLeftIndex++;
 		}
 	}
 
-	ItemObject->Rotate();
-	return false;
+	return true;
 }
 
 FItemIndex UBTS_InventoryComponent::GetItemIndex(int32 TopLeftIndex)

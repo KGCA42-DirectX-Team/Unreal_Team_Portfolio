@@ -112,4 +112,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
 	FAmmo Ammo;
+
+	bool IsOnce = true;
 };
