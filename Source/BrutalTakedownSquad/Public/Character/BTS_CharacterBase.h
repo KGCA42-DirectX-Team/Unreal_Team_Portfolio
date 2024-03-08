@@ -15,6 +15,9 @@ class UGameplayEffect;
 class UGameplayAbility;
 class UBTS_AbilitySystemComponent;
 struct FGameplayTag;
+class UBTS_WeaponComponent;
+class UBTS_ArmorComponent;
+class UBTS_InventoryComponent;
 
 // Character base class that uses the AbilitySystemComponent for abilities and attributes
 // Admin: YWS
@@ -87,6 +90,17 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
+
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UBTS_WeaponComponent> WeaponComponent;
+
+
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UBTS_ArmorComponent> ArmorComponent;
+
+
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UBTS_InventoryComponent> InventoryComponent;
 
 	bool bIsSprint = false;
 

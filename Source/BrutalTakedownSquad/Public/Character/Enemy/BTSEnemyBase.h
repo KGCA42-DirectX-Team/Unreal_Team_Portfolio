@@ -22,12 +22,20 @@ public:
 
 	virtual void PossessedBy(AController* NewController)override;
 
+	virtual EAnimationState GetAnimationState_Implementation() override { return AnimationState; }
+
 protected:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
 
 	virtual void InitAbilityActorInfo() override;
+
+	UPROPERTY(BlueprintReadOnly, Category = "AI")
+	bool IsDead;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Player")
+	EAnimationState AnimationState;
 
 	UPROPERTY(EditAnywhere, Category = "AI")
 	TObjectPtr<UBehaviorTree> BehaviorTree;

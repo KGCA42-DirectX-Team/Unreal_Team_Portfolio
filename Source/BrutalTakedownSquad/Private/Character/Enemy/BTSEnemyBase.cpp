@@ -28,7 +28,7 @@ void ABTSEnemyBase::PossessedBy(AController* NewController)
 
 	BTSAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 	BTSAIController->RunBehaviorTree(BehaviorTree);
-
+	
 
 }
 
@@ -47,7 +47,13 @@ void ABTSEnemyBase::Tick(float Deltatime)
 			DoOnce = true;
 			Runaway = true;
 		}
+		if (CurrentHealthPercent<=0.0f)
+		{
+			IsDead = true;
+			PrimaryActorTick.bCanEverTick = false;
+			BTSAIController->UnPossess();
 
+		}
 	}
 
 }
