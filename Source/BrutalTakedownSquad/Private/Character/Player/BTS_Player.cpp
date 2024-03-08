@@ -5,9 +5,7 @@
 #include "AbilitySystem/BTS_AbilitySystemComponent.h"
 #include "Character/Player/BTS_PlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
-
-// temp
-#include "BTS_GameplayTags.h"
+#include "MotionWarpingComponent.h"
 
 ABTS_Player::ABTS_Player()
 {
@@ -21,6 +19,8 @@ ABTS_Player::ABTS_Player()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 void ABTS_Player::PossessedBy(AController* NewController)
@@ -102,7 +102,7 @@ void ABTS_Player::CheckHitSurfaceWhileSlide()
 	{
 		if(FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(HitResult.ImpactPoint , FVector::ZAxisVector))) > 80) // angle : 80
 		{
-			ActivateAbilityByTag(FBTS_GameplayTags::Get().InputTag_G);
+			ActivateAbilityByTag(FGameplayTag().RequestGameplayTag("PassiveAbility.EndSlide"));
 		}
 	} 
 }

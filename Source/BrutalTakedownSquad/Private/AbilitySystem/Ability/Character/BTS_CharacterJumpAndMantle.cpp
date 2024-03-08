@@ -4,7 +4,8 @@
 #include "Character/Player/BTS_Player.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MotionWarpingComponent.h"
-#include "Abilities/Tasks/AbilityTask_WaitDelay.h"
+#include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
+#include "Engine/CurveTable.h"
 
 void UBTS_CharacterJumpAndMantle::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -37,12 +38,29 @@ void UBTS_CharacterJumpAndMantle::ActivateAbility(const FGameplayAbilitySpecHand
 		{
 			Character->Execute_SetIsAimable(Character, false);
 
-			MantleTrace(120, 200, 0.5f);
+			MantleTrace();
 
-			if (CanMantle)
-				Mantle(-100, 30, 1.f);
+			// print MANTLE TYPE to UE_LOG
+			switch (MantleType)
+			{
+				case EMantleType::None:
+				UE_LOG(LogTemp, Warning, TEXT("MantleType : None"));
+				break;
+				case EMantleType::Mantle1M:
+					UE_LOG(LogTemp, Warning, TEXT("MantleType : Mantle1M"));
+					break;
+					case EMantleType::Mantle2M:
+						UE_LOG(LogTemp, Warning, TEXT("MantleType : Mantle2M"));
+						break;
+			}
+
+			if (MantleType != EMantleType::None)
+				Mantle(100);
 			else
+			{
 				Character->Jump();
+				EndAbility(Handle, OwnerInfo, ActivationInfo, true, false);
+			}
 		}
 	}
 }
@@ -87,22 +105,19 @@ void UBTS_CharacterJumpAndMantle::EndAbility(const FGameplayAbilitySpecHandle Ha
 	{
 		Character->Execute_SetIsAimable(Character, true);
 		
-		if (CanMantle)
+		if (MantleType != EMantleType::None)
 		{
 			Character->SetActorEnableCollision(true);
-			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
 			Character->bUseControllerRotationYaw = true;
 
-			CanMantle = false;
+			MantleType = EMantleType::None;
 		}
-		Character->StopJumping();
 	}
 }
 
-void UBTS_CharacterJumpAndMantle::MantleTrace(float InitialTraceLength, float SecondaryTraceZOffset, float FallingHeightMultiplier)
+void UBTS_CharacterJumpAndMantle::MantleTrace()
 {
-	CanMantle = true;
-
 	FVector Start = Character->GetActorLocation(); Start.Z += 150;
 	Start += Character->GetActorForwardVector() * 50;
 	FVector End = Start; End.Z -= 200;
@@ -113,92 +128,91 @@ void UBTS_CharacterJumpAndMantle::MantleTrace(float InitialTraceLength, float Se
 	// check if there is a wall
 	FHitResult CapsuleHitResult;
 	if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), Start, End, 10 // radius : 10
-					, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, IgnoredActors
-					, EDrawDebugTrace::Persistent, CapsuleHitResult, true))
+		, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, IgnoredActors
+		, EDrawDebugTrace::Persistent, CapsuleHitResult, true))
 	{
-		FVector Temp = FVector( 0, 0, SecondaryTraceZOffset);
-		Temp.Z = Character->GetMovementComponent()->IsFalling() ? Temp.Z * FallingHeightMultiplier : Temp.Z; // if player is falling, set reacheable height
+		FVector HeadPos = Character->GetMesh()->GetSocketLocation("head");
+		FVector calf = Character->GetMesh()->GetSocketLocation("calf_r");
 
-		FVector MaxReachablePoint = CapsuleHitResult.Location + Temp;
-
-		// check height of the wall
-		FHitResult SphereHitResult;
-		if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), MaxReachablePoint, CapsuleHitResult.Location, 10
-			, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, IgnoredActors
-			, EDrawDebugTrace::ForDuration, SphereHitResult, true))
+		if (CapsuleHitResult.Location.Z > HeadPos.Z + 30)
 		{
-			MantlePos1 = SphereHitResult.ImpactPoint + (Character->GetActorForwardVector() * -50);
-			MantlePos2 = SphereHitResult.ImpactPoint + (Character->GetActorForwardVector() * 120);
-
-			// check there is enough space to mantle
-			FVector MantleEnd = MantlePos2 + FVector(0, 0, 20);
-			FHitResult MantleHitResult;
-			if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), MantleEnd, MantleEnd, 10
-				, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, IgnoredActors
-				, EDrawDebugTrace::ForDuration, MantleHitResult, true))
-			{
-				CanMantle = false;
-				return;
-			}
-
-			MantlePos2 = SphereHitResult.ImpactPoint + (Character->GetActorForwardVector() * 50);
-
-			if (MantlePos1 == FVector::Zero() || MantlePos2 == FVector::Zero())
-			{
-				CanMantle = false;
-				return;
-			}
-			// final check path between mantle pos1 and pos2 is clear
-			FHitResult FinalHitResult;
-			FVector FinalTraceStart = FVector(MantlePos1.X, MantlePos1.Y, MantlePos2.Z + 100);
-			FVector FinalTraceEnd = MantlePos2 + FVector(0, 0, 100);
-
-			if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), FinalTraceStart, FinalTraceEnd, 20
-				, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, IgnoredActors
-				, EDrawDebugTrace::ForDuration, FinalHitResult, true))
-			{
-				CanMantle = false;
-				return;
-			}
+			MantleType = EMantleType::Mantle2M;
+			CurveTable = MantleCurveTable2M;
 		}
+		else if (CapsuleHitResult.Location.Z > calf.Z + 30)
+		{
+			MantleType = EMantleType::Mantle1M;
+			CurveTable = MantleCurveTable1M;
+		}
+		else
+		{
+			MantleType = EMantleType::None;
+			return;
+		}
+
+		FRealCurve* RichCurve = CurveTable->FindCurveUnchecked("DirOffset");
+
+		MantlePos1 = CapsuleHitResult.ImpactPoint + (Character->GetActorForwardVector() * RichCurve->Eval(1));
+		MantlePos2 = CapsuleHitResult.ImpactPoint + (Character->GetActorForwardVector() * RichCurve->Eval(2));
+		MantlePos3 = CapsuleHitResult.ImpactPoint + (Character->GetActorForwardVector() * RichCurve->Eval(3));
+		MantlePos4 = CapsuleHitResult.ImpactPoint + (Character->GetActorForwardVector() * RichCurve->Eval(4));
 	}
 	else
-	{
-		CanMantle = false;
-	}
+		MantleType = EMantleType::None;
 }
 
-void UBTS_CharacterJumpAndMantle::Mantle(float ZOffsetHand, float ZOffsetLanding, float ZOffsetLenght)
+void UBTS_CharacterJumpAndMantle::Mantle(float ZOffsetLanding)
 {
 	Character->SetActorEnableCollision(false);
 	Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+	Character->bUseControllerRotationYaw = false;
 
-	// MantlePoint1
+	FRealCurve* RichCurve = CurveTable->FindCurveUnchecked("PosOffset");
+
+	// mantle
 	FMotionWarpingTarget Target1;
 	Target1.Name = "MantlePoint1";
-	Target1.Location = MantlePos1 + FVector(0, 0, ZOffsetHand); 
+	Target1.Location = MantlePos1 + FVector(0, 0, RichCurve->Eval(1));
 	Target1.Rotation = Character->GetActorRotation();
 	Character->GetMotionWarpingComponent()->AddOrUpdateWarpTarget(Target1);
 
-	// MantlePoint2
 	FMotionWarpingTarget Target2;
 	Target2.Name = "MantlePoint2";
-	Target2.Location = MantlePos2 + FVector(0, 0, ZOffsetLanding);
+	Target2.Location = MantlePos2 + FVector(0, 0, RichCurve->Eval(2));
 	Target2.Rotation = Character->GetActorRotation();
-	Character->GetMotionWarpingComponent()->AddOrUpdateWarpTarget(Target1);
+	Character->GetMotionWarpingComponent()->AddOrUpdateWarpTarget(Target2);
 
-	Character->bUseControllerRotationYaw = false;
+	FMotionWarpingTarget Target3;
+	Target3.Name = "MantlePoint3";
+	Target3.Location = MantlePos3 + FVector(0, 0, RichCurve->Eval(3));
+	Target3.Rotation = Character->GetActorRotation();
+	Character->GetMotionWarpingComponent()->AddOrUpdateWarpTarget(Target3);
 
-	// need skeleton mesh
-	Character->PlayAnimMontage(SlideMontage, 1.f, "Mantle");
+	FMotionWarpingTarget Target4;
+	Target4.Name = "MantlePoint4";
+	Target4.Location = MantlePos4 + FVector(0, 0, RichCurve->Eval(4));
+	Target4.Rotation = Character->GetActorRotation();
+	Character->GetMotionWarpingComponent()->AddOrUpdateWarpTarget(Target4);
 
-	UAbilityTask_WaitDelay* WaitDelay = UAbilityTask_WaitDelay::WaitDelay(this, ZOffsetLenght);
+	// montage
+	float PlayRate = 1.f; // The speed at which to play the montage
+	FName StartSectionName; // The section to start playing from
 
-	WaitDelay->OnFinish.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
-	WaitDelay->Activate();
+	UAnimMontage* MantleMontage = MantleType == EMantleType::Mantle1M ? MantleMontage1M : MantleMontage2M;
+
+	// Create a 'PlayMontageAndWait' function
+	UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, EName::None, MantleMontage, PlayRate, StartSectionName);
+
+	PlayMontageTask->OnCompleted.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
+	//PlayMontageTask->OnBlendOut.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
+	PlayMontageTask->OnInterrupted.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
+	PlayMontageTask->OnCancelled.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
+
+	PlayMontageTask->Activate();
 }
 
 void UBTS_CharacterJumpAndMantle::EndJumpAndMantle()
 {
 	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 }
+

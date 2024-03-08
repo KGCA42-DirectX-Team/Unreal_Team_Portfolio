@@ -7,6 +7,15 @@
 
 class ABTS_Player;
 class UAnimMontage;
+class UCurveTable;
+
+UENUM(BlueprintType)
+enum class EMantleType : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Mantle1M UMETA(DisplayName = "Mantle1M"),
+	Mantle2M UMETA(DisplayName = "Mantle2M"),
+};
 
 // Character jump, Mantle ability.
 // Admin: YWS
@@ -32,15 +41,28 @@ private:
 	TObjectPtr<ABTS_Player> Character;
 	FVector MantlePos1;
 	FVector MantlePos2;
-	bool CanMantle;
+	FVector MantlePos3;
+	FVector MantlePos4;
+	UCurveTable* CurveTable;
+
+	EMantleType MantleType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
-	UAnimMontage* SlideMontage;
+	TObjectPtr<UAnimMontage> MantleMontage1M;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UAnimMontage> MantleMontage2M;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UCurveTable> MantleCurveTable1M;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UCurveTable> MantleCurveTable2M;
 
 private:
-	void MantleTrace(float InitialTraceLength, float SecondaryTraceZOffset, float FallingHeightMultiplier);
+	void MantleTrace();
 	
-	void Mantle(float ZOffsetHand, float ZOffsetLanding, float ZOffsetLenght);
+	void Mantle(float ZOffsetLanding);
 
 	UFUNCTION()
 	void EndJumpAndMantle();

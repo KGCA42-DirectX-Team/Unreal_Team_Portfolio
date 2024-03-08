@@ -59,6 +59,7 @@ void ABTS_CharacterBase::AddCharacterAbilities() const
 		return;
 
 	AbilitySystemComponent->AddCharacterAbilities(StartupAbilities);
+	AbilitySystemComponent->AddCharacterAbilities(PassiveAbilities);
 }
 
 void ABTS_CharacterBase::Die()
