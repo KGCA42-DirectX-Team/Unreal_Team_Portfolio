@@ -41,10 +41,18 @@ public:
 
 	// IAnimationEnumInterface을(를) 통해 상속됨
 
+	// Setter
 	virtual void SetIsSprint_Implementation(bool bNewSprint) override { bIsSprint = bNewSprint; }
 
 	virtual void SetIsAimable_Implementation(bool bNewAimable) override { bIsAimable = bNewAimable; }
 
+	virtual void SetTurnRate_Implementation(float NewTurnRate) override {};
+
+	virtual void SetAnimationState_Implementation(EAnimationState NewState) override {}
+
+	virtual void SetOnLandState_Implementation(EOnLandState NewState) override {}
+
+	// Getter
 	virtual bool GetIsSprint_Implementation() const override { return bIsSprint; }
 
 	virtual bool GetIsAimable_Implementation() const override { return bIsAimable; }
