@@ -5,6 +5,8 @@
 #include "Character/BTS_CharacterBase.h"
 #include "BTS_Player.generated.h"
 
+class UMotionWarpingComponent;
+
 // Player Base Class
 // 
 // Admin: YWS
@@ -27,6 +29,8 @@ public:
 
 	virtual void OnRep_PlayerState() override;
 
+	UMotionWarpingComponent* GetMotionWarpingComponent() const { return MotionWarpingComponent; }
+
 	// IAnimationEnumInterface
 	virtual EAnimationState GetAnimationState_Implementation() override { return AnimationState; }
 
@@ -34,7 +38,6 @@ public:
 
 	virtual float GetTurnRate_Implementation() override;
 
-	// 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
 	void ChangePerspective();
 
@@ -43,6 +46,10 @@ public:
 
 protected:
 	virtual void InitAbilityActorInfo() override;
+
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent;
 
 private:
 	void CheckHitSurfaceWhileSlide();

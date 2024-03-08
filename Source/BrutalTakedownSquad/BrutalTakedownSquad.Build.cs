@@ -12,6 +12,8 @@ public class BrutalTakedownSquad : ModuleRules
 		{ "Core", "CoreUObject", "Engine", "InputCore"
             , "EnhancedInput"
             , "GameplayAbilities"
+			, "MotionWarping"
+
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] 
