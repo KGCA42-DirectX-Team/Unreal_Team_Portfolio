@@ -22,7 +22,18 @@ struct FItemIndex
 
 	UPROPERTY()
 	TObjectPtr<UBTS_ItemObject> ItemObject;
+};
 
+USTRUCT(BlueprintType)
+struct FAmmo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 RifleBullets;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 PistolBullets;
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) , Blueprintable)
@@ -32,9 +43,17 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_InventoryComponent : public UActorComponent
 
 public:	
 	UBTS_InventoryComponent();
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
 	TMap<UBTS_ItemObject*, FTile> GetAllItems();
+
+	UFUNCTION(BlueprintCallable)
+	void RemoveItem(UBTS_ItemObject* ItemObject);
+
+	UFUNCTION(BlueprintCallable)
+	bool TryAddItem(UBTS_ItemObject* ItemObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FTile IndexToTile(int32 Index) const;
@@ -43,30 +62,42 @@ public:
 	int32 TileToIndex(FTile Tile) const;
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveItem(UBTS_ItemObject* ItemObject);
-
-	UFUNCTION(BlueprintCallable)
 	bool IsRoomAvailable(UBTS_ItemObject* ItemObject , int32 TopLeftIndex);
 
 	UFUNCTION(BlueprintCallable)
 	void AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLeftIndex);
 
+	// ============ Getter and Setter for ammo============
 	UFUNCTION(BlueprintCallable)
-	bool TryAddItem(UBTS_ItemObject* ItemObject);
+	int32 GetRifleAmmo() const { return Ammo.RifleBullets; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetRifleAmmo(int32 Value) { Ammo.RifleBullets = Value; }
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetPistolAmmo() const { return Ammo.PistolBullets; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetPistolAmmo(int32 Value) { Ammo.PistolBullets = Value; }
+
+	UFUNCTION(BlueprintCallable)
+	void AddRifleAmmo(int32 Value) { Ammo.RifleBullets += Value; }
+
+	UFUNCTION(BlueprintCallable)
+	void AddPistolAmmo(int32 Value) { Ammo.PistolBullets += Value; }
+
+	UFUNCTION(BlueprintCallable)
+	void DecreaseRifleAmmo(int32 Value) { Ammo.RifleBullets -= Value; }
+
+	UFUNCTION(BlueprintCallable)
+	void DecreasePistolAmmo(int32 Value) { Ammo.PistolBullets -= Value; }
+	
+	//====================================================
 
 protected:
 	UFUNCTION(BlueprintCallable)
 	FItemIndex GetItemIndex(int32 index);
 
-
-
-protected:
-	virtual void BeginPlay() override;
-
-public:	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
 	int32 Colums;
 
@@ -80,9 +111,7 @@ protected:
 	bool IsDirty;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
-	int32 Riflebullets;
+	FAmmo Ammo;
 
-	UPROPERTY()
 	bool IsOnce = true;
-
 };
