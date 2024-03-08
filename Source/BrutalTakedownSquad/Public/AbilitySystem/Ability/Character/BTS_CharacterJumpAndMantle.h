@@ -5,7 +5,17 @@
 #include "AbilitySystem/Ability/Character/BTS_CharacterGameplayAbility.h"
 #include "BTS_CharacterJumpAndMantle.generated.h"
 
-class ABTS_CharacterBase;
+class ABTS_Player;
+class UAnimMontage;
+class UCurveTable;
+
+UENUM(BlueprintType)
+enum class EMantleType : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Mantle1M UMETA(DisplayName = "Mantle1M"),
+	Mantle2M UMETA(DisplayName = "Mantle2M"),
+};
 
 // Character jump, Mantle ability.
 // Admin: YWS
@@ -23,10 +33,37 @@ public:
 	
 	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags = nullptr, const FGameplayTagContainer* TargetTags = nullptr, OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
 
-	virtual void InputReleased(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) override;
-
 	virtual void CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility) override;
 
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+
 private:
-	TObjectPtr<ABTS_CharacterBase> Character;
+	TObjectPtr<ABTS_Player> Character;
+	FVector MantlePos1;
+	FVector MantlePos2;
+	FVector MantlePos3;
+	FVector MantlePos4;
+	UCurveTable* CurveTable;
+
+	EMantleType MantleType;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UAnimMontage> MantleMontage1M;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UAnimMontage> MantleMontage2M;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UCurveTable> MantleCurveTable1M;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<UCurveTable> MantleCurveTable2M;
+
+private:
+	void MantleTrace();
+	
+	void Mantle(float ZOffsetLanding);
+
+	UFUNCTION()
+	void EndJumpAndMantle();
 };

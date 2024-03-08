@@ -51,9 +51,21 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool GetIsAimable() const;
 
+
+	// Setter
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetAnimationState(EAnimationState NewState);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetOnLandState(EOnLandState NewState);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetTurnRate(float NewTurnRate);
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void SetIsSprint(bool bNewSprint);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void SetIsAimable(bool bNewSprint);
+
 };
