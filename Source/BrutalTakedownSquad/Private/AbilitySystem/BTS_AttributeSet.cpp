@@ -49,8 +49,10 @@ void UBTS_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	// Modifier를 쿼리하여 반환된 값만 변경
 	if (Attribute == GetHealthAttribute())
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
-	else if(Attribute == GetStaminaAttribute())
+	else if (Attribute == GetStaminaAttribute())
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxStamina());
+	//else if (Attribute == GetIncomingDamageAttribute());
+		//NewValue = 0;
 }
 
 void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -65,6 +67,8 @@ void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		const float LocalIncomingDamage = GetIncomingDamage();
 		SetIncomingDamage(0.0f);
+
+		// damage 계산
 
 		if (LocalIncomingDamage > 0.0f)	// 아직은 치료 효과를 고려하지 않음
 		{
@@ -85,13 +89,13 @@ void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				if (CombatInterface)
 					CombatInterface->Die();
 			}
+
 		}
+		else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+			SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+		else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
+			SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	}
-	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
-		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
-	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
-		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
-	
 }
 
 void UBTS_AttributeSet::SetEffectProperties(FEffectProperties& Props, const FGameplayEffectModCallbackData& Data) const

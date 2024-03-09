@@ -14,7 +14,8 @@
 				"GameplayAbilities",
 				"AIModule",
 				"CoreUObject",
-				"UMG"
+				"UMG",
+				"PhysicsCore"
 			]
 		}
 	],
