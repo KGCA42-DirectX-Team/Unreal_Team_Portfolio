@@ -77,6 +77,38 @@ public:
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, IncomingDamage)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attribures")
+	FGameplayAttributeData DefansePower;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, DefansePower)
+
+
+
+	// test attribute for effect actor
+
+	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
+	FGameplayAttributeData TestDuration;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestDuration)
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
+	FGameplayAttributeData TestDurationSetByCaller;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestDurationSetByCaller)
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
+	FGameplayAttributeData TestInfinite;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInfinite)
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
+	FGameplayAttributeData TestInfiniteSetByCaller;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInfiniteSetByCaller)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
+	FGameplayAttributeData TestInstant;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInstant)
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
+	FGameplayAttributeData TestInstantSetByCaller;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInstantSetByCaller)
+	
 
 public:
 	UFUNCTION()
