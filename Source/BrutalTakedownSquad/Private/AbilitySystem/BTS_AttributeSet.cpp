@@ -51,8 +51,10 @@ void UBTS_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
 	else if (Attribute == GetStaminaAttribute())
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxStamina());
-	//else if (Attribute == GetIncomingDamageAttribute());
-		//NewValue = 0;
+	else if (Attribute == GetDefansePowerAttribute())
+		NewValue = FMath::Clamp(NewValue, 0.0f, 100.0f);
+	else if (Attribute == GetIncomingDamageAttribute())
+		NewValue = NewValue * (1 - (GetDefansePower() / 100.0f));
 }
 
 void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
