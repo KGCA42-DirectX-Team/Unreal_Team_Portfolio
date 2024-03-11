@@ -10,6 +10,9 @@
 #include"AbilitySystem/BTS_AbilitySystemComponent.h"
 #include"UI/Interaction/BTS_InteractionProgress.h"
 #include"Kismet/KismetSystemLibrary.h"
+#include"BrutalTakedownSquad/Public/BTS_GameplayTags.h"
+#include"AbilitySystemBlueprintLibrary.h"
+
 // Sets default values
 ABTS_C4::ABTS_C4()
 {
@@ -154,6 +157,12 @@ void ABTS_C4::LineTrace(AActor* OtherActor)
 void ABTS_C4::Explosion(UAbilitySystemComponent* ASC,float EffectLevel)
 {
 	const FGameplayEffectSpecHandle spec = ASC->MakeOutgoingSpec(ExplosionEffect, EffectLevel, ASC->MakeEffectContext());
+
+	FBTS_GameplayTags GameplayTag = FBTS_GameplayTags::Get();
+	
+	float FinalDamage = ExplosionDamage - (10 * (EffectLevel-1));
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(spec, GameplayTag.ExplosionDamage, FinalDamage);
+
 
 	FActiveGameplayEffectHandle ActiveEffectHandle = ASC->ApplyGameplayEffectSpecToSelf(*(spec.Data.Get()));
 

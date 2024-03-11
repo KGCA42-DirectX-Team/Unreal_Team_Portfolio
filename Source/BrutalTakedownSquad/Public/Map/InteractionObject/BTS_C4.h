@@ -77,6 +77,8 @@ public:
 private:
 	int LoopTime = 10;
 
+	float ExplosionDamage = 100.0f;
+
 	FTimerHandle LoopTimerHandle;
 
 	float ExplosionEffectiveDistance = 100.0f;
