@@ -10,8 +10,6 @@ class USkeletalMeshComponent;
 class USphereComponent;
 class UBTS_ItemObject;
 
-// ItemUI Base Class.
-// Admin: PSC
 UCLASS(Blueprintable)
 class BRUTALTAKEDOWNSQUAD_API ABTS_ItemUI : public AActor
 {
@@ -19,20 +17,20 @@ class BRUTALTAKEDOWNSQUAD_API ABTS_ItemUI : public AActor
 	
 public:	
 	ABTS_ItemUI();
-
-protected:
 	virtual void BeginPlay() override;
 
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DEV MADE")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cpp")
 	USceneComponent* Root;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DEV MADE")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cpp")
 	USkeletalMeshComponent* ItemMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DEV MADE")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cpp")
 	USphereComponent* Sphere;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UBTS_ItemObject> ItemObject;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	FName ItemName;
 };

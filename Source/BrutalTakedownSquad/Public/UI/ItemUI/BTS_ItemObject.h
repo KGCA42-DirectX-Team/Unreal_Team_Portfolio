@@ -9,13 +9,11 @@
 class UMaterialInterface;
 class ABTS_ItemUI;
 
-// ItemObject Base Class.
-// Admin: PSC
 UCLASS(Blueprintable)
 class BRUTALTAKEDOWNSQUAD_API UBTS_ItemObject : public UObject
 {
 	GENERATED_BODY()
-	
+
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FIntPoint GetDimensions() const;
@@ -27,24 +25,27 @@ public:
 	void Rotate();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	bool IsRotate();
+	bool IsRotate() const { return Rotated; }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	TSubclassOf<ABTS_ItemUI> GetItemClass();
+	FName GetItemID() const { return ItemID; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetItemID(FName NewItemID) { ItemID = NewItemID; }
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "DEV MADE")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Cpp")
 	bool Rotated = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	FIntPoint Dimensions;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UMaterialInterface> Icon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UMaterialInterface> IconRotated;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DEV MADE", Meta = (ExposeOnSpawn = true, Instanced))
-	TSubclassOf<ABTS_ItemUI> ItemClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	FName ItemID;
 };
