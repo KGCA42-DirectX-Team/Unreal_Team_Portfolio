@@ -40,6 +40,11 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 		FString("Damage")
 	);
 
+	GameplayTags.ExplosionDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("ExplosionDamage"),
+		FString("ExplosionDamage")
+	);
+
 	// input tags
 	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("InputTag.LMB"),

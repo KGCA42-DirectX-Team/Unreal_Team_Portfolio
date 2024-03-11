@@ -22,7 +22,7 @@ public:
 
 	// meta tags
 	FGameplayTag Damage;
-
+	FGameplayTag ExplosionDamage;
 	// effects tags
 	FGameplayTag Effects_HitReact;
 
