@@ -6,8 +6,6 @@
 #include "UObject/NoExportTypes.h"
 #include "Line.generated.h"
 
-// Inventory Line Struct.
-// Admin: PSC
 USTRUCT(BlueprintType)
 struct BRUTALTAKEDOWNSQUAD_API FLine
 {

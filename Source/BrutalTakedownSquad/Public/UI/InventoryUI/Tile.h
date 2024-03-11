@@ -6,8 +6,6 @@
 #include "UObject/NoExportTypes.h"
 #include "Tile.generated.h"
 
-// Inventory Tile Struct.
-// Admin: PSC
 USTRUCT(BlueprintType)
 struct BRUTALTAKEDOWNSQUAD_API FTile
 {

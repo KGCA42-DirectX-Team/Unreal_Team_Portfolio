@@ -32,13 +32,3 @@ void UBTS_ItemObject::Rotate()
 {
 	Rotated = !Rotated;
 }
-
-bool UBTS_ItemObject::IsRotate()
-{
-	return Rotated;
-}
-
-TSubclassOf<ABTS_ItemUI> UBTS_ItemObject::GetItemClass()
-{
-	return ItemClass;
-}
