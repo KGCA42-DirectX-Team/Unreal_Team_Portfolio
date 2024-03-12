@@ -6,15 +6,17 @@
 
 ABTS_EffectActor::ABTS_EffectActor()
 {
-	PrimaryActorTick.bCanEverTick = false;
-
 	SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot")));
 }
 
 void ABTS_EffectActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+}
+
+void ABTS_EffectActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 }
 
 void ABTS_EffectActor::ApplyEffect(AActor* TargetActor)
