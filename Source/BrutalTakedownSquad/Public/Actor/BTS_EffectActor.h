@@ -25,9 +25,11 @@ class BRUTALTAKEDOWNSQUAD_API ABTS_EffectActor : public AActor
 public:	
 	ABTS_EffectActor();
 
-protected:
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaTime) override;
+
+protected:
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffect(AActor* TargetActor);
 
