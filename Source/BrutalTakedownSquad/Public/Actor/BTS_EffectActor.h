@@ -8,6 +8,16 @@
 
 class UGameplayEffect;
 
+UENUM(BlueprintType)
+enum class EEffectType : uint8
+{
+	None = 0 UMETA(DisplayName = "None"),
+	Instant = 1 << 1 UMETA(DisplayName = "Instant"),
+	Duration = 1 << 2 UMETA(DisplayName = "Duration"),
+	Infinite = 1 << 3 UMETA(DisplayName = "Infinite"),
+	ALL = Instant | Duration | Infinite UMETA(DisplayName = "ALL")
+};
+
 USTRUCT(BlueprintType)
 struct FCallerTagMagnitudesMap
 {
@@ -17,6 +27,9 @@ struct FCallerTagMagnitudesMap
 	TMap<FGameplayTag, float> TagAndMagnitudes;
 };
 
+// Easy to use applying and removing effects on the other actors
+// 
+// Admim: YWS
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_EffectActor : public AActor
 {
@@ -35,6 +48,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void RemoveEffect(AActor* TargetActor);
+
+	UFUNCTION(BlueprintCallable)
+	void SetCallerMagnitude(FGameplayTag Tag, float Magnitude, const EEffectType EffectType);
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects")
