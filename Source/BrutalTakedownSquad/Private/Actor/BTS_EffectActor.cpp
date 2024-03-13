@@ -6,7 +6,6 @@
 
 ABTS_EffectActor::ABTS_EffectActor()
 {
-	SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot")));
 }
 
 void ABTS_EffectActor::BeginPlay()
@@ -74,6 +73,35 @@ void ABTS_EffectActor::RemoveEffect(AActor* TargetActor)
 			{
 				ActiveEffectHandles.FindAndRemoveChecked(Handle);
 			}
+		}
+	}
+}
+
+void ABTS_EffectActor::SetCallerMagnitude(FGameplayTag Tag, float Magnitude,const EEffectType EffectType)
+{
+	int32 index = 0;
+	if ((uint8)EffectType & (uint8)EEffectType::Instant)
+	{
+		for (auto& EffectPars : InstantGameplayEffects)
+		{
+			if(EffectPars.Value.TagAndMagnitudes.Contains(Tag))
+				EffectPars.Value.TagAndMagnitudes[Tag] = Magnitude;
+		}
+	}
+	if ((uint8)EffectType & (uint8)EEffectType::Duration)
+	{
+		for (auto& EffectPars : DurationGameplayEffects)
+		{
+			if (EffectPars.Value.TagAndMagnitudes.Contains(Tag))
+				EffectPars.Value.TagAndMagnitudes[Tag] = Magnitude;
+		}
+	}
+	if ((uint8)EffectType & (uint8)EEffectType::Infinite)
+	{
+		for (auto& EffectPars : InfiniteGameplayEffects)
+		{
+			if (EffectPars.Value.TagAndMagnitudes.Contains(Tag))
+				EffectPars.Value.TagAndMagnitudes[Tag] = Magnitude;
 		}
 	}
 }
