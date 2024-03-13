@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayTagContainer.h"
 #include "BTS_ItemUI.generated.h"
 
 class USkeletalMeshComponent;
@@ -33,4 +34,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
 	FName ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	FGameplayTag ItemTypeTag;
 };
