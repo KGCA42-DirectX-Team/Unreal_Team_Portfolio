@@ -25,11 +25,9 @@ void ABTSEnemyBase::PossessedBy(AController* NewController)
 	if (!HasAuthority()) return;
 	
 	BTSAIController = Cast<ABTSAIController>(NewController);
-
+	
 	BTSAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 	BTSAIController->RunBehaviorTree(BehaviorTree);
-	
-
 }
 
 void ABTSEnemyBase::Tick(float Deltatime)
