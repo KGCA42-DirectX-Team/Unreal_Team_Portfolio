@@ -13,7 +13,6 @@ UBTS_WeaponComponent::UBTS_WeaponComponent()
 	// ...
 }
 
-
 // Called when the game starts
 void UBTS_WeaponComponent::BeginPlay()
 {
@@ -23,7 +22,6 @@ void UBTS_WeaponComponent::BeginPlay()
 	
 }
 
-
 // Called every frame
 void UBTS_WeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -31,4 +29,30 @@ void UBTS_WeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 	// ...
 }
+
+USkeletalMeshComponent* UBTS_WeaponComponent::GetWeaopnMeshComponent_Implementation()
+{
+	return nullptr;
+}
+
+void UBTS_WeaponComponent::Reload_Implementation()
+{
+}
+
+void UBTS_WeaponComponent::RemoveMag_Implementation()
+{
+}
+
+void UBTS_WeaponComponent::DrapMag_Implementation()
+{
+}
+
+void UBTS_WeaponComponent::TakeMag_Implementation()
+{
+}
+
+void UBTS_WeaponComponent::PlaceMag_Implementation()
+{
+}
+
 
