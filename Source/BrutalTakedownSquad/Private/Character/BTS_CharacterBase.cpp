@@ -40,6 +40,11 @@ void ABTS_CharacterBase::ActivateAbilityByTag(FGameplayTag AbilityTag) const
 	}
 }
 
+UBTS_WeaponComponent* ABTS_CharacterBase::GetWeaponComponent() const
+{ 
+	return WeaponComponent;
+}
+
 void ABTS_CharacterBase::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultAttribute);

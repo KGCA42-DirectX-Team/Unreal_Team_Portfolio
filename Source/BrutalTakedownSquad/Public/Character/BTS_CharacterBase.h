@@ -14,10 +14,11 @@ class UAttributeSet;
 class UGameplayEffect;
 class UGameplayAbility;
 class UBTS_AbilitySystemComponent;
-struct FGameplayTag;
 class UBTS_WeaponComponent;
 class UBTS_ArmorComponent;
 class UBTS_InventoryComponent;
+
+struct FGameplayTag;
 
 // Character base class that uses the AbilitySystemComponent for abilities and attributes
 // Admin: YWS
@@ -36,6 +37,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
 	virtual void ActivateAbilityByTag(FGameplayTag AbilityTag) const;
+
+	UFUNCTION(BlueprintCallable, Category = "WeaponComponent")
+	UBTS_WeaponComponent* GetWeaponComponent() const;
 
 	// ICombatInterface을(를) 통해 상속됨
 	virtual void Die() override;
