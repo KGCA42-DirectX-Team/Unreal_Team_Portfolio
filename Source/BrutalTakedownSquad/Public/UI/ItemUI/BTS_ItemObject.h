@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "GameplayTagContainer.h"
 #include "BTS_ItemObject.generated.h"
 
 class UMaterialInterface;
@@ -48,4 +49,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
 	FName ItemID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	FGameplayTag ItemTypeTag;
 };
