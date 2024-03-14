@@ -117,6 +117,9 @@ void ABTS_C4::Tick(float DeltaTime)
 
 void ABTS_C4::LineTrace(AActor* OtherActor)
 {
+	if (!OtherActor->ActorHasTag(FName("Player")))
+		return;
+
 	FHitResult Res;
 
 	FVector To = OtherActor->GetActorLocation();

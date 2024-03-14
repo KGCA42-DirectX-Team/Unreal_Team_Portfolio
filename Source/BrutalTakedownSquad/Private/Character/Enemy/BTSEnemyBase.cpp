@@ -53,6 +53,22 @@ void ABTSEnemyBase::Tick(float Deltatime)
 
 		}
 	}
+	static bool DeadImpulse = true;
+	if (IsDead)
+	{
+		if (DeadImpulse)
+		{
+			ImpactNormal *= -90000;
+			GetMesh()->AddImpulse(ImpactNormal);
+			DeadImpulse = false;
+		}
+	}
+	else
+	{
+		BTSAIController->GetBlackboardComponent()->SetValueAsBool(FName(TEXT("Runaway")),Runaway);
+	}
+
+
 
 }
 
