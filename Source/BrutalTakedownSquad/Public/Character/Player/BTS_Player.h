@@ -41,6 +41,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
 	void ChangePerspective();
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
+	void ShowDamageIndicator(FVector DamageLocation);
+
 	// engine override
 	virtual void Tick(float DeltaSeconds) override;
 
