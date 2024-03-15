@@ -45,5 +45,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	bool Runaway;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	bool CanThrowableGranade;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	FVector ImpactNormal;
+
 	bool DoOnce = false;
 };
