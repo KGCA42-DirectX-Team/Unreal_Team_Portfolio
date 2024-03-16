@@ -3,6 +3,7 @@
 
 #include "AbilitySystemInterface.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 
 ABTS_EffectActor::ABTS_EffectActor()
 {
@@ -121,13 +122,14 @@ void ABTS_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 		if (IAbilitySystemInterface* SourceASI = Cast<IAbilitySystemInterface>(this))
 		{
 			UAbilitySystemComponent* SourceASC = SourceASI->GetAbilitySystemComponent();
-			if (!SourceASC)
-				SpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
 
 			SpecHandle = SourceASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
 		}
 		else
-			SpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
+		{
+			SpecHandle = UAbilitySystemBlueprintLibrary::MakeSpecHandle(GameplayEffectClass.GetDefaultObject()
+				, this, TargetActor, ActorLevel);
+		}
 
 		for (auto const TagMagnitude : TagMagnitudesMap.TagAndMagnitudes)
 			SpecHandle.Data.Get()->SetSetByCallerMagnitude(TagMagnitude.Key, TagMagnitude.Value);

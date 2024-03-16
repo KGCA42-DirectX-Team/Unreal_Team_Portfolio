@@ -9,6 +9,8 @@
 
 #include "BTS_CharacterBase.generated.h"
 
+DECLARE_TS_MULTICAST_DELEGATE(FOnCharacterDie);
+
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
@@ -26,6 +28,9 @@ UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_CharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface, public IAnimationEnumInterface
 {
 	GENERATED_BODY()
+
+public:
+	FOnCharacterDie OnCharacterDie;
 
 public:
 	ABTS_CharacterBase();

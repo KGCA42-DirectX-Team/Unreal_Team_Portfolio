@@ -6,6 +6,7 @@
 #include "AbilitySystemInterface.h"
 #include "BTS_GameplayTags.h"
 #include "Interface/CombatInterface.h"
+#include "Character/Player/BTS_Player.h"
 
 UBTS_AttributeSet::UBTS_AttributeSet()
 {
@@ -83,6 +84,9 @@ void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				FGameplayTagContainer TagContainer;
 				TagContainer.AddTag(FBTS_GameplayTags::Get().Effects_HitReact);
 				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+
+				if (ABTS_Player* player = Cast<ABTS_Player>(Props.TargetCharacter))
+					player->ShowDamageIndicator(Props.SourceAvatarActor->GetActorLocation());
 			}
 			else
 			{
@@ -125,6 +129,10 @@ void UBTS_AttributeSet::SetEffectProperties(FEffectProperties& Props, const FGam
 		{
 			Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
 		}
+	}
+	else
+	{
+		Props.SourceAvatarActor = Props.EffectContextHandle.GetInstigator();
 	}
 
 	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())

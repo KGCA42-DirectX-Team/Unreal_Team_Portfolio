@@ -93,6 +93,9 @@ void ABTS_CharacterBase::Die()
 	// Disable capsule collision
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);
+
+	// Die Event
+	OnCharacterDie.Broadcast();
 }
 
 UAnimMontage* ABTS_CharacterBase::GetHitReactMontage_Implementation()
