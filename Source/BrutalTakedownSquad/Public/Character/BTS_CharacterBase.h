@@ -125,5 +125,5 @@ private:
 
 	bool bIsSprint = false;
 
-	bool bIsAimable = false;
+	bool bIsAimable = true;
 };

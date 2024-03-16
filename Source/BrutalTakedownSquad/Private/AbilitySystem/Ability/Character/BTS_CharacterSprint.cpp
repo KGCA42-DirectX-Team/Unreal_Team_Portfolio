@@ -79,5 +79,3 @@ void UBTS_CharacterSprint::CancelAbility(const FGameplayAbilitySpecHandle Handle
 		CharacterMovement->MaxWalkSpeed = 300.0f;
 	}
 }
-
-
