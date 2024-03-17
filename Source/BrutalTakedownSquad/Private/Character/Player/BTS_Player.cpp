@@ -56,6 +56,13 @@ float ABTS_Player::GetTurnRate_Implementation()
 	return 0.0f;
 }
 
+void ABTS_Player::BeginPlay()
+{
+	Super::BeginPlay();
+
+	OnCharacterDie.AddUObject(this, &ABTS_Player::PlayerDie);
+}
+
 void ABTS_Player::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);

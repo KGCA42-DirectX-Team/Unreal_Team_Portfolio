@@ -44,6 +44,11 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
 	void ShowDamageIndicator(FVector DamageLocation);
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Player")
+	void PlayerDie();
+
+	virtual void BeginPlay() override;
+
 	// engine override
 	virtual void Tick(float DeltaSeconds) override;
 
