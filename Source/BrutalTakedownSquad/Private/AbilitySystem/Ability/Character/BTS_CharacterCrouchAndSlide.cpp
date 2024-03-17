@@ -36,8 +36,9 @@ void UBTS_CharacterCrouchAndSlide::ActivateAbility(const FGameplayAbilitySpecHan
 
 		if (VelocityLength > 500)
 		{
-			Character->GetCharacterMovement()->MaxWalkSpeedCrouched = 700.f;
+			Character->GetCharacterMovement()->MaxWalkSpeedCrouched = 600.f;
 			Character->Execute_SetIsAimable(Character,false);
+			Character->Execute_SetIsSprint(Character,false);
 			Character->Crouch();
 
 			float PlayRate = 1.f; // The speed at which to play the montage
