@@ -81,13 +81,8 @@ void ABTS_C4::TriggerLineOverlap(AActor* OtherActor)
 				LoopTime = 10;
 				LineTrace(OverlappedActor);
 			}
-			UE_LOG(LogTemp, Warning,TEXT("%d"), a++);
 			UGameplayStatics::SpawnSoundAtLocation(this, TimeSound, this->GetActorLocation());
 		}), 0.1f, true);
-
-
-
-
 
 }
 
@@ -130,16 +125,17 @@ void ABTS_C4::LineTrace(AActor* OtherActor)
 	GetWorld()->LineTraceSingleByChannel(Res, GetActorLocation(), End,ECollisionChannel::ECC_Camera);
 	
 	if (ABTS_CharacterBase* Character = Cast<ABTS_CharacterBase>(Res.GetActor()))
-	{
+	{	
+		//거리에 따라 데미지 경감
 		if (UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent())
 		{
 			float distance = Character->GetDistanceTo(this) / ExplosionEffectiveDistance;
 			Explosion(ASC, distance);
 		}
-
 	}
 	else
 	{
+		//플레이어 사이에 구조물이 있는경우 데미지 경감
 		if (ABTS_CharacterBase* ohterCharacter = Cast<ABTS_CharacterBase>(OtherActor))
 		{
 			if (UAbilitySystemComponent* ASC = ohterCharacter->GetAbilitySystemComponent())
