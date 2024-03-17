@@ -108,7 +108,7 @@ void UBTS_CharacterJumpAndMantle::EndAbility(const FGameplayAbilitySpecHandle Ha
 		if (MantleType != EMantleType::None)
 		{
 			Character->SetActorEnableCollision(true);
-			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
 			Character->bUseControllerRotationYaw = true;
 
 			MantleType = EMantleType::None;
@@ -140,12 +140,12 @@ void UBTS_CharacterJumpAndMantle::MantleTrace()
 			return;
 		}
 
-		if (CapsuleHitResult.Location.Z > HeadPos.Z + 30)
+		if (CapsuleHitResult.Location.Z > HeadPos.Z)
 		{
 			MantleType = EMantleType::Mantle2M;
 			CurveTable = MantleCurveTable2M;
 		}
-		else if (CapsuleHitResult.Location.Z > calf.Z + 30)
+		else if (CapsuleHitResult.Location.Z > calf.Z)
 		{
 			MantleType = EMantleType::Mantle1M;
 			CurveTable = MantleCurveTable1M;
