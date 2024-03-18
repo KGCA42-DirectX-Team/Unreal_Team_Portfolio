@@ -167,6 +167,8 @@ void ABTS_C4::Explosion(UAbilitySystemComponent* ASC,float EffectLevel)
 
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle.Get(), C4Mesh->GetComponentTransform());
 
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, C4Mesh->GetComponentLocation());
+
 	Destroy();
 }
 

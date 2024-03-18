@@ -62,6 +62,9 @@ public:
 
 
 	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<USoundBase> ExplosionSound;
+
+	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UParticleSystem> ExplosionParticle;
 
 	UPROPERTY(EditDefaultsOnly)
