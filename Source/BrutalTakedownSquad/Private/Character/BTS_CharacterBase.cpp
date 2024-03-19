@@ -49,6 +49,7 @@ void ABTS_CharacterBase::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultAttribute);
 	ApplyEffectToSelf(VitalAttribute);
+	ApplyEffectToSelf(MetaAttribute);
 }
 
 void ABTS_CharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass) const
