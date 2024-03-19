@@ -58,6 +58,8 @@ public:
 
 	virtual void SetIsAimable_Implementation(bool bNewAimable) override { bIsAimable = bNewAimable; }
 
+	virtual void SetIsADS_Implementation(bool bNewADS) override { bIsADS = bNewADS; }
+
 	virtual void SetTurnRate_Implementation(float NewTurnRate) override {};
 
 	virtual void SetAnimationState_Implementation(EAnimationState NewState) override {}
@@ -68,6 +70,8 @@ public:
 	virtual bool GetIsSprint_Implementation() const override { return bIsSprint; }
 
 	virtual bool GetIsAimable_Implementation() const override { return bIsAimable; }
+
+	virtual bool GetIsADS_Implementation() const override { return bIsADS; }
 
 	virtual float GetTurnRate_Implementation() override { return 0; };
 
@@ -126,4 +130,6 @@ private:
 	bool bIsSprint = false;
 
 	bool bIsAimable = true;
+
+	bool bIsADS = false;
 };

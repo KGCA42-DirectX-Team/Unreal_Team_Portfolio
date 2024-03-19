@@ -31,22 +31,5 @@ bool UBTS_CharacterADS::CanActivateAbility(const FGameplayAbilitySpecHandle Hand
 
 void UBTS_CharacterADS::InputReleased(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
 {
-	Super::InputReleased(Handle, ActorInfo, ActivationInfo);
-
-	if (ActorInfo != NULL && ActorInfo->AvatarActor != NULL)
-	{
-		CancelAbility(Handle, ActorInfo, ActivationInfo, true);
-	}
-}
-
-void UBTS_CharacterADS::CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility)
-{
-	if (ScopeLockCount > 0)
-	{
-		WaitingToExecute.Add(FPostLockDelegate::CreateUObject(this, &UBTS_CharacterADS::CancelAbility, Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility));
-		return;
-	}
-
-	Super::CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAbility);
-
+	ReleaseADS();
 }
