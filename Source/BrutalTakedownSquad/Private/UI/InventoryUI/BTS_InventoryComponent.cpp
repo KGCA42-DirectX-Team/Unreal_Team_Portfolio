@@ -162,24 +162,6 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 		TopLeftIndex++;
 	}
 
-	if (IsOnce)
-	{
-		IsOnce = false;
-		TopLeftIndex = 0;
-
-		ItemObject->Rotate();
-
-		for (auto& item : Items)
-		{
-			if (IsRoomAvailable(ItemObject, TopLeftIndex))
-			{
-				AddItemAt(ItemObject, TopLeftIndex);
-				break;
-			}
-			TopLeftIndex++;
-		}
-	}
-
 	return true;
 }
 
