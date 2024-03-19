@@ -81,34 +81,19 @@ public:
 	FGameplayAttributeData DefansePower;
 	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, DefansePower)
 
+	// ammo max value는 귀찮으니까 따로 만들지 않음
+	UPROPERTY(BlueprintReadOnly, Category = "Ammo Attribures")
+	FGameplayAttributeData Ammo_9mm;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, Ammo_9mm)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Ammo Attribures")
+	FGameplayAttributeData Ammo_5mm;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, Ammo_5mm)
 
-	// test attribute for effect actor
+	UPROPERTY(BlueprintReadOnly, Category = "Ammo Attribures")
+	FGameplayAttributeData Ammo_7mm;
+	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, Ammo_7mm)
 
-	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
-	FGameplayAttributeData TestDuration;
-	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestDuration)
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
-	FGameplayAttributeData TestDurationSetByCaller;
-	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestDurationSetByCaller)
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
-	FGameplayAttributeData TestInfinite;
-	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInfinite)
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
-	FGameplayAttributeData TestInfiniteSetByCaller;
-	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInfiniteSetByCaller)
-
-	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
-	FGameplayAttributeData TestInstant;
-	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInstant)
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Test Attribures")
-	FGameplayAttributeData TestInstantSetByCaller;
-	ATTRIBUTE_ACCESSORS(UBTS_AttributeSet, TestInstantSetByCaller)
-	
 
 public:
 	UFUNCTION()
@@ -131,4 +116,7 @@ public:
 
 private:
 	void SetEffectProperties(FEffectProperties& Props, const FGameplayEffectModCallbackData& Data) const;
+
+	void HandleIncomingDamage(const FEffectProperties& Props);
+
 };

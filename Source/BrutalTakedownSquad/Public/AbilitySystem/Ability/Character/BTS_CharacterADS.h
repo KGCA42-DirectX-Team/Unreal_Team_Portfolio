@@ -5,7 +5,7 @@
 #include "AbilitySystem/Ability/Character/BTS_CharacterGameplayAbility.h"
 #include "BTS_CharacterADS.generated.h"
 
-class Weapon;
+class ABTS_Player;
 
 // Character ADS Ability
 // Admin: YWS
@@ -19,15 +19,15 @@ public:
 
 	virtual void OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
-	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* OwnerInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
-
 	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags = nullptr, const FGameplayTagContainer* TargetTags = nullptr, OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
-
+	
 	virtual void InputReleased(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) override;
 
-	virtual void CancelAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateCancelAbility) override;
+protected:
+	UPROPERTY(BlueprintReadOnly, Meta = (AllowPrivateAccess = true))
+	TObjectPtr<ABTS_Player> Player;
 
-private:
-	TObjectPtr<Weapon> Weapon;
-
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = "Character ADS")
+	void ReleaseADS();
 };

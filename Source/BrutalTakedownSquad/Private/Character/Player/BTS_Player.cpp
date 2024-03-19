@@ -7,7 +7,8 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "UI/HUD/BTS_PlayerHUD.h"
 #include "MotionWarpingComponent.h"
-
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 
 ABTS_Player::ABTS_Player()
 {
@@ -22,7 +23,17 @@ ABTS_Player::ABTS_Player()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
+	// Create Components
 	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
+	
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
+	SpringArmComponent->SetupAttachment(RootComponent);
+	SpringArmComponent->TargetArmLength = 300.0f;
+	SpringArmComponent->bUsePawnControlRotation = true;
+
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+	CameraComponent->SetupAttachment(SpringArmComponent, USpringArmComponent::SocketName);
+	CameraComponent->bUsePawnControlRotation = false;
 }
 
 void ABTS_Player::PossessedBy(AController* NewController)

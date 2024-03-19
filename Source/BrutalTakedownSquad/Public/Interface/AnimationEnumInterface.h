@@ -51,6 +51,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool GetIsAimable() const;
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetIsADS() const;
 
 	// Setter
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
@@ -67,5 +69,8 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void SetIsAimable(bool bNewSprint);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetIsADS(bool bNewSprint);
 
 };

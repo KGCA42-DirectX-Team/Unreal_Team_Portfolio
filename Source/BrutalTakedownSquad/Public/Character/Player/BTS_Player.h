@@ -6,6 +6,8 @@
 #include "BTS_Player.generated.h"
 
 class UMotionWarpingComponent;
+class USpringArmComponent;
+class UCameraComponent;
 
 // Player Base Class
 // 
@@ -30,6 +32,8 @@ public:
 	virtual void OnRep_PlayerState() override;
 
 	UMotionWarpingComponent* GetMotionWarpingComponent() const { return MotionWarpingComponent; }
+
+	USpringArmComponent* GetSpringArmComponent() const { return SpringArmComponent; }
 
 	// IAnimationEnumInterface
 	virtual EAnimationState GetAnimationState_Implementation() override { return AnimationState; }
@@ -58,6 +62,12 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UMotionWarpingComponent> MotionWarpingComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USpringArmComponent> SpringArmComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UCameraComponent> CameraComponent;
 
 private:
 	void CheckHitSurfaceWhileSlide();
