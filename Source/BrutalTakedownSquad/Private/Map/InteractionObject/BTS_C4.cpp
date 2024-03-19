@@ -29,8 +29,9 @@ ABTS_C4::ABTS_C4()
 	Clearwidget->SetupAttachment(C4Mesh);
 	ProgressBar = CreateDefaultSubobject<UWidgetComponent>("ProgressBar");
 	ProgressBar->SetupAttachment(C4Mesh);
-
-
+	BoneName.Add(FName("spine_04"));
+	BoneName.Add(FName("head"));
+	BoneName.Add(FName("pelvis"));
 }
 
 void ABTS_C4::Visible_Implementation()
@@ -78,7 +79,7 @@ void ABTS_C4::TriggerLineOverlap(AActor* OtherActor)
 			if (--LoopTime <= 0)
 			{
 				GetWorldTimerManager().ClearTimer(LoopTimerHandle);
-				LoopTime = 10;
+				LoopTime = 15;
 				LineTrace(OverlappedActor);
 			}
 			UGameplayStatics::SpawnSoundAtLocation(this, TimeSound, this->GetActorLocation());
@@ -112,58 +113,53 @@ void ABTS_C4::Tick(float DeltaTime)
 
 void ABTS_C4::LineTrace(AActor* OtherActor)
 {
-	if (!OtherActor->ActorHasTag(FName("Player")))
-		return;
 
+	FVector Start = GetActorLocation();
+	TArray<AActor*> Ignore;
 	FHitResult Res;
 
-	FVector To = OtherActor->GetActorLocation();
+	
 	FVector From = GetActorLocation();
 
-	FVector End = ((To - From).GetSafeNormal() * 100) + To;
 
-	GetWorld()->LineTraceSingleByChannel(Res, GetActorLocation(), End,ECollisionChannel::ECC_Camera);
-	
-	if (ABTS_CharacterBase* Character = Cast<ABTS_CharacterBase>(Res.GetActor()))
-	{	
-		//거리에 따라 데미지 경감
-		if (UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent())
-		{
-			float distance = Character->GetDistanceTo(this) / ExplosionEffectiveDistance;
-			Explosion(ASC, distance);
-		}
-	}
-	else
+	Ignore.Add(this);
+	if (ABTS_CharacterBase* Character = Cast<ABTS_CharacterBase>(OtherActor))
 	{
-		//플레이어 사이에 구조물이 있는경우 데미지 경감
-		if (ABTS_CharacterBase* ohterCharacter = Cast<ABTS_CharacterBase>(OtherActor))
+		for (const FName& Name : BoneName)
 		{
-			if (UAbilitySystemComponent* ASC = ohterCharacter->GetAbilitySystemComponent())
-			{
-				float distance = ohterCharacter->GetDistanceTo(this) / ExplosionEffectiveDistance;
-				distance += 0.5;
+			UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent();
 
-				Explosion(ASC, distance);
+			FVector To = Character->GetMesh()->GetSocketLocation(Name);
+			FVector End = ((To - From).GetSafeNormal()*500)+ From;
+
+			if (UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery2, false,
+				Ignore, EDrawDebugTrace::ForDuration, Res, true))
+			{
+				if (Res.GetActor() == OtherActor)
+				{
+					const FGameplayEffectSpecHandle spec = ASC->MakeOutgoingSpec(ExplosionEffect, 0, ASC->MakeEffectContext());
+
+					FBTS_GameplayTags GameplayTag = FBTS_GameplayTags::Get();
+
+					UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(spec, GameplayTag.ExplosionDamage, ExplosionDamage);
+
+					FActiveGameplayEffectHandle ActiveEffectHandle = ASC->ApplyGameplayEffectSpecToSelf(*(spec.Data.Get()));
+				}
+
 			}
+
 		}
-	
+
 	}
+	
+	Explosion();
 
 
 
 }
 
-void ABTS_C4::Explosion(UAbilitySystemComponent* ASC,float EffectLevel)
+void ABTS_C4::Explosion()
 {
-	const FGameplayEffectSpecHandle spec = ASC->MakeOutgoingSpec(ExplosionEffect, EffectLevel, ASC->MakeEffectContext());
-
-	FBTS_GameplayTags GameplayTag = FBTS_GameplayTags::Get();
-	
-	float FinalDamage = ExplosionDamage - (10 * (EffectLevel-1));
-	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(spec, GameplayTag.ExplosionDamage, FinalDamage);
-
-
-	FActiveGameplayEffectHandle ActiveEffectHandle = ASC->ApplyGameplayEffectSpecToSelf(*(spec.Data.Get()));
 
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle.Get(), C4Mesh->GetComponentTransform());
 
