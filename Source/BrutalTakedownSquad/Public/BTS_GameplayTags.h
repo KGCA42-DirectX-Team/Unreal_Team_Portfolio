@@ -21,8 +21,9 @@ public:
 	FGameplayTag Attributes_CurrentStamina;
 
 	// meta tags
-	FGameplayTag Damage;
-	FGameplayTag ExplosionDamage;
+	FGameplayTag Attributes_Damage;
+	FGameplayTag Attributes_ExplosionDamage;
+
 	// effects tags
 	FGameplayTag Effects_HitReact;
 
@@ -32,7 +33,6 @@ public:
 	FGameplayTag InputTag_Shift;
 	FGameplayTag InputTag_Space;
 	FGameplayTag InputTag_C;
-	FGameplayTag InputTag_B;
 	FGameplayTag InputTag_R;
 
 	FGameplayTag InputTag_1;
@@ -48,6 +48,14 @@ public:
 	FGameplayTag Item_Weapon_Secondary;
 	FGameplayTag Item_Armor_Helmet;
 	FGameplayTag Item_Armor_BodyArmor;
+
+	// Ability Tags
+	FGameplayTag Ability_Passive;
+	FGameplayTag Ability_Active;
+	FGameplayTag Ability_Conditional;
+
+	// Deprecated
+	FGameplayTag InputTag_B;
 
 private:
 	static FBTS_GameplayTags GameplayTags;

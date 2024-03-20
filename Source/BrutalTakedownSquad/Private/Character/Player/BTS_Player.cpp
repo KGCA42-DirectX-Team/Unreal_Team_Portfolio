@@ -122,7 +122,7 @@ void ABTS_Player::CheckHitSurfaceWhileSlide()
 	{
 		if(FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(HitResult.ImpactPoint , FVector::ZAxisVector))) > 80) // angle : 80
 		{
-			ActivateAbilityByTag(FGameplayTag().RequestGameplayTag("PassiveAbility.EndSlide"));
+			ActivateAbilityByTag(FGameplayTag().RequestGameplayTag("Ability.Conditional.EndSlide"));
 		}
 	} 
 }

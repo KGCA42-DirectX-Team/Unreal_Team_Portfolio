@@ -10,6 +10,8 @@
 class USphereComponent;
 class UWidgetComponent;
 class UBTS_InteractionProgress;
+class UGameplayEffect;
+
 UCLASS()
 class BRUTALTAKEDOWNSQUAD_API ABTS_C4 : public AActor , public IBTS_InteractionInterface
 {
