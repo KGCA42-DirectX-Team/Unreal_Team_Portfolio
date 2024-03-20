@@ -78,9 +78,9 @@ public:
 	FTimerHandle TimerHandle;
 
 private:
-	int LoopTime = 10;
+	int LoopTime = 15;
 
-	float ExplosionDamage = 100.0f;
+	float ExplosionDamage = 20.0f;
 
 	FTimerHandle LoopTimerHandle;
 
@@ -88,7 +88,10 @@ private:
 
 	AActor* OverlappedActor;
 
+	
+
+	TArray<FName> BoneName;
 	void LineTrace(AActor* OtherActor);
-	void Explosion(UAbilitySystemComponent* ASC , float EffectLevel);
+	void Explosion();
 
 };

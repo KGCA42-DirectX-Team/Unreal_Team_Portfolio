@@ -73,11 +73,11 @@ void UBTS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	else if (Data.EvaluatedData.Attribute == GetAmmo_9mmAttribute())
-		SetAmmo_9mm(FMath::Clamp(GetAmmo_9mm(), 0.0f, 100.0f));
+		SetAmmo_9mm(FMath::Clamp(GetAmmo_9mm(), 0.0f, 150.0f));
 	else if (Data.EvaluatedData.Attribute == GetAmmo_5mmAttribute())
-		SetAmmo_5mm(FMath::Clamp(GetAmmo_5mm(), 0.0f, 100.0f));
+		SetAmmo_5mm(FMath::Clamp(GetAmmo_5mm(), 0.0f, 210.0f));
 	else if (Data.EvaluatedData.Attribute == GetAmmo_7mmAttribute())
-		SetAmmo_7mm(FMath::Clamp(GetAmmo_7mm(), 0.0f, 100.0f));
+		SetAmmo_7mm(FMath::Clamp(GetAmmo_7mm(), 0.0f, 210.0f));
 }
 
 void UBTS_AttributeSet::SetEffectProperties(FEffectProperties& Props, const FGameplayEffectModCallbackData& Data) const

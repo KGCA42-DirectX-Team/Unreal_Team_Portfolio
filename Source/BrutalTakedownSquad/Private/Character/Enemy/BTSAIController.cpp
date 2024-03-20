@@ -9,7 +9,7 @@
 #include "Perception/AISense.h"
 #include "Perception/AISense_Sight.h"
 #include "Perception/AISense_Hearing.h"
-
+#include "Perception/AISense_Damage.h"
 ABTSAIController::ABTSAIController()
 {
 	Blackboard = CreateDefaultSubobject<UBlackboardComponent>("BlackBoardComponent");
@@ -43,7 +43,13 @@ void ABTSAIController::PerceptionUpdate(AActor* Actor, FAIStimulus stimulus)
 
 		
 		}
+		if (stimulus.Type == UAISense::GetSenseID<UAISense_Damage>())
+		{
 
+			Blackboard->SetValueAsVector(FName("TargetLocation"), stimulus.StimulusLocation);
+
+
+		}
 
 	}
 	else

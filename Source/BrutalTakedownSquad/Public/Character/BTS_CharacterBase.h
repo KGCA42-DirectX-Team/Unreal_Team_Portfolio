@@ -95,6 +95,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> VitalAttribute;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> MetaAttribute;
+
 protected:
 	virtual void BeginPlay() override;
 
