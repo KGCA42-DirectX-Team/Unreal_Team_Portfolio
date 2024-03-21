@@ -11,12 +11,12 @@ ABTS_ItemUI::ABTS_ItemUI()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	RootSceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootSceneComponent"));
 	ItemMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ItemMesh"));
 	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 
-	SetRootComponent(Root);
-	ItemMesh->SetupAttachment(Root);
+	SetRootComponent(RootSceneComponent);
+	ItemMesh->SetupAttachment(RootSceneComponent);
 	Sphere->SetupAttachment(ItemMesh);
 }
 

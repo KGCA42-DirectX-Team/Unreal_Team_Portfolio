@@ -11,10 +11,10 @@ struct BRUTALTAKEDOWNSQUAD_API FTile
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	int32 X;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	int32 Y;
 
 };
