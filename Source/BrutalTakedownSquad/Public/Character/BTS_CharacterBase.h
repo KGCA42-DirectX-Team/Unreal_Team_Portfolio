@@ -111,10 +111,13 @@ protected:
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")	
-	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;	// change to Basic Ability
+	TArray<TSubclassOf<UGameplayAbility>> ActiveAbilities;	// change to Basic Ability
 
 	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> PassiveAbilities;
+
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> ConditionalAbilities;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
