@@ -72,4 +72,5 @@ private:
 private:
 	void CheckHitSurfaceWhileSlide();
 
+	void CheckRemainStemina();
 };

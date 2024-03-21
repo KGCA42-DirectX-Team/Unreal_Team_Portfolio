@@ -9,6 +9,7 @@
 #include "MotionWarpingComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "AbilitySystem/BTS_AttributeSet.h"
 
 ABTS_Player::ABTS_Player()
 {
@@ -79,6 +80,7 @@ void ABTS_Player::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	CheckHitSurfaceWhileSlide();
+	CheckRemainStemina();
 }
 
 void ABTS_Player::InitAbilityActorInfo()
@@ -125,4 +127,17 @@ void ABTS_Player::CheckHitSurfaceWhileSlide()
 			ActivateAbilityByTag(FGameplayTag().RequestGameplayTag("Ability.Conditional.EndSlide"));
 		}
 	} 
+
+
+}
+
+void ABTS_Player::CheckRemainStemina()
+{
+	if (UBTS_AttributeSet* AS = Cast<UBTS_AttributeSet>(GetAttributeSet()))
+	{
+		if (AS->GetStamina() <= 1)
+		{
+			ActivateAbilityByTag(FGameplayTag().RequestGameplayTag("Ability.Conditional.EndSprint"));
+		}
+	}
 }

@@ -2,6 +2,9 @@
 #include "AbilitySystem/Ability/Character/BTS_CharacterSprint.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Character/BTS_CharacterBase.h"
+#include "AbilitySystem/BTS_AbilitySystemComponent.h"
+
+#include "Abilities/Tasks/AbilityTask_WaitAttributeChangeRatioThreshold.h"
 
 void UBTS_CharacterSprint::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -38,6 +41,8 @@ void UBTS_CharacterSprint::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 			Character->Execute_SetIsAimable(Character, false);
 
 			CharacterMovement->MaxWalkSpeed = 600.0f;
+		
+			
 		}
 	}
 }
@@ -73,6 +78,12 @@ void UBTS_CharacterSprint::CancelAbility(const FGameplayAbilitySpecHandle Handle
 	// Reset sprint
 	if (Character && CharacterMovement)
 	{
+		if (UAbilitySystemComponent* CharacterASC = Character->GetAbilitySystemComponent())
+		{
+			// remove stemina cost effect
+			CharacterASC->RemoveActiveEffectsWithAppliedTags(SprintCostTag);
+		}
+
 		Character->Execute_SetIsSprint(Character, false);
 		Character->Execute_SetIsAimable(Character, true);
 

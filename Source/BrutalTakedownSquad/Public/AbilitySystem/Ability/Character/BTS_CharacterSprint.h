@@ -7,6 +7,7 @@
 
 class UCharacterMovementComponent;
 class ABTS_CharacterBase;
+struct FGameplayTagContainer;
 
 // Character Sprint ability.
 // Admin: YWS
@@ -30,5 +31,9 @@ public:
 
 private:
 	TObjectPtr<ABTS_CharacterBase> Character;
+
 	TObjectPtr<UCharacterMovementComponent> CharacterMovement;
+
+	UPROPERTY(EditAnywhere, Category = "Sprint", meta = (AllowPrivateAccess = "true"))
+	FGameplayTagContainer SprintCostTag;
 };
