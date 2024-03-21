@@ -11,9 +11,7 @@ ABTS_CharacterBase::ABTS_CharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	WeaponComponent = CreateDefaultSubobject<UBTS_WeaponComponent>("WeaponComponent");
-	ArmorComponent = CreateDefaultSubobject<UBTS_ArmorComponent>("ArmorComponent");
-	InventoryComponent = CreateDefaultSubobject<UBTS_InventoryComponent>("InventoryComponent");
+	
 }
 
 void ABTS_CharacterBase::BeginPlay()
