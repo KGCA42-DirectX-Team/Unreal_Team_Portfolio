@@ -16,22 +16,22 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_ItemObject : public UObject
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	FIntPoint GetDimensions() const;
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	UMaterialInterface* GetIcon() const;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	void Rotate();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	bool IsRotate() const { return Rotated; }
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	FName GetItemID() const { return ItemID; }
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	void SetItemID(FName NewItemID) { ItemID = NewItemID; }
 
 protected:
@@ -47,9 +47,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UMaterialInterface> IconRotated;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	FName ItemID;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	FGameplayTag ItemTypeTag;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
+	TObjectPtr<UDataTable> ItemDataTable;
 };

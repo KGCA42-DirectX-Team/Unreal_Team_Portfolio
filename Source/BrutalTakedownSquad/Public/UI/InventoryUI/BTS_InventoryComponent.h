@@ -14,10 +14,10 @@ struct FItemIndex
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	bool Vaild;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	TObjectPtr<UBTS_ItemObject> ItemObject;
 };
 
@@ -26,11 +26,11 @@ struct FAmmo
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 RifleBullets;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
+	int32 RifleAmmo;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 PistolBullets;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
+	int32 ShotgunAmmo;
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) , Blueprintable)
@@ -43,72 +43,73 @@ public:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	TMap<UBTS_ItemObject*, FTile> GetAllItems();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	void RemoveItem(UBTS_ItemObject* ItemObject);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	bool TryAddItem(UBTS_ItemObject* ItemObject);
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	FTile IndexToTile(int32 Index) const;
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	int32 TileToIndex(FTile Tile) const;
 
-	UFUNCTION(BlueprintCallable)
-	bool IsRoomAvailable(UBTS_ItemObject* ItemObject , int32 TopLeftIndex);
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	bool IsRoomAvailable(UBTS_ItemObject* ItemObject, int32 TopLeftIndex);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	void AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLeftIndex);
 
 	// ============ Getter and Setter for ammo============
-	UFUNCTION(BlueprintCallable)
-	int32 GetRifleAmmo() const { return Ammo.RifleBullets; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	int32 GetRifleAmmo() const { return Ammo.RifleAmmo; }
 
-	UFUNCTION(BlueprintCallable)
-	void SetRifleAmmo(int32 Value) { Ammo.RifleBullets = Value; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void SetRifleAmmo(int32 Value) { Ammo.RifleAmmo = Value; }
 
-	UFUNCTION(BlueprintCallable)
-	int32 GetPistolAmmo() const { return Ammo.PistolBullets; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	int32 GetPistolAmmo() const { return Ammo.ShotgunAmmo; }
 
-	UFUNCTION(BlueprintCallable)
-	void SetPistolAmmo(int32 Value) { Ammo.PistolBullets = Value; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void SetPistolAmmo(int32 Value) { Ammo.ShotgunAmmo = Value; }
 
-	UFUNCTION(BlueprintCallable)
-	void AddRifleAmmo(int32 Value) { Ammo.RifleBullets += Value; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void AddRifleAmmo(int32 Value) { Ammo.RifleAmmo += Value; }
 
-	UFUNCTION(BlueprintCallable)
-	void AddPistolAmmo(int32 Value) { Ammo.PistolBullets += Value; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void AddPistolAmmo(int32 Value) { Ammo.ShotgunAmmo += Value; }
 
-	UFUNCTION(BlueprintCallable)
-	void DecreaseRifleAmmo(int32 Value) { Ammo.RifleBullets -= Value; }
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void DecreaseRifleAmmo(int32 Value) { Ammo.RifleAmmo -= Value; }
 
-	UFUNCTION(BlueprintCallable)
-	void DecreasePistolAmmo(int32 Value) { Ammo.PistolBullets -= Value; }
-	
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void DecreasePistolAmmo(int32 Value) { Ammo.ShotgunAmmo -= Value; }
+
 	//====================================================
 
 protected:
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "cpp")
 	FItemIndex GetItemIndex(int32 index);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "cpp")
 	int32 Colums;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "cpp")
 	int32 Rows;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	TArray<TObjectPtr<UBTS_ItemObject>> Items;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "cpp")
 	bool IsDirty;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "cpp")
 	FAmmo Ammo;
 
+private:
 	bool IsOnce = true;
 };
