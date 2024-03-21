@@ -243,7 +243,7 @@ void UBTS_CharacterJumpAndMantle::Mantle(float ZOffsetLanding)
 	UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, EName::None, MantleMontage, PlayRate, StartSectionName);
 
 	PlayMontageTask->OnCompleted.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
-	//PlayMontageTask->OnBlendOut.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
+	PlayMontageTask->OnBlendOut.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
 	PlayMontageTask->OnInterrupted.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
 	PlayMontageTask->OnCancelled.AddDynamic(this, &UBTS_CharacterJumpAndMantle::EndJumpAndMantle);
 
