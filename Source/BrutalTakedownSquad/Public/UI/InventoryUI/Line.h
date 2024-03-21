@@ -11,10 +11,10 @@ struct BRUTALTAKEDOWNSQUAD_API FLine
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	FVector2D Start;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	FVector2D End;
 	
 };
