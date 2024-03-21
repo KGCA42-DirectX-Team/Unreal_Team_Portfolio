@@ -46,6 +46,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "WeaponComponent")
 	UBTS_WeaponComponent* GetWeaponComponent() const;
 
+	virtual UBTS_InventoryComponent* GetInventoryComponent() { return InventoryComponent; };
+
 	// ICombatInterface을(를) 통해 상속됨
 	virtual void Die() override;
 
@@ -78,11 +80,6 @@ public:
 	virtual EAnimationState GetAnimationState_Implementation() override { return EAnimationState::None; }
 
 	virtual EOnLandState GetOnLandState_Implementation() override { return EOnLandState::None; }
-
-	virtual UBTS_InventoryComponent* GetInventoryComponent() { return InventoryComponent; };
-
-	virtual UBTS_WeaponComponent* GetWeaponComponent() { return WeaponComponent; };
-
 
 protected:
 
@@ -127,15 +124,15 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
 
-	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UBTS_WeaponComponent> WeaponComponent;
 
 
-	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UBTS_ArmorComponent> ArmorComponent;
 
 
-	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UBTS_InventoryComponent> InventoryComponent;
 
 	bool bIsSprint = false;

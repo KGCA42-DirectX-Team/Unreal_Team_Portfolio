@@ -21,20 +21,17 @@ public:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cpp")
-	USceneComponent* Root;
+	TObjectPtr<USceneComponent> RootSceneComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cpp")
-	USkeletalMeshComponent* ItemMesh;
+	TObjectPtr<USkeletalMeshComponent> ItemMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cpp")
-	USphereComponent* Sphere;
+	TObjectPtr<USphereComponent> Sphere;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	TObjectPtr<UBTS_ItemObject> ItemObject;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp", Meta = (ExposeOnSpawn = true, Instanced))
 	FName ItemName;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cpp")
-	FGameplayTag ItemTypeTag;
 };
