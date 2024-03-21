@@ -79,6 +79,11 @@ public:
 
 	virtual EOnLandState GetOnLandState_Implementation() override { return EOnLandState::None; }
 
+	virtual UBTS_InventoryComponent* GetInventoryComponent() { return InventoryComponent; };
+
+	virtual UBTS_WeaponComponent* GetWeaponComponent() { return WeaponComponent; };
+
+
 protected:
 
 	// AbilitySystemComponent and AttributeSet
