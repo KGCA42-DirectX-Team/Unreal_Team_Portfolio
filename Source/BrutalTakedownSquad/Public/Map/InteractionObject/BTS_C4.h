@@ -80,7 +80,7 @@ public:
 	FTimerHandle TimerHandle;
 
 private:
-	int LoopTime = 15;
+	int LoopTime = 2;
 
 	float ExplosionDamage = 20.0f;
 
