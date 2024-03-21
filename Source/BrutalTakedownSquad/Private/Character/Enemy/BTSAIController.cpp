@@ -48,7 +48,6 @@ void ABTSAIController::PerceptionUpdate(AActor* Actor, FAIStimulus stimulus)
 
 			Blackboard->SetValueAsVector(FName("TargetLocation"), stimulus.StimulusLocation);
 
-
 		}
 
 	}
