@@ -6,6 +6,7 @@
 #include "MotionWarpingComponent.h"
 #include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
 #include "Engine/CurveTable.h"
+#include "AbilitySystem/BTS_AbilitySystemComponent.h"
 
 void UBTS_CharacterJumpAndMantle::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -25,7 +26,13 @@ void UBTS_CharacterJumpAndMantle::OnRemoveAbility(const FGameplayAbilityActorInf
 
 void UBTS_CharacterJumpAndMantle::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* OwnerInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-	Super::ActivateAbility(Handle, OwnerInfo, ActivationInfo, TriggerEventData);
+	if (!CommitAbilityCost(Handle, OwnerInfo, ActivationInfo))
+	{
+		EndAbility(Handle, OwnerInfo, ActivationInfo, true, false);
+		return;
+	}
+
+	//Super::ActivateAbility(Handle, OwnerInfo, ActivationInfo, TriggerEventData);
 
 	if (HasAuthorityOrPredictionKey(OwnerInfo, &ActivationInfo))
 	{
@@ -75,6 +82,7 @@ bool UBTS_CharacterJumpAndMantle::CanActivateAbility(const FGameplayAbilitySpecH
 	if (Character && Character->bIsCrouched)
 	{
 		Character->UnCrouch();
+
 		return false;
 	}
 
