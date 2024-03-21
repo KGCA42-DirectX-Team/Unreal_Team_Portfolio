@@ -34,6 +34,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "cpp")
 	void SetItemID(FName NewItemID) { ItemID = NewItemID; }
 
+	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
+	FGameplayTag GetItemTypeTag() const { return ItemTypeTag; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Cpp")
 	bool Rotated = false;
