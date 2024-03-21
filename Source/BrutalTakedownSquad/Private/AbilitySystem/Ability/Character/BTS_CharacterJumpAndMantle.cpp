@@ -8,6 +8,8 @@
 #include "Engine/CurveTable.h"
 #include "AbilitySystem/BTS_AbilitySystemComponent.h"
 
+#include "Abilities/Tasks/AbilityTask_WaitDelay.h"
+
 void UBTS_CharacterJumpAndMantle::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnGiveAbility(ActorInfo, Spec);
@@ -26,11 +28,7 @@ void UBTS_CharacterJumpAndMantle::OnRemoveAbility(const FGameplayAbilityActorInf
 
 void UBTS_CharacterJumpAndMantle::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* OwnerInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-	if (!CommitAbilityCost(Handle, OwnerInfo, ActivationInfo))
-	{
-		EndAbility(Handle, OwnerInfo, ActivationInfo, true, false);
-		return;
-	}
+	UE_LOG(LogTemp, Warning, TEXT("UBTS_CharacterJumpAndMantle::ActivateAbility"));
 
 	//Super::ActivateAbility(Handle, OwnerInfo, ActivationInfo, TriggerEventData);
 
@@ -66,7 +64,15 @@ void UBTS_CharacterJumpAndMantle::ActivateAbility(const FGameplayAbilitySpecHand
 			else
 			{
 				Character->Jump();
-				EndAbility(Handle, OwnerInfo, ActivationInfo, true, false);
+
+				FTimerHandle TimerHandle;
+				FTimerDelegate TimerDelegate;
+				TimerDelegate.BindLambda([this]()
+				{
+					EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+				});
+
+				GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, 0.5f, false);
 			}
 		}
 	}
@@ -83,6 +89,11 @@ bool UBTS_CharacterJumpAndMantle::CanActivateAbility(const FGameplayAbilitySpecH
 	{
 		Character->UnCrouch();
 
+		return false;
+	}
+
+	if (Character && Character->GetVelocity().Z != 0 && Character->GetCharacterMovement()->IsFalling())
+	{
 		return false;
 	}
 
@@ -107,6 +118,8 @@ void UBTS_CharacterJumpAndMantle::CancelAbility(const FGameplayAbilitySpecHandle
 
 void UBTS_CharacterJumpAndMantle::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
 {
+	UE_LOG(LogTemp, Warning, TEXT("UBTS_CharacterJumpAndMantle::EndAbility"));
+
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 
 	if (Character)
@@ -122,6 +135,18 @@ void UBTS_CharacterJumpAndMantle::EndAbility(const FGameplayAbilitySpecHandle Ha
 			MantleType = EMantleType::None;
 		}
 	}
+}
+
+bool UBTS_CharacterJumpAndMantle::CommitAbilityCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, OUT FGameplayTagContainer* OptionalRelevantTags)
+{
+	if (Super::CommitAbilityCost(Handle, ActorInfo, ActivationInfo, OptionalRelevantTags))
+		return true;
+
+	UE_LOG(LogTemp, Warning, TEXT("End by cost"));
+
+	EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
+
+	return false;
 }
 
 void UBTS_CharacterJumpAndMantle::MantleTrace()
