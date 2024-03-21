@@ -5,7 +5,7 @@
 #include "Actor/BTS_WeaponComponent.h"
 #include "Actor/BTS_ArmorComponent.h"
 #include "UI/InventoryUI/BTS_InventoryComponent.h"
-
+#include "BTS_GameplayTags.h"
 
 ABTS_CharacterBase::ABTS_CharacterBase()
 {
@@ -71,8 +71,16 @@ void ABTS_CharacterBase::AddCharacterAbilities() const
 	if (!HasAuthority())
 		return;
 
-	AbilitySystemComponent->AddCharacterAbilities(StartupAbilities);
+	AbilitySystemComponent->AddCharacterAbilities(ActiveAbilities);
 	AbilitySystemComponent->AddCharacterAbilities(PassiveAbilities);
+	AbilitySystemComponent->AddCharacterAbilities(ConditionalAbilities);
+
+	// active passive 
+	for (FGameplayAbilitySpec& AbilitySpec : AbilitySystemComponent->GetActivatableAbilities())
+	{
+		if (AbilitySpec.DynamicAbilityTags.HasTag(FBTS_GameplayTags::Get().Ability_Passive))
+			AbilitySystemComponent->TryActivateAbility(AbilitySpec.Handle);
+	}
 }
 
 void ABTS_CharacterBase::Die()

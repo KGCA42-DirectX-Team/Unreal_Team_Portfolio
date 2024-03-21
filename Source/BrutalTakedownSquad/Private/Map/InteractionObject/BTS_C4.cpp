@@ -141,7 +141,7 @@ void ABTS_C4::LineTrace(AActor* OtherActor)
 
 					FBTS_GameplayTags GameplayTag = FBTS_GameplayTags::Get();
 
-					UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(spec, GameplayTag.ExplosionDamage, ExplosionDamage);
+					UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(spec, GameplayTag.Attributes_ExplosionDamage, ExplosionDamage);
 
 					FActiveGameplayEffectHandle ActiveEffectHandle = ASC->ApplyGameplayEffectSpecToSelf(*(spec.Data.Get()));
 				}

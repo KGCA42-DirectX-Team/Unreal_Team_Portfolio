@@ -8,23 +8,23 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 {
 	// Default Attribute Tags
 	GameplayTags.Attributes_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Attributes.MaxHealth"),
+		FName("Attributes.Default.MaxHealth"),
 		FString("Maximum amount of Health obtainable")
 	);
 
 	GameplayTags.Attributes_MaxStamina = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Attributes.MaxStamina"),
+		FName("Attributes.Default.MaxStamina"),
 		FString("Maximum amount of Stamina obtainable")
 	);
 
 	// Vital Attribute Tags
 	GameplayTags.Attributes_CurrentHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Attributes.CurrentHealth"),
+		FName("Attributes.Vital.CurrentHealth"),
 		FString("Current amount of Health")
 	);
 
 	GameplayTags.Attributes_CurrentStamina = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Attributes.CurrentStamina"),
+		FName("Attributes.Vital.CurrentStamina"),
 		FString("Current amount of Stamina")
 	);
 
@@ -35,13 +35,13 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 	);
 
 	// meta tags
-	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Damage"),
+	GameplayTags.Attributes_Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Meta.Damage"),
 		FString("Damage")
 	);
 
-	GameplayTags.ExplosionDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("ExplosionDamage"),
+	GameplayTags.Attributes_ExplosionDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Meta.ExplosionDamage"),
 		FString("ExplosionDamage")
 	);
 
@@ -132,5 +132,21 @@ void FBTS_GameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Item_Armor_BodyArmor = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Item.Armor.BodyArmor"),
 		FString("Body Armor")
+	);
+
+	// Ability tags
+	GameplayTags.Ability_Passive = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Ability.Passive"),
+		FString("Passive Ability")
+	);
+
+	GameplayTags.Ability_Active = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Ability.Active"),
+		FString("Active Ability")
+	);
+
+	GameplayTags.Ability_Conditional = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Ability.Conditional"),
+		FString("Conditional Ability")
 	);
 }
