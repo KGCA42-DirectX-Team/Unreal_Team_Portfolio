@@ -10,6 +10,7 @@ void UBTS_OverlayWidgetController::BroadcastInitialValues()
 	OnMaxHealthChanged.Broadcast(PlayerAttributeSet->GetMaxHealth());
 	OnStaminaChanged.Broadcast(PlayerAttributeSet->GetStamina());
 	OnMaxStaminaChanged.Broadcast(PlayerAttributeSet->GetMaxStamina());
+	OnAmmo_5mmChanged.Broadcast(PlayerAttributeSet->GetAmmo_5mm());
 }
 
 void UBTS_OverlayWidgetController::BindCallbacksToDependenceies()
@@ -27,6 +28,9 @@ void UBTS_OverlayWidgetController::BindCallbacksToDependenceies()
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
 		PlayerAttributeSet->GetMaxStaminaAttribute()).AddUObject(this, &UBTS_OverlayWidgetController::MaxStaminaChanged);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		PlayerAttributeSet->GetAmmo_5mmAttribute()).AddUObject(this, &UBTS_OverlayWidgetController::Ammo_5mmChanged);
 }
 
 void UBTS_OverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
@@ -47,4 +51,9 @@ void UBTS_OverlayWidgetController::StaminaChanged(const FOnAttributeChangeData& 
 void UBTS_OverlayWidgetController::MaxStaminaChanged(const FOnAttributeChangeData& Data) const
 {
 	OnMaxStaminaChanged.Broadcast(Data.NewValue);
+}
+
+void UBTS_OverlayWidgetController::Ammo_5mmChanged(const FOnAttributeChangeData& Data) const
+{
+	OnAmmo_5mmChanged.Broadcast(Data.NewValue);
 }

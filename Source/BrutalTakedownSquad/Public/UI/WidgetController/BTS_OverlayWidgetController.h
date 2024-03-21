@@ -12,6 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, Ne
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStaminaChangedSignature, float, NewStamina);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxStaminaChangedSignature, float, NewMaxStamina);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAmmo_5mmChangedSignature, float, NewAmmo5mm);
 
 /**
  * 
@@ -39,9 +40,13 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attribute");
 	FOnMaxStaminaChangedSignature OnMaxStaminaChanged;
 
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attribute");
+	FOnAmmo_5mmChangedSignature OnAmmo_5mmChanged;
+
 protected:
 	void HealthChanged(const FOnAttributeChangeData& Data) const;
 	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
 	void StaminaChanged(const FOnAttributeChangeData& Data) const;
 	void MaxStaminaChanged(const FOnAttributeChangeData& Data) const;
+	void Ammo_5mmChanged(const FOnAttributeChangeData& Data) const;
 };
