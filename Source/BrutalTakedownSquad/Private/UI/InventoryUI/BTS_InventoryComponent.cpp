@@ -64,6 +64,21 @@ void UBTS_InventoryComponent::RemoveItem(UBTS_ItemObject* ItemObject)
 			++index;
 		}
 	}
+
+	if (StoredItemCounts.Contains(ItemObject))
+	{
+		if (StoredItemCounts[ItemObject] > 0)
+		{
+			StoredItemCounts[ItemObject] = StoredItemCounts[ItemObject] - 1;
+		}
+		else {
+			StoredItemCounts.Remove(ItemObject);
+		}
+	}
+	else {
+		// exception
+		StoredItemCounts.Emplace(ItemObject, 0);
+	}
 }
 
 bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* ItemObject, int32 TopLeftIndex)
@@ -137,6 +152,15 @@ void UBTS_InventoryComponent::AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLe
 		}
 	}
 	IsDirty = true;
+
+	if (StoredItemCounts.Contains(ItemObject))
+	{
+		StoredItemCounts[ItemObject] = StoredItemCounts[ItemObject] + 1;
+	}
+	else
+	{
+		StoredItemCounts.Emplace(ItemObject, 1);
+	}
 }
 
 bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
