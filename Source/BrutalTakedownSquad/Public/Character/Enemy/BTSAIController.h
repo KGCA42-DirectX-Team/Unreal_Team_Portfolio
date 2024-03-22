@@ -28,7 +28,7 @@ public:
 	FTimerHandle EnemyTimer;
 
 	UPROPERTY(EditAnywhere)
-	float SightTime = 1.0f;
+	float SightTime = 2.0f;
 
 protected:
 	UPROPERTY()

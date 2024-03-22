@@ -72,18 +72,17 @@ void ABTS_C4::InteractionClear_Implementation()
 
 void ABTS_C4::TriggerLineOverlap(AActor* OtherActor)
 {
-	int a = 0;
+
 	OverlappedActor = OtherActor;
 	GetWorldTimerManager().SetTimer(LoopTimerHandle, FTimerDelegate::CreateLambda([&]()
 		{
 			if (--LoopTime <= 0)
 			{
 				GetWorldTimerManager().ClearTimer(LoopTimerHandle);
-				LoopTime = 15;
 				LineTrace(OverlappedActor);
 			}
 			UGameplayStatics::SpawnSoundAtLocation(this, TimeSound, this->GetActorLocation());
-		}), 0.1f, true);
+		}), 1.2f, true);
 
 }
 
@@ -131,9 +130,8 @@ void ABTS_C4::LineTrace(AActor* OtherActor)
 
 			FVector To = Character->GetMesh()->GetSocketLocation(Name);
 			FVector End = ((To - From).GetSafeNormal()*500)+ From;
-
-			if (UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TraceTypeQuery2, false,
-				Ignore, EDrawDebugTrace::ForDuration, Res, true))
+			
+			if (GetWorld()->LineTraceSingleByChannel(Res, Start, End, ECollisionChannel::ECC_Visibility))
 			{
 				if (Res.GetActor() == OtherActor)
 				{
@@ -160,8 +158,9 @@ void ABTS_C4::LineTrace(AActor* OtherActor)
 
 void ABTS_C4::Explosion()
 {
-
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle.Get(), C4Mesh->GetComponentTransform());
+	FTransform Transform = C4Mesh->GetComponentTransform();
+	Transform.SetScale3D(FVector(1,1,1));
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle.Get(), Transform);
 
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, C4Mesh->GetComponentLocation());
 
