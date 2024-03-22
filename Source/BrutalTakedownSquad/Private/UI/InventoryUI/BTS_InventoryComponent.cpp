@@ -76,6 +76,7 @@ void UBTS_InventoryComponent::RemoveItem(UBTS_ItemObject* ItemObject)
 			StoredItemCounts.Remove(ItemID);
 		}
 	}
+
 }
 
 /*
@@ -251,10 +252,20 @@ void UBTS_InventoryComponent::BeginPlay()
 
 	Items.SetNum(Colums * Rows);
 
-	UBTS_ItemObject* Wall = NewObject<UBTS_ItemObject>();
-	Wall->SetDimensions(FIntPoint(3, Rows));
-	Wall->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
-	AddItemAt(Wall, 10);
+	//UBTS_ItemObject* Wall0 = NewObject<UBTS_ItemObject>();
+	//Wall0->SetDimensions(FIntPoint(8, Rows));
+	//Wall0->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
+	//AddItemAt(Wall0, Colums-16);
+	//
+	//UBTS_ItemObject* Wall1 = NewObject<UBTS_ItemObject>();
+	//Wall1->SetDimensions(FIntPoint(8, 1));
+	//Wall1->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
+	//AddItemAt(Wall1, Colums-8);
+	//
+	//UBTS_ItemObject* Wall2 = NewObject<UBTS_ItemObject>();
+	//Wall2->SetDimensions(FIntPoint(8, 1));
+	//Wall2->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
+	//AddItemAt(Wall2, Rows*12+Colums-8);
 }
 
 void UBTS_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
