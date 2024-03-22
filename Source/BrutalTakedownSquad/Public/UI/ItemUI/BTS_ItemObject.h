@@ -16,17 +16,15 @@ class BRUTALTAKEDOWNSQUAD_API UBTS_ItemObject : public UObject
 	GENERATED_BODY()
 
 public:
+	// Getters
 	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	FIntPoint GetDimensions() const;
 
 	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	UMaterialInterface* GetIcon() const;
 
-	UFUNCTION(BlueprintCallable, Category = "cpp")
-	void Rotate();
-
 	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
-	bool IsRotate() const { return Rotated; }
+	bool IsRotated() const { return Rotated; }
 
 	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	FName GetItemID() const { return ItemID; }
@@ -36,6 +34,26 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "cpp", BlueprintPure)
 	FGameplayTag GetItemTypeTag() const { return ItemTypeTag; }
+
+	// Setters
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void SetItemTypeTag(FGameplayTag NewItemTypeTag) { ItemTypeTag = NewItemTypeTag; }
+
+	UFUNCTION(BlueprintCallable, Category = "cpp" )
+	void SetDimensions(FIntPoint NewDimensions) { Dimensions = NewDimensions; }
+
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void SetIcon(UMaterialInterface* NewIcon) { Icon = NewIcon; }
+
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void SetIconRotated(UMaterialInterface* NewIconRotated) { IconRotated = NewIconRotated; }
+
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void SetItemDataTable(UDataTable* NewItemDataTable) { ItemDataTable = NewItemDataTable; }
+
+	// other functions
+	UFUNCTION(BlueprintCallable, Category = "cpp")
+	void Rotate();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Cpp")

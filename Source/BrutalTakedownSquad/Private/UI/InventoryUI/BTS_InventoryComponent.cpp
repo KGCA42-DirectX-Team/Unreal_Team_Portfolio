@@ -78,6 +78,7 @@ void UBTS_InventoryComponent::RemoveItem(UBTS_ItemObject* ItemObject)
 	}
 }
 
+/*
 bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* ItemObject, int32 TopLeftIndex)
 {
 
@@ -97,7 +98,7 @@ bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* ItemObject, int32
 				TileIndex.X = i;
 				TileIndex.Y = j;
 				FItemIndex Data = GetItemIndex(TileToIndex(TileIndex));
-				if (Data.Vaild)
+				if (Data.isValid)
 				{
 					if (IsValid(Data.ItemObject))
 					{
@@ -121,6 +122,40 @@ bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* ItemObject, int32
 
 	return true;
 }
+*/
+
+bool UBTS_InventoryComponent::IsRoomAvailable(UBTS_ItemObject* itemObject, int32 desiredStartIndex)
+{
+	FTile position = IndexToTile(desiredStartIndex);
+	FIntPoint dimensions = itemObject->GetDimensions();
+	int32 endPositionX = position.X + dimensions.X - 1;
+	int32 endPositionY = position.Y + dimensions.Y - 1;
+
+	int32 maxColumns = Colums - 1; 
+	int32 maxRows = Rows - 1;   
+
+	for (int32 x = position.X; x <= endPositionX; ++x)
+	{
+		for (int32 y = position.Y; y <= endPositionY; ++y)
+		{
+			if (x >= 0 && x <= maxColumns && y >= 0 && y <= maxRows)
+			{
+				FTile tileIndex = { x, y };
+				FItemIndex tileData = GetItemIndex(TileToIndex(tileIndex));
+
+				if (tileData.isValid && IsValid(tileData.ItemObject)) {
+					return false; // No space available
+				}
+			}
+			else {
+				return false; // Out of bounds
+			}
+		}
+	}
+
+	return true; // Space is available
+}
+
 
 void UBTS_InventoryComponent::AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLeftIndex)
 {
@@ -191,7 +226,6 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 	}
 
 	return isAdded;
-
 }
 
 FItemIndex UBTS_InventoryComponent::GetItemIndex(int32 TopLeftIndex)
@@ -200,11 +234,11 @@ FItemIndex UBTS_InventoryComponent::GetItemIndex(int32 TopLeftIndex)
 
 	if (Items.IsValidIndex(TopLeftIndex))
 	{
-		index.Vaild = true;
+		index.isValid = true;
 		index.ItemObject = Items[TopLeftIndex];
 	}
 	else {
-		index.Vaild = false;
+		index.isValid = false;
 		index.ItemObject = nullptr;
 	}
 
@@ -214,6 +248,13 @@ FItemIndex UBTS_InventoryComponent::GetItemIndex(int32 TopLeftIndex)
 void UBTS_InventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Items.SetNum(Colums * Rows);
+
+	UBTS_ItemObject* Wall = NewObject<UBTS_ItemObject>();
+	Wall->SetDimensions(FIntPoint(3, Rows));
+	Wall->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
+	AddItemAt(Wall, 10);
 }
 
 void UBTS_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
