@@ -29,9 +29,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ABTS_CharacterBase* GetOwner() const;
 
+	UFUNCTION(BlueprintCallable)
+	FString GetQuestDescription() const { return QuestDescription; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetQuestDescription(const FString& NewDescription) { QuestDescription = NewDescription; }
+		
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "State", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UBTS_QuestState> CurrentState;
 
 	TObjectPtr<ABTS_CharacterBase> Owner;
+
+	FString QuestDescription;
 };
