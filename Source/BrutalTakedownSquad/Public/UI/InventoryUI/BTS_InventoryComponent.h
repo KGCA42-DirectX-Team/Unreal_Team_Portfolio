@@ -15,7 +15,7 @@ struct FItemIndex
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
-	bool Vaild;
+	bool isValid;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
 	TObjectPtr<UBTS_ItemObject> ItemObject;
@@ -59,7 +59,7 @@ public:
 	int32 TileToIndex(FTile Tile) const;
 
 	UFUNCTION(BlueprintCallable, Category = "cpp")
-	bool IsRoomAvailable(UBTS_ItemObject* ItemObject, int32 TopLeftIndex);
+	bool IsRoomAvailable(UBTS_ItemObject* itemObject, int32 desiredStartIndex);
 
 	UFUNCTION(BlueprintCallable, Category = "cpp")
 	void AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLeftIndex);
