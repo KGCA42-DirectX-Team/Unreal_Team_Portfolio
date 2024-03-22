@@ -105,7 +105,7 @@ protected:
 	TArray<TObjectPtr<UBTS_ItemObject>> Items;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "cpp")
-	TMap<TObjectPtr<UBTS_ItemObject>, int32> StoredItemCounts;
+	TMap<FName, int32> StoredItemCounts;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Meta = (ExposeOnSpawn = true), Category = "cpp")
 	bool IsDirty;

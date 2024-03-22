@@ -65,19 +65,16 @@ void UBTS_InventoryComponent::RemoveItem(UBTS_ItemObject* ItemObject)
 		}
 	}
 
-	if (StoredItemCounts.Contains(ItemObject))
+	FName ItemID = ItemObject->GetItemID();
+	if (StoredItemCounts.Contains(ItemID))
 	{
-		if (StoredItemCounts[ItemObject] > 0)
+		if (StoredItemCounts[ItemID] > 0)
 		{
-			StoredItemCounts[ItemObject] = StoredItemCounts[ItemObject] - 1;
+			StoredItemCounts[ItemID] = StoredItemCounts[ItemID] - 1;
 		}
 		else {
-			StoredItemCounts.Remove(ItemObject);
+			StoredItemCounts.Remove(ItemID);
 		}
-	}
-	else {
-		// exception
-		StoredItemCounts.Emplace(ItemObject, 0);
 	}
 }
 
@@ -153,13 +150,14 @@ void UBTS_InventoryComponent::AddItemAt(UBTS_ItemObject* ItemObject, int32 TopLe
 	}
 	IsDirty = true;
 
-	if (StoredItemCounts.Contains(ItemObject))
+	FName ItemID = ItemObject->GetItemID();
+	if (StoredItemCounts.Contains(ItemID))
 	{
-		StoredItemCounts[ItemObject] = StoredItemCounts[ItemObject] + 1;
+		StoredItemCounts[ItemID] = StoredItemCounts[ItemID] + 1;
 	}
 	else
 	{
-		StoredItemCounts.Emplace(ItemObject, 1);
+		StoredItemCounts.Emplace(ItemID, 1);
 	}
 }
 
