@@ -201,8 +201,16 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 {
 	bool isAdded = false;
 
+	int32 itemLength = ItemObject->GetDimensions().X -1;
+
 	for (int32 TopLeftIndex = 0; TopLeftIndex < Colums * Rows; ++TopLeftIndex)
 	{
+		if((TopLeftIndex + itemLength) % 16 == 0)
+		{
+			TopLeftIndex += Colums - 16;
+		}
+
+
 		if (IsRoomAvailable(ItemObject, TopLeftIndex))
 		{
 			AddItemAt(ItemObject, TopLeftIndex);
@@ -217,6 +225,12 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 
 		for (int32 TopLeftIndex = 0; TopLeftIndex < Colums * Rows; ++TopLeftIndex)
 		{
+
+			if ((TopLeftIndex + itemLength) % 16 == 0)
+			{
+				TopLeftIndex += Colums - 16;
+			}
+
 			if (IsRoomAvailable(ItemObject, TopLeftIndex))
 			{
 				AddItemAt(ItemObject, TopLeftIndex);
