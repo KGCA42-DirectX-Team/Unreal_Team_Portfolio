@@ -19,7 +19,7 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Execute();
-	
+
 	UFUNCTION(BlueprintCallable)
 	void SetState(UBTS_QuestState* NewState);
 
@@ -27,10 +27,16 @@ public:
 	void SetOwner(ABTS_CharacterBase* NewOwner);
 
 	UFUNCTION(BlueprintCallable)
+	void SetIsCompleted(bool bNewCompleted) { bIsCompleted = bNewCompleted; }
+
+	UFUNCTION(BlueprintCallable)
 	ABTS_CharacterBase* GetOwner() const;
 
 	UFUNCTION(BlueprintCallable)
 	FString GetQuestDescription() const { return QuestDescription; }
+
+	UFUNCTION(BlueprintCallable)
+	bool GetIsCompleted() const { return bIsCompleted; }
 
 	UFUNCTION(BlueprintCallable)
 	void SetQuestDescription(const FString& NewDescription) { QuestDescription = NewDescription; }
@@ -42,4 +48,6 @@ private:
 	TObjectPtr<ABTS_CharacterBase> Owner;
 
 	FString QuestDescription;
+
+	bool bIsCompleted = false;
 };

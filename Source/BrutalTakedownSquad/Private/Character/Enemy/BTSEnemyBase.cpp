@@ -37,7 +37,7 @@ void ABTSEnemyBase::Tick(float Deltatime)
 	if (const UBTS_AttributeSet* BTSAS = Cast<UBTS_AttributeSet>(AttributeSet))
 	{
 		//Todo
-		GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Cyan, FString::Printf(TEXT("EnemyHealth : %f"), BTSAS->GetHealth()));
+		//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Cyan, FString::Printf(TEXT("EnemyHealth : %f"), BTSAS->GetHealth()));
 		
 		float CurrentHealthPercent =  BTSAS->GetHealth()/ BTSAS->GetMaxHealth();
 		if (CurrentHealthPercent <= 0.5f&&!DoOnce)
