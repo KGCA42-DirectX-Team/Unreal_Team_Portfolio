@@ -201,8 +201,16 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 {
 	bool isAdded = false;
 
+	int32 itemLength = ItemObject->GetDimensions().X -1;
+
 	for (int32 TopLeftIndex = 0; TopLeftIndex < Colums * Rows; ++TopLeftIndex)
 	{
+		if((TopLeftIndex + itemLength) % 16 == 0)
+		{
+			TopLeftIndex += Colums - 16;
+		}
+
+
 		if (IsRoomAvailable(ItemObject, TopLeftIndex))
 		{
 			AddItemAt(ItemObject, TopLeftIndex);
@@ -217,6 +225,12 @@ bool UBTS_InventoryComponent::TryAddItem(UBTS_ItemObject* ItemObject)
 
 		for (int32 TopLeftIndex = 0; TopLeftIndex < Colums * Rows; ++TopLeftIndex)
 		{
+
+			if ((TopLeftIndex + itemLength) % 16 == 0)
+			{
+				TopLeftIndex += Colums - 16;
+			}
+
 			if (IsRoomAvailable(ItemObject, TopLeftIndex))
 			{
 				AddItemAt(ItemObject, TopLeftIndex);
@@ -251,21 +265,6 @@ void UBTS_InventoryComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Items.SetNum(Colums * Rows);
-
-	//UBTS_ItemObject* Wall0 = NewObject<UBTS_ItemObject>();
-	//Wall0->SetDimensions(FIntPoint(8, Rows));
-	//Wall0->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
-	//AddItemAt(Wall0, Colums-16);
-	//
-	//UBTS_ItemObject* Wall1 = NewObject<UBTS_ItemObject>();
-	//Wall1->SetDimensions(FIntPoint(8, 1));
-	//Wall1->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
-	//AddItemAt(Wall1, Colums-8);
-	//
-	//UBTS_ItemObject* Wall2 = NewObject<UBTS_ItemObject>();
-	//Wall2->SetDimensions(FIntPoint(8, 1));
-	//Wall2->SetItemTypeTag(FGameplayTag::RequestGameplayTag(FName("Item.Wall")));
-	//AddItemAt(Wall2, Rows*12+Colums-8);
 }
 
 void UBTS_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
