@@ -162,7 +162,7 @@ void UBTS_CharacterJumpAndMantle::MantleTrace()
 	FHitResult CapsuleHitResult;
 	if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), Start, End, 10 // radius : 10
 		, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, IgnoredActors
-		, EDrawDebugTrace::Persistent, CapsuleHitResult, true))
+		, EDrawDebugTrace::None, CapsuleHitResult, true))
 	{
 		FVector HeadPos = Character->GetMesh()->GetSocketLocation("head");
 		FVector calf = Character->GetMesh()->GetSocketLocation("calf_r");

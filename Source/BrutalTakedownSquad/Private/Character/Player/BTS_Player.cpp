@@ -119,7 +119,7 @@ void ABTS_Player::CheckHitSurfaceWhileSlide()
 	FHitResult HitResult;
 	if (UKismetSystemLibrary::SphereTraceSingle(GetWorld(), FootPosition, FootPosition, 25 // radius : 25
 		, UEngineTypes::ConvertToTraceType(ECC_Visibility), false
-		, IgnoredActors, EDrawDebugTrace::ForOneFrame, HitResult, true)) 
+		, IgnoredActors, EDrawDebugTrace::None, HitResult, true)) 
 	{
 		if(FMath::RadiansToDegrees(FMath::Acos(FVector::DotProduct(HitResult.ImpactPoint , FVector::ZAxisVector))) > 80) // angle : 80
 		{
