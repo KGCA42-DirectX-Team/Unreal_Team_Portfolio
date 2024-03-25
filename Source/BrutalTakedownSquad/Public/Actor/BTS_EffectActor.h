@@ -42,6 +42,14 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	//temp
+
+	UFUNCTION(BlueprintCallable)
+	void SetOwnerActor(AActor* NewOwner);
+
+	UFUNCTION(BlueprintCallable)
+	AActor* GetOwnerActor() { return OwnerActor; }
+
 protected:
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffect(AActor* TargetActor);
@@ -66,6 +74,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects")
 	float ActorLevel = 1.0f;
+
+	// temp 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Owner Actor")
+	TObjectPtr<AActor> OwnerActor;
 
 private:
 	UFUNCTION(BlueprintCallable)
