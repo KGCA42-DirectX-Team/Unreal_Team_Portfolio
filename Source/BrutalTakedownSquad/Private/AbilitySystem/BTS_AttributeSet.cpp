@@ -8,6 +8,8 @@
 #include "Interface/CombatInterface.h"
 #include "Character/Player/BTS_Player.h"
 
+#include "Actor/BTS_EffectActor.h"
+
 UBTS_AttributeSet::UBTS_AttributeSet()
 {
 }
@@ -108,7 +110,14 @@ void UBTS_AttributeSet::SetEffectProperties(FEffectProperties& Props, const FGam
 	}
 	else
 	{
-		Props.SourceAvatarActor = Props.EffectContextHandle.GetInstigator();
+		if (ABTS_EffectActor* EffectActor = Cast<ABTS_EffectActor>(Props.EffectContextHandle.GetInstigator()))
+		{
+			Props.SourceAvatarActor = EffectActor->GetOwnerActor();
+		}
+		else
+		{
+			Props.SourceAvatarActor = Props.EffectContextHandle.GetInstigator();
+		}
 	}
 
 	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
@@ -145,7 +154,10 @@ void UBTS_AttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
 			Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
 
 			if (ABTS_Player* player = Cast<ABTS_Player>(Props.TargetCharacter))
-				player->ShowDamageIndicator(Props.SourceAvatarActor->GetActorLocation());
+			{
+				if(Props.SourceAvatarActor)
+					player->ShowDamageIndicator(Props.SourceAvatarActor->GetActorLocation());
+			}
 		}
 		else
 		{
