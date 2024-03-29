@@ -19,6 +19,11 @@ void ABTS_EffectActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void ABTS_EffectActor::SetOwnerActor(AActor* NewOwner)
+{
+	OwnerActor = NewOwner;
+}
+
 void ABTS_EffectActor::ApplyEffect(AActor* TargetActor)
 {
 	if (!InstantGameplayEffects.IsEmpty())

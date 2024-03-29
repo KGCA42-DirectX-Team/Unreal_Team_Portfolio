@@ -78,7 +78,7 @@ void ABTS_Player::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	CheckHitSurfaceWhileSlide();
+	//CheckHitSurfaceWhileSlide();
 	CheckRemainStemina();
 }
 

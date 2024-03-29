@@ -36,17 +36,7 @@ ABTS_C4::ABTS_C4()
 
 void ABTS_C4::Visible_Implementation()
 {
-	if (WidgetVisible)
-	{
-		FTimerHandle localTimerHandle;
-		Clearwidget->SetVisibility(true);
-		GetWorldTimerManager().SetTimer(localTimerHandle, FTimerDelegate::CreateLambda([&]()
-			{
-				Clearwidget->SetVisibility(false);
-				GetWorld()->GetTimerManager().ClearTimer(localTimerHandle);
-			}), 0.2f, false);
-
-	}
+	C4Mesh->SetRenderCustomDepth(true);
 }
 
 void ABTS_C4::Interaction_Implementation()
@@ -65,7 +55,7 @@ void ABTS_C4::Interaction_Implementation()
 void ABTS_C4::InteractionClear_Implementation()
 {
 	GetWorldTimerManager().PauseTimer(TimerHandle);
-	WidgetVisible = true;
+	C4Mesh->SetRenderCustomDepth(false);
 	ProgressBar->SetVisibility(false);
 
 }
